@@ -16,10 +16,10 @@ development and is not ready for production use. It will be the foundational TUI
 
 This fork adds browser-like behaviors to OpenTUI:
 
-| Feature | Status | PR |
-|---------|--------|-----|
+| Feature | Status | Issue |
+|---------|--------|-------|
 | Auto-focus on click | ✅ Complete | [#576](https://github.com/anomalyco/opentui/issues/576) |
-| Focusable Box | 🚧 Planned | — |
+| Focusable Box | ✅ Complete | [#577](https://github.com/anomalyco/opentui/issues/577) |
 
 > **Upstream:** [anomalyco/opentui](https://github.com/anomalyco/opentui)
 
