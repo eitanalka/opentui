@@ -10,6 +10,21 @@ OpenTUI is a TypeScript library for building terminal user interfaces (TUIs). It
 development and is not ready for production use. It will be the foundational TUI framework for both
 [opencode](https://opencode.ai) and [terminaldotshop](https://terminal.shop).
 
+---
+
+## Fork Enhancements
+
+This fork adds browser-like behaviors to OpenTUI:
+
+| Feature | Status | PR |
+|---------|--------|-----|
+| Auto-focus on click | ✅ Complete | [#576](https://github.com/anomalyco/opentui/issues/576) |
+| Focusable Box | 🚧 Planned | — |
+
+> **Upstream:** [anomalyco/opentui](https://github.com/anomalyco/opentui)
+
+---
+
 Quick start with [bun](https://bun.sh) and [create-tui](https://github.com/msmps/create-tui):
 
 ```bash
