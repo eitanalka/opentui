@@ -1101,51 +1101,171 @@ export class CliRenderer extends EventEmitter implements RenderContext {
     })
   }
 
+  /**
+   * Helper to dispatch a mouse event to a target renderable.
+   * Returns the created MouseEvent or undefined if no target.
+   */
+  private dispatchMouseEvent(
+    target: Renderable | undefined,
+    rawEvent: RawMouseEvent,
+    overrides?: Partial<RawMouseEvent> & { source?: Renderable; isSelecting?: boolean },
+  ): MouseEvent | undefined {
+    if (!target) return undefined
+    const event = new MouseEvent(target, { ...rawEvent, ...overrides })
+    target.processMouseEvent(event)
+    return event
+  }
+
   private handleMouseData(data: Buffer): boolean {
     const mouseEvent = this.mouseParser.parseMouseEvent(data)
+    if (!mouseEvent) return false
 
-    if (mouseEvent) {
-      if (this._splitHeight > 0) {
-        if (mouseEvent.y < this.renderOffset) {
-          return false
-        }
-        mouseEvent.y -= this.renderOffset
+    // ========================================
+    // SETUP PHASE
+    // ========================================
+
+    if (this._splitHeight > 0) {
+      if (mouseEvent.y < this.renderOffset) {
+        return false
       }
+      mouseEvent.y -= this.renderOffset
+    }
 
-      this._latestPointer.x = mouseEvent.x
-      this._latestPointer.y = mouseEvent.y
-      this._hasPointer = true
-      this._lastPointerModifiers = mouseEvent.modifiers
+    this._latestPointer.x = mouseEvent.x
+    this._latestPointer.y = mouseEvent.y
+    this._hasPointer = true
+    this._lastPointerModifiers = mouseEvent.modifiers
 
-      if (this._console.visible) {
-        const consoleBounds = this._console.bounds
-        if (
-          mouseEvent.x >= consoleBounds.x &&
-          mouseEvent.x < consoleBounds.x + consoleBounds.width &&
-          mouseEvent.y >= consoleBounds.y &&
-          mouseEvent.y < consoleBounds.y + consoleBounds.height
-        ) {
-          const event = new MouseEvent(null, mouseEvent)
-          const handled = this._console.handleMouse(event)
-          if (handled) return true
-        }
+    if (this._console.visible) {
+      const consoleBounds = this._console.bounds
+      if (
+        mouseEvent.x >= consoleBounds.x &&
+        mouseEvent.x < consoleBounds.x + consoleBounds.width &&
+        mouseEvent.y >= consoleBounds.y &&
+        mouseEvent.y < consoleBounds.y + consoleBounds.height
+      ) {
+        const event = new MouseEvent(null, mouseEvent)
+        const handled = this._console.handleMouse(event)
+        if (handled) return true
       }
+    }
 
-      if (mouseEvent.type === "scroll") {
-        const maybeRenderableId = this.hitTest(mouseEvent.x, mouseEvent.y)
-        const maybeRenderable = Renderable.renderablesByNumber.get(maybeRenderableId)
+    const maybeRenderableId = this.hitTest(mouseEvent.x, mouseEvent.y)
+    const maybeRenderable = Renderable.renderablesByNumber.get(maybeRenderableId)
+    const sameElement = maybeRenderableId === this.lastOverRenderableNum
+    this.lastOverRenderableNum = maybeRenderableId
 
+    const wasSelecting = this.currentSelection?.isSelecting ?? false
+    const isLeftButton = mouseEvent.button === MouseButton.LEFT
+
+    const shouldStartSel =
+      mouseEvent.type === "down" &&
+      isLeftButton &&
+      !wasSelecting &&
+      !mouseEvent.modifiers.ctrl &&
+      maybeRenderable &&
+      maybeRenderable.selectable &&
+      !maybeRenderable.isDestroyed &&
+      maybeRenderable.shouldStartSelection(mouseEvent.x, mouseEvent.y)
+
+    const isCtrlExtendSelection =
+      mouseEvent.type === "down" && isLeftButton && this.currentSelection && mouseEvent.modifiers.ctrl
+
+    // ========================================
+    // DISPATCH PHASE
+    // ========================================
+
+    let primaryEvent: MouseEvent | undefined
+
+    if (mouseEvent.type === "scroll") {
+      this.dispatchMouseEvent(maybeRenderable, mouseEvent)
+      return true
+    }
+
+    if (!sameElement && (mouseEvent.type === "drag" || mouseEvent.type === "move")) {
+      if (this.lastOverRenderable && this.lastOverRenderable !== this.capturedRenderable) {
+        this.dispatchMouseEvent(this.lastOverRenderable, mouseEvent, { type: "out" })
+      }
+      this.lastOverRenderable = maybeRenderable
+      if (maybeRenderable) {
+        this.dispatchMouseEvent(maybeRenderable, mouseEvent, {
+          type: "over",
+          source: this.capturedRenderable,
+        })
+      }
+    }
+
+    if (this.capturedRenderable) {
+      if (mouseEvent.type === "up") {
+        this.dispatchMouseEvent(this.capturedRenderable, mouseEvent, { type: "drag-end" })
+        primaryEvent = this.dispatchMouseEvent(this.capturedRenderable, mouseEvent)
         if (maybeRenderable) {
-          const event = new MouseEvent(maybeRenderable, mouseEvent)
-          maybeRenderable.processMouseEvent(event)
+          this.dispatchMouseEvent(maybeRenderable, mouseEvent, {
+            type: "drop",
+            source: this.capturedRenderable,
+          })
         }
+        this.lastOverRenderable = this.capturedRenderable
+        this.lastOverRenderableNum = this.capturedRenderable.num
+        this.setCapturedRenderable(undefined)
+        // Dropping the renderable needs to push another frame when the renderer is not live
+        // to update the hit grid, otherwise capturedRenderable won't be in the hit grid and will not receive mouse events
+        this.requestRender()
+      } else {
+        primaryEvent = this.dispatchMouseEvent(this.capturedRenderable, mouseEvent)
         return true
       }
+    } else {
+      if (wasSelecting) {
+        primaryEvent = this.dispatchMouseEvent(maybeRenderable, mouseEvent, { isSelecting: true })
+      } else if (shouldStartSel) {
+        primaryEvent = this.dispatchMouseEvent(maybeRenderable, mouseEvent)
+      } else if (isCtrlExtendSelection) {
+        primaryEvent = this.dispatchMouseEvent(maybeRenderable, mouseEvent)
+      } else {
+        primaryEvent = this.dispatchMouseEvent(maybeRenderable, mouseEvent)
 
-      const maybeRenderableId = this.hitTest(mouseEvent.x, mouseEvent.y)
-      const sameElement = maybeRenderableId === this.lastOverRenderableNum
-      this.lastOverRenderableNum = maybeRenderableId
-      const maybeRenderable = Renderable.renderablesByNumber.get(maybeRenderableId)
+        if (mouseEvent.type === "drag" && isLeftButton && maybeRenderable) {
+          this.setCapturedRenderable(maybeRenderable)
+        } else if (!maybeRenderable) {
+          this.setCapturedRenderable(undefined)
+          this.lastOverRenderable = undefined
+        } else {
+          this.setCapturedRenderable(undefined)
+        }
+      }
+    }
+
+    // ========================================
+    // DEFAULTS PHASE
+    // ========================================
+
+    if (!primaryEvent?.defaultPrevented) {
+      if (shouldStartSel && maybeRenderable) {
+        this.startSelection(maybeRenderable, mouseEvent.x, mouseEvent.y)
+      }
+
+      if (isCtrlExtendSelection && this.currentSelection) {
+        this.currentSelection.isSelecting = true
+        this.updateSelection(maybeRenderable, mouseEvent.x, mouseEvent.y)
+      }
+
+      if (mouseEvent.type === "drag" && wasSelecting) {
+        this.updateSelection(maybeRenderable, mouseEvent.x, mouseEvent.y)
+      }
+
+      if (mouseEvent.type === "up" && wasSelecting) {
+        this.finishSelection()
+      }
+
+      if (
+        mouseEvent.type === "down" &&
+        this.currentSelection &&
+        !shouldStartSel &&
+        !isCtrlExtendSelection
+      ) {
+        this.clearSelection()
+      }
 
       // Auto-focus on click (browser-like behavior)
       // Bubble up to find closest focusable ancestor
@@ -1159,119 +1279,9 @@ export class CliRenderer extends EventEmitter implements RenderContext {
           current = current.parent
         }
       }
-
-      if (
-        mouseEvent.type === "down" &&
-        mouseEvent.button === MouseButton.LEFT &&
-        !this.currentSelection?.isSelecting &&
-        !mouseEvent.modifiers.ctrl
-      ) {
-        if (
-          maybeRenderable &&
-          maybeRenderable.selectable &&
-          !maybeRenderable.isDestroyed &&
-          maybeRenderable.shouldStartSelection(mouseEvent.x, mouseEvent.y)
-        ) {
-          this.startSelection(maybeRenderable, mouseEvent.x, mouseEvent.y)
-          const event = new MouseEvent(maybeRenderable, mouseEvent)
-          maybeRenderable.processMouseEvent(event)
-          return true
-        }
-      }
-
-      if (mouseEvent.type === "drag" && this.currentSelection?.isSelecting) {
-        this.updateSelection(maybeRenderable, mouseEvent.x, mouseEvent.y)
-
-        if (maybeRenderable) {
-          const event = new MouseEvent(maybeRenderable, { ...mouseEvent, isSelecting: true })
-          maybeRenderable.processMouseEvent(event)
-        }
-
-        return true
-      }
-
-      if (mouseEvent.type === "up" && this.currentSelection?.isSelecting) {
-        if (maybeRenderable) {
-          const event = new MouseEvent(maybeRenderable, { ...mouseEvent, isSelecting: true })
-          maybeRenderable.processMouseEvent(event)
-        }
-
-        this.finishSelection()
-        return true
-      }
-
-      if (mouseEvent.type === "down" && mouseEvent.button === MouseButton.LEFT && this.currentSelection) {
-        if (mouseEvent.modifiers.ctrl) {
-          this.currentSelection.isSelecting = true
-          this.updateSelection(maybeRenderable, mouseEvent.x, mouseEvent.y)
-          return true
-        }
-      }
-
-      if (!sameElement && (mouseEvent.type === "drag" || mouseEvent.type === "move")) {
-        if (this.lastOverRenderable && this.lastOverRenderable !== this.capturedRenderable) {
-          const event = new MouseEvent(this.lastOverRenderable, { ...mouseEvent, type: "out" })
-          this.lastOverRenderable.processMouseEvent(event)
-        }
-        this.lastOverRenderable = maybeRenderable
-        if (maybeRenderable) {
-          const event = new MouseEvent(maybeRenderable, {
-            ...mouseEvent,
-            type: "over",
-            source: this.capturedRenderable,
-          })
-          maybeRenderable.processMouseEvent(event)
-        }
-      }
-
-      if (this.capturedRenderable && mouseEvent.type !== "up") {
-        const event = new MouseEvent(this.capturedRenderable, mouseEvent)
-        this.capturedRenderable.processMouseEvent(event)
-        return true
-      }
-
-      if (this.capturedRenderable && mouseEvent.type === "up") {
-        const event = new MouseEvent(this.capturedRenderable, { ...mouseEvent, type: "drag-end" })
-        this.capturedRenderable.processMouseEvent(event)
-        this.capturedRenderable.processMouseEvent(new MouseEvent(this.capturedRenderable, mouseEvent))
-        if (maybeRenderable) {
-          const event = new MouseEvent(maybeRenderable, {
-            ...mouseEvent,
-            type: "drop",
-            source: this.capturedRenderable,
-          })
-          maybeRenderable.processMouseEvent(event)
-        }
-        this.lastOverRenderable = this.capturedRenderable
-        this.lastOverRenderableNum = this.capturedRenderable.num
-        this.setCapturedRenderable(undefined)
-        // Dropping the renderable needs to push another frame when the renderer is not live
-        // to update the hit grid, otherwise capturedRenderable won't be in the hit grid and will not receive mouse events
-        this.requestRender()
-      }
-
-      let event: MouseEvent | undefined = undefined
-      if (maybeRenderable) {
-        if (mouseEvent.type === "drag" && mouseEvent.button === MouseButton.LEFT) {
-          this.setCapturedRenderable(maybeRenderable)
-        } else {
-          this.setCapturedRenderable(undefined)
-        }
-        event = new MouseEvent(maybeRenderable, mouseEvent)
-        maybeRenderable.processMouseEvent(event)
-      } else {
-        this.setCapturedRenderable(undefined)
-        this.lastOverRenderable = undefined
-      }
-
-      if (!event?.defaultPrevented && mouseEvent.type === "down" && this.currentSelection) {
-        this.clearSelection()
-      }
-
-      return true
     }
 
-    return false
+    return true
   }
 
   /**
