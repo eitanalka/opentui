@@ -1,8 +1,8 @@
-import { Renderable, type RenderableOptions } from "../Renderable"
+import { Renderable, type RenderableOptions, type StyleProps, type Style } from "../Renderable"
 import { convertGlobalToLocalSelection, Selection, type LocalSelectionBounds } from "../lib/selection"
 import { EditBuffer, type LogicalCursor } from "../edit-buffer"
 import { EditorView, type VisualCursor } from "../editor-view"
-import { RGBA, parseColor } from "../lib/RGBA"
+import { RGBA, parseColor, type ColorInput } from "../lib/RGBA"
 import type { RenderContext, Highlight, CursorStyleOptions, LineInfoProvider, LineInfo } from "../types"
 import type { OptimizedBuffer } from "../buffer"
 import { MeasureMode } from "yoga-layout"
@@ -17,7 +17,17 @@ export interface ContentChangeEvent {
   // No payload - use getText() to retrieve content if needed
 }
 
+/**
+ * Style properties specific to EditBufferRenderable.
+ */
+export interface EditBufferStyleProps extends StyleProps {
+  textColor?: ColorInput
+  backgroundColor?: ColorInput
+  cursorColor?: ColorInput
+}
+
 export interface EditBufferOptions extends RenderableOptions<EditBufferRenderable> {
+  style?: Style<EditBufferStyleProps>
   textColor?: string | RGBA
   backgroundColor?: string | RGBA
   selectionBg?: string | RGBA
@@ -129,6 +139,35 @@ export abstract class EditBufferRenderable extends Renderable implements LineInf
 
     this.setupMeasureFunc()
     this.setupEventListeners(options)
+
+    // Apply initial styles after all properties are initialized
+    this.initializeStyle()
+  }
+
+  public override get style(): Style<EditBufferStyleProps> | undefined {
+    return this._style as Style<EditBufferStyleProps> | undefined
+  }
+
+  public override set style(value: Style<EditBufferStyleProps> | undefined) {
+    this.setStyleInternal(value)
+  }
+
+  protected override applyMergedStyles(styles: EditBufferStyleProps): void {
+    super.applyMergedStyles(styles)
+
+    if ("textColor" in styles) {
+      const newColor = parseColor(styles.textColor ?? this._defaultOptions.textColor)
+      this._textColor = newColor
+      this.editBuffer.setDefaultFg(newColor)
+    }
+    if ("backgroundColor" in styles) {
+      const newColor = parseColor(styles.backgroundColor ?? this._defaultOptions.backgroundColor)
+      this._backgroundColor = newColor
+      this.editBuffer.setDefaultBg(newColor)
+    }
+    if ("cursorColor" in styles) {
+      this._cursorColor = parseColor(styles.cursorColor ?? this._defaultOptions.cursorColor)
+    }
   }
 
   public get lineInfo(): LineInfo {

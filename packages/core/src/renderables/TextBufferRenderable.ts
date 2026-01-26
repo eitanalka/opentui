@@ -1,4 +1,4 @@
-import { Renderable, type RenderableOptions } from "../Renderable"
+import { Renderable, type RenderableOptions, type StyleProps, type Style } from "../Renderable"
 import { convertGlobalToLocalSelection, Selection, type LocalSelectionBounds } from "../lib/selection"
 import { TextBuffer, type TextChunk } from "../text-buffer"
 import { TextBufferView } from "../text-buffer-view"
@@ -8,6 +8,16 @@ import type { OptimizedBuffer } from "../buffer"
 import { MeasureMode } from "yoga-layout"
 import type { LineInfo } from "../zig"
 import { SyntaxStyle } from "../syntax-style"
+import type { ColorInput } from "../lib/RGBA"
+
+/**
+ * Style properties specific to TextBufferRenderable.
+ */
+export interface TextBufferStyleProps extends StyleProps {
+  fg?: ColorInput
+  bg?: ColorInput
+  attributes?: number
+}
 
 export interface TextBufferOptions extends RenderableOptions<TextBufferRenderable> {
   fg?: string | RGBA
@@ -20,6 +30,7 @@ export interface TextBufferOptions extends RenderableOptions<TextBufferRenderabl
   tabIndicator?: string | number
   tabIndicatorColor?: string | RGBA
   truncate?: boolean
+  style?: Style<TextBufferStyleProps>
 }
 
 export abstract class TextBufferRenderable extends Renderable implements LineInfoProvider {
@@ -509,5 +520,30 @@ export abstract class TextBufferRenderable extends Renderable implements LineInf
 
   protected onAttributesChanged(newAttributes: number): void {
     // Override in subclasses if needed
+  }
+
+  public override get style(): Style<TextBufferStyleProps> | undefined {
+    return this._style as Style<TextBufferStyleProps> | undefined
+  }
+
+  public override set style(value: Style<TextBufferStyleProps> | undefined) {
+    this.setStyleInternal(value)
+  }
+
+  protected override applyMergedStyles(styles: TextBufferStyleProps): void {
+    super.applyMergedStyles(styles)
+
+    if ("fg" in styles) {
+      this._defaultFg = parseColor(styles.fg ?? this._defaultOptions.fg)
+      this.textBuffer.setDefaultFg(this._defaultFg)
+    }
+    if ("bg" in styles) {
+      this._defaultBg = parseColor(styles.bg ?? this._defaultOptions.bg)
+      this.textBuffer.setDefaultBg(this._defaultBg)
+    }
+    if ("attributes" in styles && styles.attributes !== undefined) {
+      this._defaultAttributes = styles.attributes
+      this.textBuffer.setDefaultAttributes(this._defaultAttributes)
+    }
   }
 }

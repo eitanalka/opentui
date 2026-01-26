@@ -158,6 +158,7 @@ export interface RenderableOptions<T extends BaseRenderable = BaseRenderable> ex
   buffered?: boolean
   live?: boolean
   opacity?: number
+  focusable?: boolean
   style?: Style
 
   // hooks for custom render logic
@@ -342,6 +343,7 @@ export abstract class Renderable extends BaseRenderable {
     this._live = options.live ?? false
     this._liveCount = this._live && this._visible ? 1 : 0
     this._opacity = options.opacity !== undefined ? Math.max(0, Math.min(1, options.opacity)) : 1.0
+    this._focusable = options.focusable ?? false
 
     // TODO: use a global yoga config
     this.yogaNode = Yoga.Node.create(yogaConfig)
@@ -469,6 +471,7 @@ export abstract class Renderable extends BaseRenderable {
    * Recomputes merged styles and applies them.
    */
   protected onStateChange(): void {
+    if (this._isDestroyed) return
     if (this._style) {
       this.applyStateStyles()
     }

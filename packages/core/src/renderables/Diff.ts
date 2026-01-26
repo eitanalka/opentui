@@ -1,8 +1,8 @@
-import { Renderable, type RenderableOptions } from "../Renderable"
+import { Renderable, type RenderableOptions, type StyleProps, type Style } from "../Renderable"
 import type { RenderContext } from "../types"
 import { CodeRenderable, type CodeOptions } from "./Code"
 import { LineNumberRenderable, type LineSign, type LineColorConfig } from "./LineNumberRenderable"
-import { RGBA, parseColor } from "../lib/RGBA"
+import { RGBA, parseColor, type ColorInput } from "../lib/RGBA"
 import { SyntaxStyle } from "../syntax-style"
 import { parsePatch, type StructuredPatch } from "diff"
 import { TextRenderable } from "./Text"
@@ -17,9 +17,17 @@ interface LogicalLine {
   type: "context" | "add" | "remove" | "empty"
 }
 
+/**
+ * Style properties specific to DiffRenderable.
+ */
+export interface DiffStyleProps extends StyleProps {
+  fg?: ColorInput
+}
+
 export interface DiffRenderableOptions extends RenderableOptions<DiffRenderable> {
   diff?: string
   view?: "unified" | "split"
+  style?: Style<DiffStyleProps>
 
   // CodeRenderable options
   fg?: string | RGBA
@@ -140,6 +148,9 @@ export class DiffRenderable extends Renderable {
       this.parseDiff()
       this.buildView()
     }
+
+    // Apply initial styles after all properties are initialized
+    this.initializeStyle()
   }
 
   private parseDiff(): void {
@@ -1133,6 +1144,22 @@ export class DiffRenderable extends Renderable {
       if (this.rightCodeRenderable) {
         this.rightCodeRenderable.fg = parsed
       }
+    }
+  }
+
+  public override get style(): Style<DiffStyleProps> | undefined {
+    return this._style as Style<DiffStyleProps> | undefined
+  }
+
+  public override set style(value: Style<DiffStyleProps> | undefined) {
+    this.setStyleInternal(value)
+  }
+
+  protected override applyMergedStyles(styles: DiffStyleProps): void {
+    super.applyMergedStyles(styles)
+
+    if ("fg" in styles) {
+      this.fg = styles.fg
     }
   }
 }

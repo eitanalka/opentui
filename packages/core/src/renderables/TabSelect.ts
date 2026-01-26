@@ -1,4 +1,4 @@
-import { Renderable, type RenderableOptions } from "../Renderable"
+import { Renderable, type RenderableOptions, type StyleProps, type Style } from "../Renderable"
 import { OptimizedBuffer } from "../buffer"
 import { RGBA, parseColor, type ColorInput } from "../lib/RGBA"
 import type { KeyEvent } from "../lib/KeyHandler"
@@ -32,6 +32,14 @@ const defaultTabSelectKeybindings: TabSelectKeyBinding[] = [
   { name: "linefeed", action: "select-current" },
 ]
 
+/**
+ * Style properties specific to TabSelectRenderable.
+ */
+export interface TabSelectStyleProps extends StyleProps {
+  backgroundColor?: ColorInput
+  textColor?: ColorInput
+}
+
 export interface TabSelectRenderableOptions extends Omit<RenderableOptions<TabSelectRenderable>, "height"> {
   height?: number
   options?: TabSelectOption[]
@@ -49,6 +57,7 @@ export interface TabSelectRenderableOptions extends Omit<RenderableOptions<TabSe
   wrapSelection?: boolean
   keyBindings?: TabSelectKeyBinding[]
   keyAliasMap?: KeyAliasMap
+  style?: Style<TabSelectStyleProps>
 }
 
 export enum TabSelectRenderableEvents {
@@ -120,6 +129,9 @@ export class TabSelectRenderable extends Renderable {
     this._keyBindings = options.keyBindings || []
     const mergedBindings = mergeKeyBindings(defaultTabSelectKeybindings, this._keyBindings)
     this._keyBindingsMap = buildKeyBindingsMap(mergedBindings, this._keyAliasMap)
+
+    // Apply initial styles after all properties are initialized
+    this.initializeStyle()
   }
 
   private calculateDynamicHeight(): number {
@@ -451,5 +463,24 @@ export class TabSelectRenderable extends Renderable {
     this._keyAliasMap = mergeKeyAliases(defaultKeyAliases, aliases)
     const mergedBindings = mergeKeyBindings(defaultTabSelectKeybindings, this._keyBindings)
     this._keyBindingsMap = buildKeyBindingsMap(mergedBindings, this._keyAliasMap)
+  }
+
+  public override get style(): Style<TabSelectStyleProps> | undefined {
+    return this._style as Style<TabSelectStyleProps> | undefined
+  }
+
+  public override set style(value: Style<TabSelectStyleProps> | undefined) {
+    this.setStyleInternal(value)
+  }
+
+  protected override applyMergedStyles(styles: TabSelectStyleProps): void {
+    super.applyMergedStyles(styles)
+
+    if ("backgroundColor" in styles) {
+      this._backgroundColor = parseColor(styles.backgroundColor ?? "transparent")
+    }
+    if ("textColor" in styles) {
+      this._textColor = parseColor(styles.textColor ?? "#FFFFFF")
+    }
   }
 }

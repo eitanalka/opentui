@@ -71,6 +71,9 @@ export class CodeRenderable extends TextBufferRenderable {
     }
 
     this._highlightsDirty = this._content.length > 0
+
+    // Apply initial styles after all properties are initialized
+    this.initializeStyle()
   }
 
   get content(): string {

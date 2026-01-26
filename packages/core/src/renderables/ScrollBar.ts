@@ -1,7 +1,7 @@
 import type { OptimizedBuffer } from "../buffer"
 import { parseColor, RGBA, type ColorInput } from "../lib"
 import type { KeyEvent } from "../lib/KeyHandler"
-import { Renderable, type RenderableOptions } from "../Renderable"
+import { Renderable, type RenderableOptions, type StyleProps, type Style } from "../Renderable"
 import type { RenderContext, Timeout } from "../types"
 import { type BoxOptions } from "./Box"
 import { SliderRenderable, type SliderOptions } from "./Slider"
@@ -303,6 +303,14 @@ export class ScrollBarRenderable extends Renderable {
   }
 }
 
+/**
+ * Style properties specific to ArrowRenderable.
+ */
+export interface ArrowStyleProps extends StyleProps {
+  foregroundColor?: ColorInput
+  backgroundColor?: ColorInput
+}
+
 export interface ArrowOptions extends RenderableOptions<ArrowRenderable> {
   direction: "up" | "down" | "left" | "right"
   foregroundColor?: ColorInput
@@ -314,6 +322,7 @@ export interface ArrowOptions extends RenderableOptions<ArrowRenderable> {
     left?: string
     right?: string
   }
+  style?: Style<ArrowStyleProps>
 }
 
 export class ArrowRenderable extends Renderable {
@@ -346,6 +355,9 @@ export class ArrowRenderable extends Renderable {
     if (!options.width) {
       this.width = Bun.stringWidth(this.getArrowChar())
     }
+
+    // Apply initial styles after all properties are initialized
+    this.initializeStyle()
   }
 
   get direction(): "up" | "down" | "left" | "right" {
@@ -417,6 +429,25 @@ export class ArrowRenderable extends Renderable {
         return this._arrowChars.right
       default:
         return "?"
+    }
+  }
+
+  public override get style(): Style<ArrowStyleProps> | undefined {
+    return this._style as Style<ArrowStyleProps> | undefined
+  }
+
+  public override set style(value: Style<ArrowStyleProps> | undefined) {
+    this.setStyleInternal(value)
+  }
+
+  protected override applyMergedStyles(styles: ArrowStyleProps): void {
+    super.applyMergedStyles(styles)
+
+    if ("foregroundColor" in styles) {
+      this._foregroundColor = parseColor(styles.foregroundColor ?? RGBA.fromValues(1, 1, 1, 1))
+    }
+    if ("backgroundColor" in styles) {
+      this._backgroundColor = parseColor(styles.backgroundColor ?? RGBA.fromValues(0, 0, 0, 0))
     }
   }
 }

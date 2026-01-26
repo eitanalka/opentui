@@ -6,6 +6,7 @@ import {
   type fonts,
 } from "../lib/ascii.font"
 import { parseColor, type ColorInput } from "../lib/RGBA"
+import { type StyleProps, type Style } from "../Renderable"
 import {
   ASCIIFontSelectionHelper,
   convertGlobalToLocalSelection,
@@ -16,7 +17,16 @@ import type { RenderableOptions } from "../Renderable"
 import type { RenderContext } from "../types"
 import { FrameBufferRenderable, type FrameBufferOptions } from "./FrameBuffer"
 
+/**
+ * Style properties specific to ASCIIFontRenderable.
+ */
+export interface ASCIIFontStyleProps extends StyleProps {
+  color?: ColorInput | ColorInput[]
+  backgroundColor?: ColorInput
+}
+
 export interface ASCIIFontOptions extends Omit<RenderableOptions<ASCIIFontRenderable>, "width" | "height"> {
+  style?: Style<ASCIIFontStyleProps>
   text?: string
   font?: ASCIIFontName
   color?: ColorInput | ColorInput[]
@@ -77,6 +87,34 @@ export class ASCIIFontRenderable extends FrameBufferRenderable {
     )
 
     this.renderFontToBuffer()
+
+    // Apply initial styles after all properties are initialized
+    this.initializeStyle()
+  }
+
+  public override get style(): Style<ASCIIFontStyleProps> | undefined {
+    return this._style as Style<ASCIIFontStyleProps> | undefined
+  }
+
+  public override set style(value: Style<ASCIIFontStyleProps> | undefined) {
+    this.setStyleInternal(value)
+  }
+
+  protected override applyMergedStyles(styles: ASCIIFontStyleProps): void {
+    super.applyMergedStyles(styles)
+
+    let needsRerender = false
+    if ("color" in styles) {
+      this._color = styles.color ?? ASCIIFontRenderable._defaultOptions.color
+      needsRerender = true
+    }
+    if ("backgroundColor" in styles) {
+      this._backgroundColor = styles.backgroundColor ?? ASCIIFontRenderable._defaultOptions.backgroundColor
+      needsRerender = true
+    }
+    if (needsRerender) {
+      this.renderFontToBuffer()
+    }
   }
 
   get text(): string {

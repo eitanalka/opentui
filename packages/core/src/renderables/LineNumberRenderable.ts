@@ -1,7 +1,7 @@
-import { Renderable, type RenderableOptions } from "../Renderable"
+import { Renderable, type RenderableOptions, type StyleProps, type Style } from "../Renderable"
 import { OptimizedBuffer } from "../buffer"
 import type { RenderContext, LineInfoProvider } from "../types"
-import { RGBA, parseColor } from "../lib/RGBA"
+import { RGBA, parseColor, type ColorInput } from "../lib/RGBA"
 import { MeasureMode } from "yoga-layout"
 
 export interface LineSign {
@@ -16,7 +16,16 @@ export interface LineColorConfig {
   content?: string | RGBA
 }
 
+/**
+ * Style properties specific to LineNumberRenderable.
+ */
+export interface LineNumberStyleProps extends StyleProps {
+  fg?: ColorInput
+  bg?: ColorInput
+}
+
 export interface LineNumberOptions extends RenderableOptions<LineNumberRenderable> {
+  style?: Style<LineNumberStyleProps>
   target?: Renderable & LineInfoProvider
   fg?: string | RGBA
   bg?: string | RGBA
@@ -397,6 +406,28 @@ export class LineNumberRenderable extends Renderable {
     // If target is provided in constructor, set it up immediately
     if (options.target) {
       this.setTarget(options.target)
+    }
+
+    // Apply initial styles after all properties are initialized
+    this.initializeStyle()
+  }
+
+  public override get style(): Style<LineNumberStyleProps> | undefined {
+    return this._style as Style<LineNumberStyleProps> | undefined
+  }
+
+  public override set style(value: Style<LineNumberStyleProps> | undefined) {
+    this.setStyleInternal(value)
+  }
+
+  protected override applyMergedStyles(styles: LineNumberStyleProps): void {
+    super.applyMergedStyles(styles)
+
+    if ("fg" in styles) {
+      this._fg = parseColor(styles.fg ?? "#888888")
+    }
+    if ("bg" in styles) {
+      this._bg = parseColor(styles.bg ?? "transparent")
     }
   }
 

@@ -2,7 +2,7 @@ import { OptimizedBuffer } from "../buffer"
 import { fonts, measureText, renderFontToFrameBuffer } from "../lib/ascii.font"
 import type { KeyEvent } from "../lib/KeyHandler"
 import { RGBA, parseColor, type ColorInput } from "../lib/RGBA"
-import { Renderable, type RenderableOptions } from "../Renderable"
+import { Renderable, type RenderableOptions, type StyleProps, type Style } from "../Renderable"
 import type { RenderContext } from "../types"
 import {
   type KeyBinding as BaseKeyBinding,
@@ -35,6 +35,14 @@ const defaultSelectKeybindings: SelectKeyBinding[] = [
   { name: "linefeed", action: "select-current" },
 ]
 
+/**
+ * Style properties specific to SelectRenderable.
+ */
+export interface SelectStyleProps extends StyleProps {
+  backgroundColor?: ColorInput
+  textColor?: ColorInput
+}
+
 export interface SelectRenderableOptions extends RenderableOptions<SelectRenderable> {
   backgroundColor?: ColorInput
   textColor?: ColorInput
@@ -54,6 +62,7 @@ export interface SelectRenderableOptions extends RenderableOptions<SelectRendera
   fastScrollStep?: number
   keyBindings?: SelectKeyBinding[]
   keyAliasMap?: KeyAliasMap
+  style?: Style<SelectStyleProps>
 }
 
 export enum SelectRenderableEvents {
@@ -152,6 +161,9 @@ export class SelectRenderable extends Renderable {
     this._keyBindingsMap = buildKeyBindingsMap(mergedBindings, this._keyAliasMap)
 
     this.requestRender() // Initial render needed
+
+    // Apply initial styles after all properties are initialized
+    this.initializeStyle()
   }
 
   protected renderSelf(buffer: OptimizedBuffer, deltaTime: number): void {
@@ -518,6 +530,25 @@ export class SelectRenderable extends Renderable {
       this._selectedIndex = clampedIndex
       this.updateScrollOffset()
       this.requestRender()
+    }
+  }
+
+  public override get style(): Style<SelectStyleProps> | undefined {
+    return this._style as Style<SelectStyleProps> | undefined
+  }
+
+  public override set style(value: Style<SelectStyleProps> | undefined) {
+    this.setStyleInternal(value)
+  }
+
+  protected override applyMergedStyles(styles: SelectStyleProps): void {
+    super.applyMergedStyles(styles)
+
+    if ("backgroundColor" in styles) {
+      this._backgroundColor = parseColor(styles.backgroundColor ?? this._defaultOptions.backgroundColor)
+    }
+    if ("textColor" in styles) {
+      this._textColor = parseColor(styles.textColor ?? this._defaultOptions.textColor)
     }
   }
 }

@@ -6,10 +6,20 @@ import {
   type RenderableOptions,
   type RenderContext,
   RGBA,
+  type StyleProps,
+  type Style,
 } from "../index"
 
 const defaultThumbBackgroundColor = RGBA.fromHex("#9a9ea3")
 const defaultTrackBackgroundColor = RGBA.fromHex("#252527")
+
+/**
+ * Style properties specific to SliderRenderable.
+ */
+export interface SliderStyleProps extends StyleProps {
+  backgroundColor?: ColorInput
+  foregroundColor?: ColorInput
+}
 
 export interface SliderOptions extends RenderableOptions<SliderRenderable> {
   orientation: "vertical" | "horizontal"
@@ -20,6 +30,7 @@ export interface SliderOptions extends RenderableOptions<SliderRenderable> {
   backgroundColor?: ColorInput
   foregroundColor?: ColorInput
   onChange?: (value: number) => void
+  style?: Style<SliderStyleProps>
 }
 
 export class SliderRenderable extends Renderable {
@@ -44,6 +55,9 @@ export class SliderRenderable extends Renderable {
     this._foregroundColor = options.foregroundColor ? parseColor(options.foregroundColor) : defaultThumbBackgroundColor
 
     this.setupMouseHandling()
+
+    // Apply initial styles after all properties are initialized
+    this.initializeStyle()
   }
 
   get value(): number {
@@ -343,5 +357,24 @@ export class SliderRenderable extends Renderable {
     const virtualThumbSize = this.getVirtualThumbSize()
 
     return Math.round(valueRatio * (virtualTrackSize - virtualThumbSize))
+  }
+
+  public override get style(): Style<SliderStyleProps> | undefined {
+    return this._style as Style<SliderStyleProps> | undefined
+  }
+
+  public override set style(value: Style<SliderStyleProps> | undefined) {
+    this.setStyleInternal(value)
+  }
+
+  protected override applyMergedStyles(styles: SliderStyleProps): void {
+    super.applyMergedStyles(styles)
+
+    if ("backgroundColor" in styles) {
+      this._backgroundColor = parseColor(styles.backgroundColor ?? defaultTrackBackgroundColor)
+    }
+    if ("foregroundColor" in styles) {
+      this._foregroundColor = parseColor(styles.foregroundColor ?? defaultThumbBackgroundColor)
+    }
   }
 }

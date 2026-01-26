@@ -43,6 +43,9 @@ export class TextRenderable extends TextBufferRenderable {
     )
 
     this.updateTextBuffer(styledText)
+
+    // Apply initial styles after all properties are initialized
+    this.initializeStyle()
   }
 
   private updateTextBuffer(styledText: StyledText): void {
