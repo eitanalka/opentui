@@ -358,11 +358,11 @@ export class CliRenderer extends EventEmitter implements RenderContext {
     renderTime?: number
     frameCallbackTime: number
   } = {
-    frameCount: 0,
-    fps: 0,
-    renderTime: 0,
-    frameCallbackTime: 0,
-  }
+      frameCount: 0,
+      fps: 0,
+      renderTime: 0,
+      frameCallbackTime: 0,
+    }
   public debugOverlay = {
     enabled: env.OTUI_SHOW_STATS,
     corner: DebugOverlayCorner.bottomRight,
@@ -387,6 +387,7 @@ export class CliRenderer extends EventEmitter implements RenderContext {
   private capturedRenderable?: Renderable
   private lastOverRenderableNum: number = 0
   private lastOverRenderable?: Renderable
+  private mouseDownTarget: Renderable | undefined = undefined
 
   private currentSelection: Selection | null = null
   private selectionContainers: Renderable[] = []
@@ -1171,6 +1172,11 @@ export class CliRenderer extends EventEmitter implements RenderContext {
     const isCtrlExtendSelection =
       mouseEvent.type === "down" && isLeftButton && this.currentSelection && mouseEvent.modifiers.ctrl
 
+    // Track mousedown target for click detection
+    if (mouseEvent.type === "down" && isLeftButton) {
+      this.mouseDownTarget = maybeRenderable
+    }
+
     // ========================================
     // DISPATCH PHASE
     // ========================================
@@ -1258,12 +1264,7 @@ export class CliRenderer extends EventEmitter implements RenderContext {
         this.finishSelection()
       }
 
-      if (
-        mouseEvent.type === "down" &&
-        this.currentSelection &&
-        !shouldStartSel &&
-        !isCtrlExtendSelection
-      ) {
+      if (mouseEvent.type === "down" && this.currentSelection && !shouldStartSel && !isCtrlExtendSelection) {
         this.clearSelection()
       }
 
@@ -1281,7 +1282,44 @@ export class CliRenderer extends EventEmitter implements RenderContext {
       }
     }
 
+    if (mouseEvent.type === "up" && isLeftButton) {
+      // Fire click on common ancestor of mousedown and mouseup targets (browser behavior)
+      // TODO: Check event.defaultPrevented after dispatch if we add default click behaviors
+      // (e.g., link navigation) that should be cancelable
+      const clickTarget = this.findCommonAncestor(this.mouseDownTarget, maybeRenderable)
+      if (clickTarget) {
+        this.dispatchMouseEvent(clickTarget, mouseEvent, { type: "click" })
+      }
+      // Always clear mouseDownTarget on mouseup
+      this.mouseDownTarget = undefined
+    }
+
     return true
+  }
+
+  /**
+   * Find the nearest common ancestor of two renderables.
+   * Used for click event targeting per browser spec.
+   */
+  private findCommonAncestor(a: Renderable | undefined, b: Renderable | undefined): Renderable | undefined {
+    if (!a || !b) return undefined
+
+    // Collect all ancestors of 'a' (including itself)
+    const ancestorsA = new Set<Renderable>()
+    let current: Renderable | null = a
+    while (current) {
+      ancestorsA.add(current)
+      current = current.parent
+    }
+
+    // Walk up from 'b' until we find a common ancestor
+    current = b
+    while (current) {
+      if (ancestorsA.has(current)) return current
+      current = current.parent
+    }
+
+    return undefined
   }
 
   /**
@@ -1632,7 +1670,7 @@ export class CliRenderer extends EventEmitter implements RenderContext {
 
     setImmediate(() => {
       // Consume any existing stdin data to avoid processing stale input
-      while (this.stdin.read() !== null) {}
+      while (this.stdin.read() !== null) { }
       this.stdin.on("data", this.stdinListener)
     })
 

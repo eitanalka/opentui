@@ -1,4 +1,4 @@
-export type MouseEventType = "down" | "up" | "move" | "drag" | "drag-end" | "drop" | "over" | "out" | "scroll"
+export type MouseEventType = "down" | "up" | "move" | "drag" | "drag-end" | "drop" | "over" | "out" | "scroll" | "click"
 
 export interface ScrollInfo {
   direction: "up" | "down" | "left" | "right"

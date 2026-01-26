@@ -116,6 +116,7 @@ export interface RenderableOptions<T extends BaseRenderable = BaseRenderable> ex
   onMouseOver?: (this: T, event: MouseEvent) => void
   onMouseOut?: (this: T, event: MouseEvent) => void
   onMouseScroll?: (this: T, event: MouseEvent) => void
+  onClick?: (this: T, event: MouseEvent) => void
 
   onPaste?: (this: T, event: PasteEvent) => void
 
@@ -1494,6 +1495,11 @@ export abstract class Renderable extends BaseRenderable {
     else delete this._mouseListeners["scroll"]
   }
 
+  public set onClick(handler: ((event: MouseEvent) => void) | undefined) {
+    if (handler) this._mouseListeners["click"] = handler
+    else delete this._mouseListeners["click"]
+  }
+
   public set onPaste(handler: ((event: PasteEvent) => void) | undefined) {
     this._pasteListener = handler
   }
@@ -1527,6 +1533,7 @@ export abstract class Renderable extends BaseRenderable {
     this.onMouseOver = options.onMouseOver
     this.onMouseOut = options.onMouseOut
     this.onMouseScroll = options.onMouseScroll
+    this.onClick = options.onClick
     this.onPaste = options.onPaste
     this.onKeyDown = options.onKeyDown
     this.onSizeChange = options.onSizeChange
