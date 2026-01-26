@@ -71,3 +71,33 @@ test("click on non-focusable with no focusable parent does nothing", async () =>
 
   expect(box.focused).toBe(false)
 })
+
+test("click outside focused element blurs it", async () => {
+  // Create a focusable element
+  const scrollbox = new ScrollBoxRenderable(testRenderer, {
+    id: "focusable-box",
+    width: 20,
+    height: 10,
+  })
+  testRenderer.root.add(scrollbox)
+
+  // Create a non-focusable element elsewhere
+  const plainBox = new BoxRenderable(testRenderer, {
+    id: "plain-box",
+    width: 20,
+    height: 10,
+    position: { left: 25 },
+  })
+  testRenderer.root.add(plainBox)
+  await testRenderer.idle()
+
+  // Focus the scrollbox by clicking on it
+  await mockMouse.click(scrollbox.x + 1, scrollbox.y + 1)
+  expect(scrollbox.focused).toBe(true)
+
+  // Click on the non-focusable box (outside the focused element)
+  await mockMouse.click(plainBox.x + 1, plainBox.y + 1)
+
+  // The scrollbox should now be blurred
+  expect(scrollbox.focused).toBe(false)
+})

@@ -1269,15 +1269,22 @@ export class CliRenderer extends EventEmitter implements RenderContext {
       }
 
       // Auto-focus on click (browser-like behavior)
-      // Bubble up to find closest focusable ancestor
+      // Bubble up to find closest focusable ancestor, or blur if clicking on non-focusable area
       if (mouseEvent.type === "down" && mouseEvent.button === MouseButton.LEFT) {
         let current: Renderable | null = maybeRenderable ?? null
+        let foundFocusable = false
         while (current) {
           if (current.focusable) {
             current.focus()
+            foundFocusable = true
             break
           }
           current = current.parent
+        }
+        // Blur current focus if clicked on non-focusable area
+        if (!foundFocusable && this._currentFocusedRenderable) {
+          this._currentFocusedRenderable.blur()
+          this._currentFocusedRenderable = null
         }
       }
     }
