@@ -33,6 +33,65 @@ import {
   isPositionTypeType,
   isOverflowType,
 } from "./lib/renderable.validations"
+/**
+ * Base style properties that can be applied to all renderables.
+ * Includes visual and layout properties, matching CSS conventions.
+ * Subclasses extend this with their own properties.
+ */
+export interface StyleProps {
+  // Visual
+  opacity?: number
+  visible?: boolean
+
+  // Dimensions
+  width?: number | "auto" | `${number}%`
+  height?: number | "auto" | `${number}%`
+  minWidth?: number | `${number}%`
+  minHeight?: number | `${number}%`
+  maxWidth?: number | `${number}%`
+  maxHeight?: number | `${number}%`
+
+  // Flexbox
+  flexGrow?: number
+  flexShrink?: number
+  flexBasis?: number | "auto"
+  flexDirection?: FlexDirectionString
+  flexWrap?: WrapString
+  alignItems?: AlignString
+  alignSelf?: AlignString
+  justifyContent?: JustifyString
+
+  // Positioning
+  position?: PositionTypeString
+  top?: number | "auto" | `${number}%`
+  right?: number | "auto" | `${number}%`
+  bottom?: number | "auto" | `${number}%`
+  left?: number | "auto" | `${number}%`
+  zIndex?: number
+
+  // Spacing
+  margin?: number | "auto" | `${number}%`
+  marginTop?: number | "auto" | `${number}%`
+  marginRight?: number | "auto" | `${number}%`
+  marginBottom?: number | "auto" | `${number}%`
+  marginLeft?: number | "auto" | `${number}%`
+  padding?: number | `${number}%`
+  paddingTop?: number | `${number}%`
+  paddingRight?: number | `${number}%`
+  paddingBottom?: number | `${number}%`
+  paddingLeft?: number | `${number}%`
+
+  // Overflow
+  overflow?: OverflowString
+}
+
+/**
+ * Full style configuration with state-based overrides.
+ * Generic T allows subclasses to define their own styleable properties.
+ */
+export type Style<T extends StyleProps = StyleProps> = T & {
+  focus?: T
+}
 
 const BrandedRenderable: unique symbol = Symbol.for("@opentui/core/Renderable")
 
@@ -99,6 +158,7 @@ export interface RenderableOptions<T extends BaseRenderable = BaseRenderable> ex
   buffered?: boolean
   live?: boolean
   opacity?: number
+  style?: Style
 
   // hooks for custom render logic
   renderBefore?: (this: T, buffer: OptimizedBuffer, deltaTime: number) => void
@@ -236,6 +296,10 @@ export abstract class Renderable extends BaseRenderable {
   protected _opacity: number = 1.0
   private _flexShrink: number = 1
 
+  // State-based style support
+  protected _style: Style | undefined
+  protected _baseStyles: StyleProps | undefined
+
   private renderableMapById: Map<string, Renderable> = new Map()
   protected _childrenInLayoutOrder: Renderable[] = []
   protected _childrenInZIndexOrder: Renderable[] = []
@@ -288,6 +352,12 @@ export abstract class Renderable extends BaseRenderable {
 
     if (this.buffered) {
       this.createFrameBuffer()
+    }
+
+    // Store style but don't apply yet - subclasses call initializeStyle() at end of their constructor
+    if (options.style) {
+      this._style = options.style
+      this._baseStyles = this.computeBaseStyles(options.style)
     }
   }
 
@@ -357,6 +427,98 @@ export abstract class Renderable extends BaseRenderable {
     }
   }
 
+  public get style(): Style | undefined {
+    return this._style
+  }
+
+  public set style(value: Style | undefined) {
+    this.setStyleInternal(value)
+  }
+
+  /**
+   * Computes base styles by collecting keys from state styles (focus, hover, etc.)
+   * and setting them to undefined, then merging user's base values on top.
+   * This ensures properties reset to defaults when states become inactive.
+   */
+  private computeBaseStyles(style: Style<StyleProps>): StyleProps {
+    const { focus, ...base } = style
+    const baseStyles: StyleProps = {}
+    for (const state of [focus]) {
+      if (state) {
+        for (const key of Object.keys(state)) {
+          ;(baseStyles as any)[key] = undefined
+        }
+      }
+    }
+    Object.assign(baseStyles, base)
+    return baseStyles
+  }
+
+  /**
+   * Internal method to set style. Used by subclasses to avoid duplicating logic.
+   */
+  protected setStyleInternal(value: Style<StyleProps> | undefined): void {
+    this._style = value
+    this._baseStyles = value ? this.computeBaseStyles(value) : undefined
+    this.applyStateStyles()
+    this.requestRender()
+  }
+
+  /**
+   * Called when any state (focus, hover, active, disabled) changes.
+   * Recomputes merged styles and applies them.
+   */
+  protected onStateChange(): void {
+    if (this._style) {
+      this.applyStateStyles()
+    }
+    this.requestRender()
+  }
+
+  /**
+   * Computes merged styles based on current state and applies them.
+   * Merge priority (highest wins): disabled > active > focus > hover > base
+   */
+  protected applyStateStyles(): void {
+    if (!this._style || !this._baseStyles) return
+
+    // Start with base styles
+    const merged: StyleProps = { ...this._baseStyles }
+
+    // Apply focus styles if focused
+    if (this._focused && this._style.focus) {
+      Object.assign(merged, this._style.focus)
+    }
+
+    this.applyMergedStyles(merged)
+  }
+
+  /**
+   * Applies merged style properties to the renderable.
+   * Base implementation handles visual and layout properties.
+   * Subclasses override to handle their own properties.
+   */
+  protected applyMergedStyles(styles: StyleProps): void {
+    for (const [key, value] of Object.entries(styles)) {
+      if (key === "opacity" && value !== undefined) {
+        this._opacity = Math.max(0, Math.min(1, value as number))
+      } else if (key in this) {
+        // Pass through undefined - setters should handle it by resetting to default
+        ;(this as any)[key] = value
+      }
+    }
+  }
+
+  /**
+   * Initializes styles after the subclass constructor has completed.
+   * Subclasses must call this at the end of their constructor if they support styles.
+   */
+  protected initializeStyle(): void {
+    if (this._style) {
+      this.applyStateStyles()
+    }
+  }
+
   public hasSelection(): boolean {
     return false
   }
@@ -380,7 +542,7 @@ export abstract class Renderable extends BaseRenderable {
 
     this._ctx.focusRenderable(this)
     this._focused = true
-    this.requestRender()
+    this.onStateChange()
 
     this.keypressHandler = (key: KeyEvent) => {
       if (this._isDestroyed) return
@@ -411,7 +573,7 @@ export abstract class Renderable extends BaseRenderable {
     if (!this._focused || !this._focusable) return
 
     this._focused = false
-    this.requestRender()
+    this.onStateChange()
 
     if (this.keypressHandler) {
       this.ctx._internalKeyInput.offInternal("keypress", this.keypressHandler)

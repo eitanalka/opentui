@@ -1,5 +1,5 @@
 import { Edge, Gutter } from "yoga-layout"
-import { type RenderableOptions, Renderable } from "../Renderable"
+import { type RenderableOptions, Renderable, type StyleProps, type Style } from "../Renderable"
 import type { OptimizedBuffer } from "../buffer"
 import {
   type BorderCharacters,
@@ -13,6 +13,15 @@ import {
 import { type ColorInput, RGBA, parseColor } from "../lib/RGBA"
 import { isValidPercentage } from "../lib/renderable.validations"
 import type { RenderContext } from "../types"
+
+/**
+ * Style properties specific to BoxRenderable.
+ */
+export interface BoxStyleProps extends StyleProps {
+  backgroundColor?: ColorInput
+  borderColor?: ColorInput
+  borderStyle?: BorderStyle
+}
 
 export interface BoxOptions<TRenderable extends Renderable = BoxRenderable> extends RenderableOptions<TRenderable> {
   backgroundColor?: string | RGBA
@@ -28,6 +37,7 @@ export interface BoxOptions<TRenderable extends Renderable = BoxRenderable> exte
   gap?: number | `${number}%`
   rowGap?: number | `${number}%`
   columnGap?: number | `${number}%`
+  style?: Style<BoxStyleProps>
 }
 
 function isGapType(value: any): value is number | undefined {
@@ -95,6 +105,17 @@ export class BoxRenderable extends Renderable {
     if (hasInitialGapProps) {
       this.applyYogaGap(options)
     }
+
+    // Apply initial styles after all Box properties are initialized
+    this.initializeStyle()
+  }
+
+  public override get style(): Style<BoxStyleProps> | undefined {
+    return this._style as Style<BoxStyleProps> | undefined
+  }
+
+  public override set style(value: Style<BoxStyleProps> | undefined) {
+    this.setStyleInternal(value)
   }
 
   private initializeBorder(): void {
@@ -205,6 +226,20 @@ export class BoxRenderable extends Renderable {
     if (this._titleAlignment !== value) {
       this._titleAlignment = value
       this.requestRender()
+    }
+  }
+
+  protected override applyMergedStyles(styles: BoxStyleProps): void {
+    super.applyMergedStyles(styles)
+
+    if ("backgroundColor" in styles) {
+      this._backgroundColor = parseColor(styles.backgroundColor ?? this._defaultOptions.backgroundColor)
+    }
+    if ("borderColor" in styles) {
+      this._borderColor = parseColor(styles.borderColor ?? this._defaultOptions.borderColor)
+    }
+    if ("borderStyle" in styles) {
+      this._borderStyle = parseBorderStyle(styles.borderStyle, this._defaultOptions.borderStyle)
     }
   }
 
