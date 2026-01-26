@@ -1,6 +1,7 @@
 import { describe, expect, it, beforeEach, afterEach } from "bun:test"
 import { testRender } from "../index"
 import { createSignal } from "solid-js"
+import { parseColor } from "@opentui/core"
 
 let testSetup: Awaited<ReturnType<typeof testRender>>
 
@@ -40,5 +41,48 @@ describe("Box Component", () => {
     await testSetup.renderOnce()
 
     expect(boxRef.focused).toBe(false)
+  })
+
+  it("should apply focus styles when focused and reset when blurred", async () => {
+    let boxRef: any
+    const [focused, setFocused] = createSignal(false)
+
+    testSetup = await testRender(
+      () => (
+        <box
+          ref={boxRef}
+          focusable
+          focused={focused()}
+          style={{
+            width: 10,
+            height: 5,
+            backgroundColor: "red",
+            focus: {
+              backgroundColor: "blue",
+            },
+          } as any}
+        />
+      ),
+      { width: 15, height: 8 },
+    )
+
+    await testSetup.renderOnce()
+
+    // Initial state: should have base backgroundColor
+    expect(boxRef.backgroundColor).toEqual(parseColor("red"))
+
+    // Focus the box
+    setFocused(true)
+    await testSetup.renderOnce()
+
+    // After focus: should have focus backgroundColor
+    expect(boxRef.backgroundColor).toEqual(parseColor("blue"))
+
+    // Blur the box
+    setFocused(false)
+    await testSetup.renderOnce()
+
+    // After blur: should return to base backgroundColor
+    expect(boxRef.backgroundColor).toEqual(parseColor("red"))
   })
 })

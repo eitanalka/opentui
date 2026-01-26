@@ -301,12 +301,9 @@ export const {
         }
         break
       case "style":
-        for (const prop in value) {
-          const propVal = value[prop]
-          if (prev !== undefined && propVal === prev[prop]) continue
-          // @ts-expect-error todo validate if prop is actually settable
-          node[prop] = propVal
-        }
+        // TODO: If perf becomes an issue, add deep comparison here or in Renderable.setStyleInternal
+        // @ts-expect-error - style setter handles state-based styles (focus/hover/active/disabled)
+        node.style = value
         break
       case "text":
       case "content":
