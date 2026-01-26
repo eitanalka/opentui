@@ -19,7 +19,6 @@ This fork adds browser-like behaviors to OpenTUI:
 | Feature | Status | Issue |
 |---------|--------|-------|
 | Auto-focus on click | ✅ Complete | [#576](https://github.com/anomalyco/opentui/issues/576) |
-| Focusable Box | ✅ Complete | [#577](https://github.com/anomalyco/opentui/issues/577) |
 | onClick event | ✅ Complete | Fires on common ancestor of mousedown/mouseup (browser behavior) |
 
 > **Upstream:** [anomalyco/opentui](https://github.com/anomalyco/opentui)
