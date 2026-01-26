@@ -187,7 +187,7 @@ export class MouseEvent {
   }
   public readonly scroll?: ScrollInfo
   public readonly target: Renderable | null
-  public readonly isSelecting?: boolean
+  public readonly isDragging?: boolean
   private _propagationStopped: boolean = false
   private _defaultPrevented: boolean = false
 
@@ -199,7 +199,7 @@ export class MouseEvent {
     return this._defaultPrevented
   }
 
-  constructor(target: Renderable | null, attributes: RawMouseEvent & { source?: Renderable; isSelecting?: boolean }) {
+  constructor(target: Renderable | null, attributes: RawMouseEvent & { source?: Renderable; isDragging?: boolean }) {
     this.target = target
     this.type = attributes.type
     this.button = attributes.button
@@ -208,7 +208,7 @@ export class MouseEvent {
     this.modifiers = attributes.modifiers
     this.scroll = attributes.scroll
     this.source = attributes.source
-    this.isSelecting = attributes.isSelecting
+    this.isDragging = attributes.isDragging
   }
 
   public stopPropagation(): void {
@@ -1109,7 +1109,7 @@ export class CliRenderer extends EventEmitter implements RenderContext {
   private dispatchMouseEvent(
     target: Renderable | undefined,
     rawEvent: RawMouseEvent,
-    overrides?: Partial<RawMouseEvent> & { source?: Renderable; isSelecting?: boolean },
+    overrides?: Partial<RawMouseEvent> & { source?: Renderable; isDragging?: boolean },
   ): MouseEvent | undefined {
     if (!target) return undefined
     const event = new MouseEvent(target, { ...rawEvent, ...overrides })
@@ -1156,7 +1156,7 @@ export class CliRenderer extends EventEmitter implements RenderContext {
     const sameElement = maybeRenderableId === this.lastOverRenderableNum
     this.lastOverRenderableNum = maybeRenderableId
 
-    const wasSelecting = this.currentSelection?.isSelecting ?? false
+    const wasSelecting = this.currentSelection?.isDragging ?? false
     const isLeftButton = mouseEvent.button === MouseButton.LEFT
 
     const shouldStartSel =
@@ -1223,7 +1223,7 @@ export class CliRenderer extends EventEmitter implements RenderContext {
       }
     } else {
       if (wasSelecting) {
-        primaryEvent = this.dispatchMouseEvent(maybeRenderable, mouseEvent, { isSelecting: true })
+        primaryEvent = this.dispatchMouseEvent(maybeRenderable, mouseEvent, { isDragging: true })
       } else if (shouldStartSel) {
         primaryEvent = this.dispatchMouseEvent(maybeRenderable, mouseEvent)
       } else if (isCtrlExtendSelection) {
@@ -1252,7 +1252,7 @@ export class CliRenderer extends EventEmitter implements RenderContext {
       }
 
       if (isCtrlExtendSelection && this.currentSelection) {
-        this.currentSelection.isSelecting = true
+        this.currentSelection.isDragging = true
         this.updateSelection(maybeRenderable, mouseEvent.x, mouseEvent.y)
       }
 
@@ -2034,10 +2034,19 @@ export class CliRenderer extends EventEmitter implements RenderContext {
     this.notifySelectablesOfSelectionChange()
   }
 
-  public updateSelection(currentRenderable: Renderable | undefined, x: number, y: number): void {
+  public updateSelection(
+    currentRenderable: Renderable | undefined,
+    x: number,
+    y: number,
+    options?: { finishDragging?: boolean },
+  ): void {
     if (this.currentSelection) {
       this.currentSelection.isStart = false
       this.currentSelection.focus = { x, y }
+
+      if (options?.finishDragging) {
+        this.currentSelection.isDragging = false
+      }
 
       if (this.selectionContainers.length > 0) {
         const currentContainer = this.selectionContainers[this.selectionContainers.length - 1]
@@ -2064,7 +2073,7 @@ export class CliRenderer extends EventEmitter implements RenderContext {
   }
 
   public requestSelectionUpdate(): void {
-    if (this.currentSelection?.isSelecting) {
+    if (this.currentSelection?.isDragging) {
       const pointer = this._latestPointer
 
       const maybeRenderableId = this.hitTest(pointer.x, pointer.y)
@@ -2085,7 +2094,7 @@ export class CliRenderer extends EventEmitter implements RenderContext {
 
   private finishSelection(): void {
     if (this.currentSelection) {
-      this.currentSelection.isSelecting = false
+      this.currentSelection.isDragging = false
       this.emit("selection", this.currentSelection)
       // Notify renderables that selection is finished (no longer dragging)
       this.notifySelectablesOfSelectionChange()
