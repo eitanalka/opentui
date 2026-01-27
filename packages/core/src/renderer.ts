@@ -1204,13 +1204,15 @@ export class CliRenderer extends EventEmitter implements RenderContext {
     if (this.capturedRenderable) {
       if (mouseEvent.type === "up") {
         this.dispatchMouseEvent(this.capturedRenderable, mouseEvent, { type: "drag-end" })
-        primaryEvent = this.dispatchMouseEvent(this.capturedRenderable, mouseEvent)
         if (maybeRenderable) {
           this.dispatchMouseEvent(maybeRenderable, mouseEvent, {
             type: "drop",
             source: this.capturedRenderable,
           })
         }
+        // Browser-like behavior: mouseup fires on element under cursor
+        const mouseUpTarget = maybeRenderable ?? this.capturedRenderable
+        primaryEvent = this.dispatchMouseEvent(mouseUpTarget, mouseEvent)
         this.lastOverRenderable = this.capturedRenderable
         this.lastOverRenderableNum = this.capturedRenderable.num
         this.setCapturedRenderable(undefined)

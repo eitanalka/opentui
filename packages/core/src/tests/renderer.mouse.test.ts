@@ -426,7 +426,7 @@ describe("renderer handleMouseData", () => {
     }
   })
 
-  test("ctrl+click with selection updates focus without mouse down", async () => {
+  test("ctrl+click with selection extends selection and fires mouse down", async () => {
     try {
       const target = new TestRenderable(renderer, {
         id: "selectable-ctrl-branch",
@@ -453,7 +453,8 @@ describe("renderer handleMouseData", () => {
       await mockMouse.pressDown(nextX, nextY, MouseButtons.LEFT, { modifiers: { ctrl: true } })
 
       expect(renderer.getSelection()?.isDragging).toBe(true)
-      expect(downCount).toBe(0)
+      // Browser-like behavior: mousedown always fires regardless of modifiers
+      expect(downCount).toBe(1)
 
       await mockMouse.release(nextX, nextY, MouseButtons.LEFT, { modifiers: { ctrl: true } })
     } finally {
@@ -589,12 +590,12 @@ describe("renderer handleMouseData", () => {
       source.onMouseDragEnd = () => {
         events.push("drag-end:source")
       }
-      source.onMouseUp = () => {
-        events.push("up:source")
-      }
       target.onMouseDrop = (event) => {
         events.push("drop:target")
         dropSource = event.source
+      }
+      target.onMouseUp = () => {
+        events.push("up:target")
       }
       target.onMouseOver = (event) => {
         overSource = event.source
@@ -606,7 +607,8 @@ describe("renderer handleMouseData", () => {
       await mockMouse.drag(source.x + 1, source.y + 1, target.x + 1, target.y + 1)
 
       expect(events).toContain("drag-end:source")
-      expect(events).toContain("up:source")
+      // Browser-like behavior: mouseup fires on element under cursor (target)
+      expect(events).toContain("up:target")
       expect(events).toContain("drop:target")
       expect(dropSource).toBe(source)
       expect(overSource).toBe(source)
