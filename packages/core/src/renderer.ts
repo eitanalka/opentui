@@ -388,6 +388,7 @@ export class CliRenderer extends EventEmitter implements RenderContext {
   private lastOverRenderableNum: number = 0
   private lastOverRenderable?: Renderable
   private mouseDownTarget: Renderable | undefined = undefined
+  private activeElements: Set<Renderable> = new Set()
 
   private currentSelection: Selection | null = null
   private selectionContainers: Renderable[] = []
@@ -656,6 +657,48 @@ export class CliRenderer extends EventEmitter implements RenderContext {
     }
 
     this._currentFocusedRenderable = renderable
+  }
+
+  /**
+   * Checks if a renderable is currently active (being pressed).
+   * Renderer owns active state - renderables query this via their active getter.
+   */
+  public isActive(renderable: Renderable): boolean {
+    return this.activeElements.has(renderable)
+  }
+
+  /**
+   * Sets active state on a renderable and its ancestors.
+   * Propagates up the parent chain like mousedown events do.
+   */
+  private setActive(renderable: Renderable | undefined): void {
+    if (!renderable) return
+
+    let current: Renderable | null = renderable
+    while (current) {
+      if (!this.activeElements.has(current)) {
+        this.activeElements.add(current)
+        current.onStateChange()
+      }
+      current = current.parent
+    }
+  }
+
+  /**
+   * Clears active state from all currently active elements.
+   * Called on any mouseup, regardless of where it occurs.
+   */
+  private clearAllActive(): void {
+    // Copy elements to array before clearing, so that onStateChange() sees them as inactive
+    const elementsToUpdate = Array.from(this.activeElements)
+    this.activeElements.clear()
+
+    // Now call onStateChange() after clearing the Set
+    for (const element of elementsToUpdate) {
+      if (!element.isDestroyed) {
+        element.onStateChange()
+      }
+    }
   }
 
   private setCapturedRenderable(renderable: Renderable | undefined): void {
@@ -1175,6 +1218,16 @@ export class CliRenderer extends EventEmitter implements RenderContext {
     // Track mousedown target for click detection
     if (mouseEvent.type === "down" && isLeftButton) {
       this.mouseDownTarget = maybeRenderable
+    }
+
+    // Manage active state (not preventable - matches Chrome/Safari behavior)
+    // Note: Firefox prevents :active with preventDefault(), but this is non-standard
+    if (mouseEvent.type === "down" && isLeftButton) {
+      this.clearAllActive()
+      this.setActive(maybeRenderable)
+    }
+    if (mouseEvent.type === "up") {
+      this.clearAllActive()
     }
 
     // ========================================

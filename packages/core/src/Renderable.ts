@@ -92,6 +92,8 @@ export interface StyleProps {
 export type Style<T extends StyleProps = StyleProps> = T & {
   hover?: T
   focus?: T
+  active?: T
+  disabled?: T
 }
 
 const BrandedRenderable: unique symbol = Symbol.for("@opentui/core/Renderable")
@@ -160,6 +162,7 @@ export interface RenderableOptions<T extends BaseRenderable = BaseRenderable> ex
   live?: boolean
   opacity?: number
   focusable?: boolean
+  disabled?: boolean
   style?: Style
 
   // hooks for custom render logic
@@ -280,6 +283,7 @@ export abstract class Renderable extends BaseRenderable {
   protected _focusable: boolean = false
   protected _focused: boolean = false
   protected _hovered: boolean = false
+  protected _disabled: boolean = false
   protected keypressHandler: ((key: KeyEvent) => void) | null = null
   protected pasteHandler: ((event: PasteEvent) => void) | null = null
 
@@ -346,6 +350,7 @@ export abstract class Renderable extends BaseRenderable {
     this._liveCount = this._live && this._visible ? 1 : 0
     this._opacity = options.opacity !== undefined ? Math.max(0, Math.min(1, options.opacity)) : 1.0
     this._focusable = options.focusable ?? false
+    this._disabled = options.disabled ?? false
 
     // TODO: use a global yoga config
     this.yogaNode = Yoga.Node.create(yogaConfig)
@@ -383,6 +388,26 @@ export abstract class Renderable extends BaseRenderable {
 
   public set focusable(value: boolean) {
     this._focusable = value
+  }
+
+  public get disabled(): boolean {
+    return this._disabled
+  }
+
+  public set disabled(value: boolean) {
+    if (this._disabled !== value) {
+      this._disabled = value
+      this.onStateChange()
+    }
+  }
+
+  /**
+   * Whether the element is currently active (being pressed).
+   * Read-only - controlled by mouse events only (browser-like behavior).
+   * Queries the renderer's active state tracking.
+   */
+  public get active(): boolean {
+    return this._ctx.isActive(this)
   }
 
   public get ctx(): RenderContext {
@@ -445,9 +470,9 @@ export abstract class Renderable extends BaseRenderable {
    * This ensures properties reset to defaults when states become inactive.
    */
   private computeBaseStyles(style: Style<StyleProps>): StyleProps {
-    const { hover, focus, ...base } = style
+    const { hover, focus, active, disabled, ...base } = style
     const baseStyles: StyleProps = {}
-    for (const state of [hover, focus]) {
+    for (const state of [hover, focus, active, disabled]) {
       if (state) {
         for (const key of Object.keys(state)) {
           ;(baseStyles as any)[key] = undefined
@@ -468,11 +493,14 @@ export abstract class Renderable extends BaseRenderable {
     this.requestRender()
   }
 
+  // TODO: Consider using EventEmitter pattern instead of public method.
+  // Could emit state change events that renderer listens to, avoiding need to make this public.
   /**
    * Called when any state (focus, hover, active, disabled) changes.
    * Recomputes merged styles and applies them.
+   * @internal - Called by renderer when managing active state
    */
-  protected onStateChange(): void {
+  public onStateChange(): void {
     if (this._isDestroyed) return
     if (this._style) {
       this.applyStateStyles()
@@ -498,6 +526,16 @@ export abstract class Renderable extends BaseRenderable {
     // Apply focus styles if focused (higher priority than hover)
     if (this._focused && this._style.focus) {
       Object.assign(merged, this._style.focus)
+    }
+
+    // Apply active styles if active (higher priority than focus)
+    if (this.active && this._style.active) {
+      Object.assign(merged, this._style.active)
+    }
+
+    // Apply disabled styles if disabled (highest priority)
+    if (this._disabled && this._style.disabled) {
+      Object.assign(merged, this._style.disabled)
     }
 
     this.applyMergedStyles(merged)
@@ -1627,6 +1665,9 @@ export abstract class Renderable extends BaseRenderable {
         this.onStateChange()
       }
     }
+
+    // Active state is managed by renderer centrally (browser-like behavior)
+    // The renderer handles mousedown/mouseup to set/clear active state
   }
 
   public set onMouse(handler: ((event: MouseEvent) => void) | undefined) {

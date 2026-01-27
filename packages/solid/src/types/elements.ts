@@ -44,6 +44,7 @@ export type NonStyledProps =
   | "selectable"
   | "renderAfter"
   | "renderBefore"
+  | "disabled"
   | `on${string}`
 
 /** Solid-specific props for all components */

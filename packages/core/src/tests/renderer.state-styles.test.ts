@@ -1,5 +1,5 @@
 import { test, expect, beforeEach, afterEach, describe } from "bun:test"
-import { createTestRenderer, type TestRenderer } from "../testing/test-renderer"
+import { createTestRenderer, type TestRenderer, type MockMouse } from "../testing/test-renderer"
 import { BoxRenderable } from "../renderables/Box"
 import { TextRenderable } from "../renderables/Text"
 import { SelectRenderable } from "../renderables/Select"
@@ -10,9 +10,10 @@ import { MouseEvent } from "../renderer"
 
 let renderer: TestRenderer
 let renderOnce: () => Promise<void>
+let mockMouse: MockMouse
 
 beforeEach(async () => {
-  ; ({ renderer, renderOnce } = await createTestRenderer({}))
+  ; ({ renderer, renderOnce, mockMouse } = await createTestRenderer({ width: 50, height: 30 }))
 })
 
 afterEach(() => {
@@ -751,5 +752,573 @@ describe("State-based styles - Hover", () => {
 
     // Should still have hover backgroundColor because preventDefault was called
     expect(box.backgroundColor).toEqual(parseColor("blue"))
+  })
+})
+
+describe("State-based styles - Active", () => {
+  test("active changes backgroundColor on mousedown", async () => {
+    const box = new BoxRenderable(renderer, {
+      id: "test-box",
+      width: 10,
+      height: 5,
+      position: "absolute",
+      left: 0,
+      top: 0,
+      style: {
+        backgroundColor: "red",
+        active: {
+          backgroundColor: "cyan",
+        },
+      },
+    })
+
+    renderer.root.add(box)
+    await renderOnce()
+
+    // Initial state
+    expect(box.backgroundColor).toEqual(parseColor("red"))
+
+    // Simulate mousedown
+    await mockMouse.pressDown(5, 2)
+    await renderOnce()
+
+    // After mousedown: should have active backgroundColor
+    expect(box.backgroundColor).toEqual(parseColor("cyan"))
+  })
+
+  test("mouseup returns styles to base/hover values", async () => {
+    const box = new BoxRenderable(renderer, {
+      id: "test-box",
+      width: 10,
+      height: 5,
+      position: "absolute",
+      left: 0,
+      top: 0,
+      style: {
+        backgroundColor: "red",
+        active: {
+          backgroundColor: "cyan",
+        },
+      },
+    })
+
+    renderer.root.add(box)
+    await renderOnce()
+
+    // Mousedown
+    await mockMouse.pressDown(5, 2)
+    await renderOnce()
+
+    expect(box.backgroundColor).toEqual(parseColor("cyan"))
+
+    // Mouseup
+    await mockMouse.release(5, 2)
+    await renderOnce()
+
+    // Should return to base
+    expect(box.backgroundColor).toEqual(parseColor("red"))
+  })
+
+  test("active takes precedence over focus and hover", async () => {
+    const box = new BoxRenderable(renderer, {
+      id: "test-box",
+      width: 10,
+      height: 5,
+      position: "absolute",
+      left: 0,
+      top: 0,
+      focusable: true,
+      style: {
+        backgroundColor: "red",
+        hover: { backgroundColor: "blue" },
+        focus: { backgroundColor: "green" },
+        active: { backgroundColor: "cyan" },
+      },
+    })
+
+    renderer.root.add(box)
+    await renderOnce()
+
+    // Hover first
+    await mockMouse.moveTo(5, 2)
+    await renderOnce()
+    expect(box.backgroundColor).toEqual(parseColor("blue"))
+
+    // Then focus
+    box.focus()
+    await renderOnce()
+    expect(box.backgroundColor).toEqual(parseColor("green"))
+
+    // Then active - should override both hover and focus
+    await mockMouse.pressDown(5, 2)
+    await renderOnce()
+    expect(box.backgroundColor).toEqual(parseColor("cyan"))
+
+    // Mouseup - should return to focus (still focused and hovered)
+    await mockMouse.release(5, 2)
+    await renderOnce()
+    expect(box.backgroundColor).toEqual(parseColor("green"))
+  })
+
+  test("mouseup after drag clears active state", async () => {
+    const box = new BoxRenderable(renderer, {
+      id: "test-box",
+      width: 10,
+      height: 5,
+      position: "absolute",
+      left: 0,
+      top: 0,
+      style: {
+        backgroundColor: "red",
+        active: {
+          backgroundColor: "cyan",
+        },
+      },
+    })
+
+    renderer.root.add(box)
+    await renderOnce()
+
+    // Mousedown
+    await mockMouse.pressDown(5, 2)
+    await renderOnce()
+
+    expect(box.backgroundColor).toEqual(parseColor("cyan"))
+
+    // Drag to a different position (still active during drag)
+    await mockMouse.moveTo(8, 3)
+    await renderOnce()
+    expect(box.backgroundColor).toEqual(parseColor("cyan"))
+
+    // Mouseup after drag - should clear active (and trigger drag-end)
+    await mockMouse.release(8, 3)
+    await renderOnce()
+
+    // Should return to base
+    expect(box.backgroundColor).toEqual(parseColor("red"))
+  })
+
+  test("preventDefault on mousedown does NOT prevent active state (Chrome/Safari behavior)", async () => {
+    const box = new BoxRenderable(renderer, {
+      id: "test-box",
+      width: 10,
+      height: 5,
+      position: "absolute",
+      left: 0,
+      top: 0,
+      style: {
+        backgroundColor: "red",
+        active: {
+          backgroundColor: "cyan",
+        },
+      },
+      onMouseDown: (event) => {
+        event.preventDefault()
+      },
+    })
+
+    renderer.root.add(box)
+    await renderOnce()
+
+    // Mousedown with preventDefault still applies active state (matches Chrome/Safari)
+    // Note: Firefox blocks :active with preventDefault, but this is non-standard
+    await mockMouse.pressDown(5, 2)
+    await renderOnce()
+
+    // Active style should be applied even though preventDefault was called
+    expect(box.backgroundColor).toEqual(parseColor("cyan"))
+  })
+
+  test("blur clears active state", async () => {
+    const box = new BoxRenderable(renderer, {
+      id: "test-box",
+      width: 10,
+      height: 5,
+      position: "absolute",
+      left: 0,
+      top: 0,
+      focusable: true,
+      style: {
+        backgroundColor: "red",
+        focus: { backgroundColor: "green" },
+        active: { backgroundColor: "cyan" },
+      },
+    })
+
+    renderer.root.add(box)
+    await renderOnce()
+
+    // Focus and activate
+    box.focus()
+    await mockMouse.pressDown(5, 2)
+    await renderOnce()
+
+    expect(box.backgroundColor).toEqual(parseColor("cyan"))
+
+    // Blur should clear focus, but active stays (until mouseup)
+    // This matches browser behavior - :active is independent of :focus
+    box.blur()
+    await renderOnce()
+
+    // Should still be active (not focused anymore)
+    expect(box.backgroundColor).toEqual(parseColor("cyan"))
+
+    // Mouseup clears active
+    await mockMouse.release(5, 2)
+    await renderOnce()
+    expect(box.backgroundColor).toEqual(parseColor("red"))
+  })
+
+  test("mouseup on child clears active state on parent via propagation", async () => {
+    const box = new BoxRenderable(renderer, {
+      id: "test-box",
+      width: 20,
+      height: 10,
+      position: "absolute",
+      left: 0,
+      top: 0,
+      style: {
+        backgroundColor: "red",
+        active: { backgroundColor: "cyan" },
+      },
+    })
+
+    const text = new TextRenderable(renderer, {
+      id: "test-text",
+      content: "Click me",
+      width: 10,
+      height: 5,
+      style: {
+        color: "white",
+        active: { color: "yellow" },
+      },
+    })
+
+    renderer.root.add(box)
+    box.add(text)
+    await renderOnce()
+
+    // Mousedown on text - propagates to box, both become active
+    await mockMouse.pressDown(2, 2)
+    await renderOnce()
+
+    expect(text.color).toEqual(parseColor("yellow"))
+    expect(box.backgroundColor).toEqual(parseColor("cyan"))
+
+    // Mouseup on text - clears all active (browser-like behavior)
+    await mockMouse.release(2, 2)
+    await renderOnce()
+
+    expect(text.color).toEqual(parseColor("white"))
+    expect(box.backgroundColor).toEqual(parseColor("red"))
+  })
+})
+
+describe("State-based styles - Disabled", () => {
+  test("disabled changes styles when set to true", async () => {
+    const box = new BoxRenderable(renderer, {
+      id: "test-box",
+      width: 10,
+      height: 5,
+      style: {
+        backgroundColor: "red",
+        disabled: {
+          backgroundColor: "gray",
+        },
+      },
+    })
+
+    renderer.root.add(box)
+    await renderOnce()
+
+    // Initial state
+    expect(box.backgroundColor).toEqual(parseColor("red"))
+
+    // Set disabled
+    box.disabled = true
+    await renderOnce()
+
+    // After disabled: should have disabled backgroundColor
+    expect(box.backgroundColor).toEqual(parseColor("gray"))
+  })
+
+  test("disabled takes precedence over all other states", async () => {
+    const box = new BoxRenderable(renderer, {
+      id: "test-box",
+      width: 10,
+      height: 5,
+      position: "absolute",
+      left: 0,
+      top: 0,
+      focusable: true,
+      style: {
+        backgroundColor: "red",
+        hover: { backgroundColor: "blue" },
+        focus: { backgroundColor: "green" },
+        active: { backgroundColor: "cyan" },
+        disabled: { backgroundColor: "gray" },
+      },
+    })
+
+    renderer.root.add(box)
+    await renderOnce()
+
+    // Set up all states: hovered, focused, active
+    await mockMouse.moveTo(5, 2)
+    box.focus()
+    await mockMouse.pressDown(5, 2)
+    await renderOnce()
+
+    // Active should be shown (highest of the enabled states)
+    expect(box.backgroundColor).toEqual(parseColor("cyan"))
+
+    // Now set disabled - should override everything
+    box.disabled = true
+    await renderOnce()
+
+    expect(box.backgroundColor).toEqual(parseColor("gray"))
+  })
+
+  test("setting disabled=false returns to appropriate state", async () => {
+    const box = new BoxRenderable(renderer, {
+      id: "test-box",
+      width: 10,
+      height: 5,
+      focusable: true,
+      style: {
+        backgroundColor: "red",
+        focus: { backgroundColor: "green" },
+        disabled: { backgroundColor: "gray" },
+      },
+    })
+
+    renderer.root.add(box)
+    await renderOnce()
+
+    // Focus and disable
+    box.focus()
+    box.disabled = true
+    await renderOnce()
+
+    expect(box.backgroundColor).toEqual(parseColor("gray"))
+
+    // Re-enable
+    box.disabled = false
+    await renderOnce()
+
+    // Should return to focus style (still focused)
+    expect(box.backgroundColor).toEqual(parseColor("green"))
+  })
+
+  test("disabled can be set via options", async () => {
+    const box = new BoxRenderable(renderer, {
+      id: "test-box",
+      width: 10,
+      height: 5,
+      disabled: true,
+      style: {
+        backgroundColor: "red",
+        disabled: {
+          backgroundColor: "gray",
+        },
+      },
+    })
+
+    renderer.root.add(box)
+    await renderOnce()
+
+    // Should start with disabled style
+    expect(box.backgroundColor).toEqual(parseColor("gray"))
+  })
+
+  test("disabled works on TextRenderable", async () => {
+    const text = new TextRenderable(renderer, {
+      id: "test-text",
+      content: "Hello",
+      style: {
+        color: "white",
+        disabled: {
+          color: "gray",
+        },
+      },
+    })
+
+    renderer.root.add(text)
+    await renderOnce()
+
+    // Initial state
+    expect(text.color).toEqual(parseColor("white"))
+
+    // Disable
+    text.disabled = true
+    await renderOnce()
+
+    expect(text.color).toEqual(parseColor("gray"))
+
+    // Re-enable
+    text.disabled = false
+    await renderOnce()
+
+    expect(text.color).toEqual(parseColor("white"))
+  })
+})
+
+describe("State-based styles - Active edge cases", () => {
+  test("clicking on child then releasing outside parent clears both active states", async () => {
+    const box = new BoxRenderable(renderer, {
+      id: "test-box",
+      width: 20,
+      height: 10,
+      position: "absolute",
+      left: 0,
+      top: 0,
+      style: {
+        backgroundColor: "red",
+        active: { backgroundColor: "cyan" },
+      },
+    })
+
+    const text = new TextRenderable(renderer, {
+      id: "test-text",
+      content: "Click me",
+      width: 10,
+      height: 5,
+      style: {
+        color: "white",
+        active: { color: "yellow" },
+      },
+    })
+
+    const otherBox = new BoxRenderable(renderer, {
+      id: "other-box",
+      width: 10,
+      height: 10,
+      position: "absolute",
+      left: 25,
+      top: 0,
+    })
+
+    renderer.root.add(box)
+    box.add(text)
+    renderer.root.add(otherBox)
+    await renderOnce()
+
+    // Mousedown on text - propagates to box, both become active
+    await mockMouse.pressDown(2, 2)
+    await renderOnce()
+
+    expect(text.color).toEqual(parseColor("yellow"))
+    expect(box.backgroundColor).toEqual(parseColor("cyan"))
+
+    // Mouseup outside both (on otherBox) - should clear active from text and box
+    await mockMouse.release(26, 1)
+    await renderOnce()
+
+    expect(text.color).toEqual(parseColor("white"))
+    expect(box.backgroundColor).toEqual(parseColor("red"))
+  })
+
+  test("clicking elsewhere clears active state from previously clicked element", async () => {
+    const box1 = new BoxRenderable(renderer, {
+      id: "box1",
+      width: 10,
+      height: 10,
+      position: "absolute",
+      left: 0,
+      top: 0,
+      style: {
+        backgroundColor: "red",
+        active: { backgroundColor: "cyan" },
+      },
+    })
+
+    const box2 = new BoxRenderable(renderer, {
+      id: "box2",
+      width: 10,
+      height: 10,
+      position: "absolute",
+      left: 15,
+      top: 0,
+      style: {
+        backgroundColor: "blue",
+        active: { backgroundColor: "pink" },
+      },
+    })
+
+    renderer.root.add(box1)
+    renderer.root.add(box2)
+    await renderOnce()
+
+    // Click box1 (down then up)
+    await mockMouse.pressDown(1, 1)
+    await renderOnce()
+    expect(box1.backgroundColor).toEqual(parseColor("cyan"))
+
+    await mockMouse.release(1, 1)
+    await renderOnce()
+    expect(box1.backgroundColor).toEqual(parseColor("red"))
+
+    // Click box2 - box1 should stay inactive
+    await mockMouse.pressDown(16, 1)
+    await renderOnce()
+    expect(box2.backgroundColor).toEqual(parseColor("pink"))
+    expect(box1.backgroundColor).toEqual(parseColor("red")) // Should not become active again
+
+    await mockMouse.release(16, 1)
+    await renderOnce()
+    expect(box2.backgroundColor).toEqual(parseColor("blue"))
+    expect(box1.backgroundColor).toEqual(parseColor("red"))
+  })
+
+  test("new click clears active from element that never received mouseup", async () => {
+    const box1 = new BoxRenderable(renderer, {
+      id: "box1",
+      width: 10,
+      height: 10,
+      position: "absolute",
+      left: 0,
+      top: 0,
+      style: {
+        backgroundColor: "red",
+        active: { backgroundColor: "cyan" },
+      },
+    })
+
+    const box2 = new BoxRenderable(renderer, {
+      id: "box2",
+      width: 10,
+      height: 10,
+      position: "absolute",
+      left: 15,
+      top: 0,
+      style: {
+        backgroundColor: "blue",
+        active: { backgroundColor: "pink" },
+      },
+    })
+
+    renderer.root.add(box1)
+    renderer.root.add(box2)
+    await renderOnce()
+
+    // Mousedown on box1 but release outside both boxes
+    await mockMouse.pressDown(1, 1)
+    await renderOnce()
+    expect(box1.backgroundColor).toEqual(parseColor("cyan"))
+
+    await mockMouse.release(30, 1) // Outside both boxes
+    await renderOnce()
+    // With proper renderer-managed active state, ANY mouseup clears all active elements (browser behavior)
+    expect(box1.backgroundColor).toEqual(parseColor("red"))
+
+    // Now click box2 - box1 should stay inactive
+    await mockMouse.pressDown(16, 1)
+    await renderOnce()
+    expect(box2.backgroundColor).toEqual(parseColor("pink"))
+    expect(box1.backgroundColor).toEqual(parseColor("red")) // Should clear previous active
+
+    await mockMouse.release(16, 1)
+    await renderOnce()
+    expect(box2.backgroundColor).toEqual(parseColor("blue"))
   })
 })
