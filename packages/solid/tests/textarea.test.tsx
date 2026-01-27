@@ -112,7 +112,7 @@ describe("Textarea Layout Tests", () => {
             <box flexDirection="row">
               {/* Indicator box */}
               <box width={3} justifyContent="center" alignItems="center" backgroundColor="#2d2d2d">
-                <text attributes={TextAttributes.BOLD} fg="#00ff00">
+                <text attributes={TextAttributes.BOLD} color="#00ff00">
                   {">"}
                 </text>
               </box>
@@ -135,9 +135,9 @@ describe("Textarea Layout Tests", () => {
             {/* Footer */}
             <box flexDirection="row" justifyContent="space-between">
               <text wrapMode="none">
-                <span style={{ fg: "#888888" }}>provider</span> <span style={{ bold: true }}>model-name</span>
+                <span style={{ color: "#888888" }}>provider</span> <span style={{ bold: true }}>model-name</span>
               </text>
-              <text fg="#888888">ctrl+p commands</text>
+              <text color="#888888">ctrl+p commands</text>
             </box>
           </box>
         ),
@@ -158,7 +158,7 @@ describe("Textarea Layout Tests", () => {
           <box border borderColor="#444444" width="100%">
             <box flexDirection="row" width="100%">
               <box width={3} justifyContent="center" alignItems="center" backgroundColor="#2d2d2d">
-                <text attributes={TextAttributes.BOLD} fg="#00ff00">
+                <text attributes={TextAttributes.BOLD} color="#00ff00">
                   {">"}
                 </text>
               </box>
@@ -178,7 +178,7 @@ describe("Textarea Layout Tests", () => {
 
             <box flexDirection="row">
               <text wrapMode="none">
-                <span style={{ fg: "#888888" }}>openai</span> <span style={{ bold: true }}>gpt-4</span>
+                <span style={{ color: "#888888" }}>openai</span> <span style={{ bold: true }}>gpt-4</span>
               </text>
             </box>
           </box>
@@ -200,7 +200,7 @@ describe("Textarea Layout Tests", () => {
           <box border borderColor="#ff9900">
             <box flexDirection="row">
               <box width={3} justifyContent="center" alignItems="center" backgroundColor="#2d2d2d">
-                <text attributes={TextAttributes.BOLD} fg="#ff9900">
+                <text attributes={TextAttributes.BOLD} color="#ff9900">
                   {"!"}
                 </text>
               </box>
@@ -219,7 +219,7 @@ describe("Textarea Layout Tests", () => {
             </box>
 
             <box flexDirection="row">
-              <text fg="#888888">shell mode</text>
+              <text color="#888888">shell mode</text>
             </box>
           </box>
         ),
@@ -244,7 +244,7 @@ describe("Textarea Layout Tests", () => {
             <box border borderColor="#00ff00" marginBottom={1}>
               <box flexDirection="row">
                 <box width={5} backgroundColor="#2d2d2d">
-                  <text fg="#00ff00">User</text>
+                  <text color="#00ff00">User</text>
                 </box>
                 <box paddingLeft={1} backgroundColor="#1e1e1e" flexGrow={1}>
                   <textarea
@@ -261,7 +261,7 @@ describe("Textarea Layout Tests", () => {
             <box border borderColor="#0088ff">
               <box flexDirection="row">
                 <box width={5} backgroundColor="#2d2d2d">
-                  <text fg="#0088ff">AI</text>
+                  <text color="#0088ff">AI</text>
                 </box>
                 <box paddingLeft={1} backgroundColor="#1e1e1e" flexGrow={1}>
                   <textarea
@@ -293,7 +293,7 @@ describe("Textarea Layout Tests", () => {
             <box flexDirection="row" gap={1}>
               {/* Left panel */}
               <box width={20} border borderColor="#00ff00">
-                <text fg="#00ff00">Input 1:</text>
+                <text color="#00ff00">Input 1:</text>
                 <textarea
                   initialValue="Left panel content"
                   wrapMode="word"
@@ -305,7 +305,7 @@ describe("Textarea Layout Tests", () => {
 
               {/* Right panel */}
               <box flexGrow={1} border borderColor="#0088ff">
-                <text fg="#0088ff">Input 2:</text>
+                <text color="#0088ff">Input 2:</text>
                 <textarea
                   initialValue="Right panel with longer content that may wrap"
                   wrapMode="word"
@@ -318,7 +318,7 @@ describe("Textarea Layout Tests", () => {
 
             {/* Bottom panel */}
             <box border borderColor="#ff9900" marginTop={1}>
-              <text fg="#ff9900">Bottom input:</text>
+              <text color="#ff9900">Bottom input:</text>
               <textarea
                 initialValue="Bottom panel spanning full width"
                 wrapMode="word"
@@ -349,14 +349,14 @@ describe("Textarea Layout Tests", () => {
             <box flexDirection="row">
               {/* Indicator box */}
               <box width={3} justifyContent="center" alignItems="center" backgroundColor="#2d2d2d">
-                <text attributes={TextAttributes.BOLD} fg="#00ff00">
+                <text attributes={TextAttributes.BOLD} color="#00ff00">
                   {">"}
                 </text>
               </box>
 
               {/* Text container */}
               <box paddingTop={1} paddingBottom={1} backgroundColor="#1e1e1e" flexGrow={1}>
-                <text wrapMode="none" bg="#1e1e1e" fg="#ffffff">
+                <text wrapMode="none" backgroundColor="#1e1e1e" color="#ffffff">
                   Hello from the prompt
                 </text>
               </box>
@@ -368,9 +368,9 @@ describe("Textarea Layout Tests", () => {
             {/* Footer */}
             <box flexDirection="row" justifyContent="space-between">
               <text wrapMode="none">
-                <span style={{ fg: "#888888" }}>provider</span> <span style={{ bold: true }}>model-name</span>
+                <span style={{ color: "#888888" }}>provider</span> <span style={{ bold: true }}>model-name</span>
               </text>
-              <text fg="#888888">ctrl+p commands</text>
+              <text color="#888888">ctrl+p commands</text>
             </box>
           </box>
         ),
@@ -391,13 +391,13 @@ describe("Textarea Layout Tests", () => {
           <box border borderColor="#444444" width="100%">
             <box flexDirection="row" width="100%">
               <box width={3} justifyContent="center" alignItems="center" backgroundColor="#2d2d2d">
-                <text attributes={TextAttributes.BOLD} fg="#00ff00">
+                <text attributes={TextAttributes.BOLD} color="#00ff00">
                   {">"}
                 </text>
               </box>
 
               <box paddingTop={1} paddingBottom={1} backgroundColor="#1e1e1e" flexGrow={1}>
-                <text wrapMode="word" bg="#1e1e1e" fg="#ffffff">
+                <text wrapMode="word" backgroundColor="#1e1e1e" color="#ffffff">
                   This is a very long prompt that will wrap across multiple lines in the text component. It should
                   maintain proper layout with the indicator on the left.
                 </text>
@@ -408,7 +408,7 @@ describe("Textarea Layout Tests", () => {
 
             <box flexDirection="row">
               <text wrapMode="none">
-                <span style={{ fg: "#888888" }}>openai</span> <span style={{ bold: true }}>gpt-4</span>
+                <span style={{ color: "#888888" }}>openai</span> <span style={{ bold: true }}>gpt-4</span>
               </text>
             </box>
           </box>
@@ -432,10 +432,10 @@ describe("Textarea Layout Tests", () => {
           <box border width="100%">
             <box flexDirection="row" width="100%">
               <box width={3} backgroundColor="#2d2d2d" justifyContent="center" alignItems="center">
-                <text fg="#00ff00">{">"}</text>
+                <text color="#00ff00">{">"}</text>
               </box>
               <box paddingTop={1} paddingBottom={1} backgroundColor="#1e1e1e" flexGrow={1}>
-                <text wrapMode="word" bg="#1e1e1e" fg="#ffffff">
+                <text wrapMode="word" backgroundColor="#1e1e1e" color="#ffffff">
                   {value()}
                 </text>
               </box>
@@ -466,13 +466,13 @@ describe("Textarea Layout Tests", () => {
           <box border borderColor="#ff9900">
             <box flexDirection="row">
               <box width={3} justifyContent="center" alignItems="center" backgroundColor="#2d2d2d">
-                <text attributes={TextAttributes.BOLD} fg="#ff9900">
+                <text attributes={TextAttributes.BOLD} color="#ff9900">
                   {"!"}
                 </text>
               </box>
 
               <box paddingTop={1} paddingBottom={1} backgroundColor="#1e1e1e" flexGrow={1}>
-                <text wrapMode="none" bg="#1e1e1e" fg="#ffffff">
+                <text wrapMode="none" backgroundColor="#1e1e1e" color="#ffffff">
                   ls -la
                 </text>
               </box>
@@ -481,7 +481,7 @@ describe("Textarea Layout Tests", () => {
             </box>
 
             <box flexDirection="row">
-              <text fg="#888888">shell mode</text>
+              <text color="#888888">shell mode</text>
             </box>
           </box>
         ),
@@ -505,14 +505,14 @@ describe("Textarea Layout Tests", () => {
               <box flexDirection="row">
                 {/* Indicator */}
                 <box width={3} justifyContent="center" alignItems="center" backgroundColor="#2d2d2d">
-                  <text attributes={TextAttributes.BOLD} fg="#00ff00">
+                  <text attributes={TextAttributes.BOLD} color="#00ff00">
                     {">"}
                   </text>
                 </box>
 
                 {/* Input area */}
                 <box paddingTop={1} paddingBottom={1} backgroundColor="#1e1e1e" flexGrow={1}>
-                  <text wrapMode="word" bg="#1e1e1e" fg="#ffffff">
+                  <text wrapMode="word" backgroundColor="#1e1e1e" color="#ffffff">
                     Explain how async/await works in JavaScript and provide some examples
                   </text>
                 </box>
@@ -524,17 +524,17 @@ describe("Textarea Layout Tests", () => {
               {/* Status bar */}
               <box flexDirection="row" justifyContent="space-between">
                 <text flexShrink={0} wrapMode="none">
-                  <span style={{ fg: "#888888" }}>openai</span> <span style={{ bold: true }}>gpt-4-turbo</span>
+                  <span style={{ color: "#888888" }}>openai</span> <span style={{ bold: true }}>gpt-4-turbo</span>
                 </text>
                 <text>
-                  ctrl+p <span style={{ fg: "#888888" }}>commands</span>
+                  ctrl+p <span style={{ color: "#888888" }}>commands</span>
                 </text>
               </box>
             </box>
 
             {/* Helper text below */}
             <box marginTop={1}>
-              <text fg="#666666" wrapMode="word">
+              <text color="#666666" wrapMode="word">
                 Tip: Use arrow keys to navigate through history when cursor is at the start
               </text>
             </box>
@@ -560,7 +560,7 @@ describe("Textarea Layout Tests", () => {
                 <text>{">"}</text>
               </box>
               <box backgroundColor="#1e1e1e" flexGrow={1} paddingTop={1} paddingBottom={1}>
-                <text wrapMode="char" bg="#1e1e1e" fg="#ffffff">
+                <text wrapMode="char" backgroundColor="#1e1e1e" color="#ffffff">
                   ThisIsAVeryLongLineWithNoSpacesThatWillWrapByCharacterWhenCharWrappingIsEnabled
                 </text>
               </box>
@@ -584,13 +584,13 @@ describe("Textarea Layout Tests", () => {
           <box border borderColor="#444444" width="100%">
             <box flexDirection="row" width="100%">
               <box width={3} justifyContent="center" alignItems="center" backgroundColor="#2d2d2d">
-                <text attributes={TextAttributes.BOLD} fg="#00ff00">
+                <text attributes={TextAttributes.BOLD} color="#00ff00">
                   {">"}
                 </text>
               </box>
 
               <box paddingTop={1} paddingBottom={1} backgroundColor="#1e1e1e" flexGrow={1}>
-                <text wrapMode="word" bg="#1e1e1e" fg="#ffffff">
+                <text wrapMode="word" backgroundColor="#1e1e1e" color="#ffffff">
                   Line 1: First line of text
                   <br />
                   Line 2: Second line of text
@@ -604,7 +604,7 @@ describe("Textarea Layout Tests", () => {
 
             <box flexDirection="row">
               <text wrapMode="none">
-                <span style={{ fg: "#888888" }}>multiline</span> <span style={{ bold: true }}>example</span>
+                <span style={{ color: "#888888" }}>multiline</span> <span style={{ bold: true }}>example</span>
               </text>
             </box>
           </box>
@@ -721,7 +721,7 @@ describe("Textarea Layout Tests", () => {
           <box border borderColor="#444444">
             <box flexDirection="row">
               <box width={3} justifyContent="center" alignItems="center" backgroundColor="#2d2d2d">
-                <text attributes={TextAttributes.BOLD} fg="#00ff00">
+                <text attributes={TextAttributes.BOLD} color="#00ff00">
                   {">"}
                 </text>
               </box>
@@ -741,7 +741,7 @@ describe("Textarea Layout Tests", () => {
             </box>
 
             <box flexDirection="row">
-              <text fg="#888888">Ready to chat</text>
+              <text color="#888888">Ready to chat</text>
             </box>
           </box>
         ),
@@ -796,7 +796,7 @@ describe("Textarea Layout Tests", () => {
               <box flexDirection="row">
                 {/* Indicator */}
                 <box width={3} justifyContent="center" alignItems="center" backgroundColor="#2d2d2d">
-                  <text attributes={TextAttributes.BOLD} fg="#00ff00">
+                  <text attributes={TextAttributes.BOLD} color="#00ff00">
                     {">"}
                   </text>
                 </box>
@@ -820,17 +820,17 @@ describe("Textarea Layout Tests", () => {
               {/* Status bar */}
               <box flexDirection="row" justifyContent="space-between">
                 <text flexShrink={0} wrapMode="none">
-                  <span style={{ fg: "#888888" }}>openai</span> <span style={{ bold: true }}>gpt-4-turbo</span>
+                  <span style={{ color: "#888888" }}>openai</span> <span style={{ bold: true }}>gpt-4-turbo</span>
                 </text>
                 <text>
-                  ctrl+p <span style={{ fg: "#888888" }}>commands</span>
+                  ctrl+p <span style={{ color: "#888888" }}>commands</span>
                 </text>
               </box>
             </box>
 
             {/* Helper text below */}
             <box marginTop={1}>
-              <text fg="#666666" wrapMode="word">
+              <text color="#666666" wrapMode="word">
                 Tip: Use arrow keys to navigate through history when cursor is at the start
               </text>
             </box>
@@ -855,7 +855,7 @@ describe("Textarea Layout Tests", () => {
       testSetup = await testRender(
         () => (
           <box border width={40}>
-            <text wrapMode="word" bg="#1e1e1e" fg="#ffffff">
+            <text wrapMode="word" backgroundColor="#1e1e1e" color="#ffffff">
               {value()}
             </text>
           </box>
@@ -882,7 +882,7 @@ describe("Textarea Layout Tests", () => {
       testSetup = await testRender(
         () => (
           <box border width={30}>
-            <text wrapMode="char" bg="#1e1e1e" fg="#ffffff">
+            <text wrapMode="char" backgroundColor="#1e1e1e" color="#ffffff">
               {value()}
             </text>
           </box>
@@ -906,7 +906,7 @@ describe("Textarea Layout Tests", () => {
       testSetup = await testRender(
         () => (
           <box border width={width()}>
-            <text wrapMode="word" bg="#1e1e1e" fg="#ffffff">
+            <text wrapMode="word" backgroundColor="#1e1e1e" color="#ffffff">
               Content that will wrap differently at different widths
             </text>
           </box>
@@ -936,7 +936,7 @@ describe("Textarea Layout Tests", () => {
       testSetup = await testRender(
         () => (
           <box border width={40}>
-            <text wrapMode="word" bg="#1e1e1e" fg="#ffffff">
+            <text wrapMode="word" backgroundColor="#1e1e1e" color="#ffffff">
               {value() || " "}
             </text>
           </box>
@@ -964,7 +964,7 @@ describe("Textarea Layout Tests", () => {
       testSetup = await testRender(
         () => (
           <box border width={30}>
-            <text wrapMode="word" bg="#1e1e1e" fg="#ffffff">
+            <text wrapMode="word" backgroundColor="#1e1e1e" color="#ffffff">
               Hello 世界
               <br />
               こんにちは

@@ -23,6 +23,7 @@ import type {
   TabSelectRenderableOptions,
   TextareaOptions,
   TextareaRenderable,
+  TextNodeOptions,
   TextNodeRenderable,
   TextOptions,
   TextRenderable,
@@ -108,7 +109,7 @@ export type TextProps = ComponentProps<TextOptions, TextRenderable> & {
   children?: TextChildren | Array<TextChildren>
 }
 
-export type SpanProps = ComponentProps<{}, TextNodeRenderable> & {
+export type SpanProps = ComponentProps<TextNodeOptions, TextNodeRenderable> & {
   children?: TextChildren | Array<TextChildren>
 }
 

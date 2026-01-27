@@ -26,15 +26,15 @@ const evens = results.filter(n => n % 2 === 0)
 console.log('Even numbers:', evens)`
 
   const syntaxStyle = SyntaxStyle.fromStyles({
-    keyword: { fg: RGBA.fromHex("#C792EA") },
-    function: { fg: RGBA.fromHex("#82AAFF") },
-    string: { fg: RGBA.fromHex("#C3E88D") },
-    number: { fg: RGBA.fromHex("#F78C6C") },
-    comment: { fg: RGBA.fromHex("#546E7A") },
-    type: { fg: RGBA.fromHex("#FFCB6B") },
-    operator: { fg: RGBA.fromHex("#89DDFF") },
-    variable: { fg: RGBA.fromHex("#EEFFFF") },
-    default: { fg: RGBA.fromHex("#A6ACCD") },
+    keyword: { color: RGBA.fromHex("#C792EA") },
+    function: { color: RGBA.fromHex("#82AAFF") },
+    string: { color: RGBA.fromHex("#C3E88D") },
+    number: { color: RGBA.fromHex("#F78C6C") },
+    comment: { color: RGBA.fromHex("#546E7A") },
+    type: { color: RGBA.fromHex("#FFCB6B") },
+    operator: { color: RGBA.fromHex("#89DDFF") },
+    variable: { color: RGBA.fromHex("#EEFFFF") },
+    default: { color: RGBA.fromHex("#A6ACCD") },
   })
 
   let lineNumberRef: any
@@ -121,13 +121,13 @@ console.log('Even numbers:', evens)`
   return (
     <box flexDirection="column" width="100%" height="100%" gap={1}>
       <box flexDirection="column" backgroundColor="#0D1117" padding={1} border borderColor="#30363D" flexShrink={0}>
-        <text fg="#4ECDC4" attributes={TextAttributes.BOLD}>
+        <text color="#4ECDC4" attributes={TextAttributes.BOLD}>
           Line Numbers Demo
         </text>
-        <text fg="#888888">Keybindings:</text>
-        <text fg="#AAAAAA"> L - Toggle line numbers ({showLineNumbers() ? "ON" : "OFF"})</text>
-        <text fg="#AAAAAA"> H - Toggle diff highlights ({showDiffHighlights() ? "ON" : "OFF"})</text>
-        <text fg="#AAAAAA"> D - Toggle diagnostics ({showDiagnostics() ? "ON" : "OFF"})</text>
+        <text color="#888888">Keybindings:</text>
+        <text color="#AAAAAA"> L - Toggle line numbers ({showLineNumbers() ? "ON" : "OFF"})</text>
+        <text color="#AAAAAA"> H - Toggle diff highlights ({showDiffHighlights() ? "ON" : "OFF"})</text>
+        <text color="#AAAAAA"> D - Toggle diagnostics ({showDiagnostics() ? "ON" : "OFF"})</text>
       </box>
 
       <box flexGrow={1} border borderStyle="single" borderColor="#4ECDC4" backgroundColor="#0D1117">

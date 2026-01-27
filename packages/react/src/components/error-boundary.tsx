@@ -20,7 +20,7 @@ export class ErrorBoundary extends React.Component<
     if (this.state.hasError && this.state.error) {
       return (
         <box style={{ flexDirection: "column", padding: 2 }}>
-          <text fg="red">{this.state.error.stack || this.state.error.message}</text>
+          <text color="red">{this.state.error.stack || this.state.error.message}</text>
         </box>
       )
     }

@@ -216,8 +216,8 @@ export const {
 
       if (name === "style") {
         node.attributes |= createTextAttributes(value)
-        node.fg = value.fg ? parseColor(value.fg) : node.fg
-        node.bg = value.bg ? parseColor(value.bg) : node.bg
+        node.color = value.color ? parseColor(value.color) : node.color
+        node.backgroundColor = value.backgroundColor ? parseColor(value.backgroundColor) : node.backgroundColor
         return
       }
 

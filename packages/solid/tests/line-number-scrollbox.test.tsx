@@ -34,9 +34,9 @@ describe("LineNumber in ScrollBox - Height and Overlap Issues", () => {
       () => (
         <box flexDirection="column">
           <scrollbox flexGrow={1} scrollbarOptions={{ visible: false }}>
-            <line_number fg="#888888" minWidth={3} paddingRight={1}>
+            <line_number color="#888888" minWidth={3} paddingRight={1}>
               <code
-                fg="#ffffff"
+                color="#ffffff"
                 filetype="javascript"
                 syntaxStyle={syntaxStyle}
                 content={codeContent}
@@ -89,9 +89,9 @@ describe("LineNumber in ScrollBox - Height and Overlap Issues", () => {
       () => (
         <box flexDirection="column">
           <scrollbox flexGrow={1} scrollbarOptions={{ visible: false }}>
-            <line_number flexShrink={0} fg="#888888" minWidth={3} paddingRight={1}>
+            <line_number flexShrink={0} color="#888888" minWidth={3} paddingRight={1}>
               <code
-                fg="#ffffff"
+                color="#ffffff"
                 filetype="javascript"
                 syntaxStyle={syntaxStyle}
                 content={codeContent}
@@ -168,12 +168,12 @@ test("hello returns greeting", () => {
                 <>
                   <Show when={message.tool === "write"}>
                     <box flexShrink={0}>
-                      <text fg="#00aaff">Wrote {message.filePath}</text>
+                      <text color="#00aaff">Wrote {message.filePath}</text>
                     </box>
-                    <line_number fg="#888888" minWidth={3} paddingRight={1}>
+                    <line_number color="#888888" minWidth={3} paddingRight={1}>
                       <code
                         flexGrow={1}
-                        fg="#ffffff"
+                        color="#ffffff"
                         filetype="typescript"
                         syntaxStyle={syntaxStyle}
                         content={message.code}
@@ -183,7 +183,7 @@ test("hello returns greeting", () => {
                   </Show>
                   <Show when={message.text}>
                     <box flexShrink={0}>
-                      <text fg="#ffffff">{message.text}</text>
+                      <text color="#ffffff">{message.text}</text>
                     </box>
                   </Show>
                 </>
@@ -234,10 +234,10 @@ test("hello returns greeting", () => {
           <box flexShrink={0}>
             <text>--- START MARKER ---</text>
           </box>
-          <line_number fg="#888888" minWidth={3} paddingRight={1}>
+          <line_number color="#888888" minWidth={3} paddingRight={1}>
             <code
               flexGrow={1}
-              fg="#ffffff"
+              color="#ffffff"
               filetype="javascript"
               syntaxStyle={syntaxStyle}
               content={shortCode}
@@ -298,13 +298,13 @@ test("hello returns greeting", () => {
           <box flexGrow={1} paddingBottom={1} paddingTop={1} paddingLeft={2} paddingRight={2} gap={1}>
             <scrollbox scrollbarOptions={{ visible: false }} stickyScroll={true} stickyStart="bottom" flexGrow={1}>
               <box flexShrink={0}>
-                <text fg="#888888">Message 1</text>
+                <text color="#888888">Message 1</text>
               </box>
               <box border={true} borderColor="#333333">
-                <line_number fg="#888888" minWidth={3} paddingRight={1}>
+                <line_number color="#888888" minWidth={3} paddingRight={1}>
                   <code
                     flexGrow={1}
-                    fg="#ffffff"
+                    color="#ffffff"
                     filetype="typescript"
                     syntaxStyle={syntaxStyle}
                     content={code}
@@ -313,7 +313,7 @@ test("hello returns greeting", () => {
                 </line_number>
               </box>
               <box flexShrink={0}>
-                <text fg="#888888">Message 2</text>
+                <text color="#888888">Message 2</text>
               </box>
             </scrollbox>
           </box>
@@ -393,17 +393,17 @@ console.log(greet("World"));`,
                   <>
                     <Show when={message.type === "text"}>
                       <box flexShrink={0}>
-                        <text fg="#ffffff">{message.content}</text>
+                        <text color="#ffffff">{message.content}</text>
                       </box>
                     </Show>
                     <Show when={message.type === "tool"}>
                       <box flexShrink={0}>
-                        <text fg="#00aaff">Wrote {message.filePath}</text>
+                        <text color="#00aaff">Wrote {message.filePath}</text>
                       </box>
-                      <line_number fg="#888888" minWidth={3} paddingRight={1}>
+                      <line_number color="#888888" minWidth={3} paddingRight={1}>
                         <code
                           flexGrow={1}
-                          fg="#ffffff"
+                          color="#ffffff"
                           filetype="typescript"
                           syntaxStyle={syntaxStyle}
                           content={message.content}
@@ -413,7 +413,7 @@ console.log(greet("World"));`,
                       <Show when={message.diagnostics && message.diagnostics.length > 0}>
                         <For each={message.diagnostics}>
                           {(diagnostic) => (
-                            <text fg="#ff0000">
+                            <text color="#ff0000">
                               Error [{diagnostic.line}:{diagnostic.char}]: {diagnostic.message}
                             </text>
                           )}
@@ -491,12 +491,12 @@ console.log(greet("World"));`,
               {(message) => (
                 <>
                   <box flexShrink={0}>
-                    <text fg="#ffffff">{message.text}</text>
+                    <text color="#ffffff">{message.text}</text>
                   </box>
-                  <line_number fg="#888888" minWidth={2} paddingRight={1}>
+                  <line_number color="#888888" minWidth={2} paddingRight={1}>
                     <code
                       flexGrow={1}
-                      fg="#ffffff"
+                      color="#ffffff"
                       filetype="javascript"
                       syntaxStyle={syntaxStyle}
                       content={message.code}
@@ -575,12 +575,12 @@ console.log(greet("World"));`,
     testSetup = await testRender(
       () => (
         <box flexDirection="column" padding={2}>
-          <text fg="#00aaff">═══ Code Block 1 ═══</text>
+          <text color="#00aaff">═══ Code Block 1 ═══</text>
           <box border={true} borderColor="#333333">
-            <line_number fg="#666666" minWidth={3} paddingRight={1}>
+            <line_number color="#666666" minWidth={3} paddingRight={1}>
               <code
                 flexGrow={1}
-                fg="#ffffff"
+                color="#ffffff"
                 filetype="javascript"
                 syntaxStyle={syntaxStyle}
                 content="const x = 1;\nconst y = 2;\nconst z = 3;"
@@ -588,12 +588,12 @@ console.log(greet("World"));`,
               />
             </line_number>
           </box>
-          <text fg="#00aaff">═══ Code Block 2 ═══</text>
+          <text color="#00aaff">═══ Code Block 2 ═══</text>
           <box border={true} borderColor="#333333">
-            <line_number fg="#666666" minWidth={3} paddingRight={1}>
+            <line_number color="#666666" minWidth={3} paddingRight={1}>
               <code
                 flexGrow={1}
-                fg="#ffffff"
+                color="#ffffff"
                 filetype="javascript"
                 syntaxStyle={syntaxStyle}
                 content="function test() {\n  return 42;\n}"
@@ -601,7 +601,7 @@ console.log(greet("World"));`,
               />
             </line_number>
           </box>
-          <text fg="#00aaff">═══ End ═══</text>
+          <text color="#00aaff">═══ End ═══</text>
         </box>
       ),
       {

@@ -74,7 +74,7 @@ export const SplitModeDemo = () => {
             >
               <text
                 style={{
-                  fg: system.color,
+                  color: system.color,
                   zIndex: 2,
                   marginRight: 1,
                 }}
@@ -127,7 +127,7 @@ export const SplitModeDemo = () => {
               position: "absolute",
               left: 4 + index() * 15,
               top: 15,
-              fg: "#9a9acd",
+              color: "#9a9acd",
               zIndex: 2,
             }}
           >

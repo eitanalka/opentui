@@ -329,31 +329,31 @@ describe("React Renderer | Layout Tests", () => {
       testSetup = await testRender(
         <box style={{ width: 40, border: true }} title="Complex Layout">
           <box style={{ left: 2, width: 15, height: 5, border: true, backgroundColor: "#333" }}>
-            <text wrapMode="none" style={{ fg: "cyan" }}>
+            <text wrapMode="none" style={{ color: "cyan" }}>
               Header Section
             </text>
-            <text wrapMode="none" style={{ fg: "yellow" }}>
+            <text wrapMode="none" style={{ color: "yellow" }}>
               Menu Item 1
             </text>
-            <text wrapMode="none" style={{ fg: "yellow" }}>
+            <text wrapMode="none" style={{ color: "yellow" }}>
               Menu Item 2
             </text>
           </box>
           <box style={{ left: 18, width: 18, height: 8, border: true, backgroundColor: "#222" }}>
-            <text wrapMode="none" style={{ fg: "green" }}>
+            <text wrapMode="none" style={{ color: "green" }}>
               Content Area
             </text>
-            <text wrapMode="none" style={{ fg: "white" }}>
+            <text wrapMode="none" style={{ color: "white" }}>
               Some content here
             </text>
-            <text wrapMode="none" style={{ fg: "white" }}>
+            <text wrapMode="none" style={{ color: "white" }}>
               More content
             </text>
-            <text wrapMode="none" style={{ fg: "magenta" }}>
+            <text wrapMode="none" style={{ color: "magenta" }}>
               Footer text
             </text>
           </box>
-          <text style={{ left: 2, fg: "gray" }}>Status: Ready</text>
+          <text style={{ left: 2, color: "gray" }}>Status: Ready</text>
         </box>,
         {
           width: 45,
@@ -370,13 +370,13 @@ describe("React Renderer | Layout Tests", () => {
       testSetup = await testRender(
         <box style={{ width: 35, height: 8, border: true }}>
           <text>
-            <span style={{ fg: "red", bold: true }}>ERROR:</span> Something went wrong
+            <span style={{ color: "red", bold: true }}>ERROR:</span> Something went wrong
           </text>
           <text>
-            <span style={{ fg: "yellow" }}>WARNING:</span> Check your settings
+            <span style={{ color: "yellow" }}>WARNING:</span> Check your settings
           </text>
           <text>
-            <span style={{ fg: "green" }}>SUCCESS:</span> All systems operational
+            <span style={{ color: "green" }}>SUCCESS:</span> All systems operational
           </text>
         </box>,
         {

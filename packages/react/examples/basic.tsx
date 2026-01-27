@@ -41,7 +41,7 @@ export const App = () => {
       <text
         content="OpenTUI with React!"
         style={{
-          fg: "#FFFF00",
+          color: "#FFFF00",
           attributes: TextAttributes.BOLD | TextAttributes.ITALIC,
         }}
       />
@@ -70,7 +70,7 @@ export const App = () => {
       <text
         content={status.toUpperCase()}
         style={{
-          fg: status === "idle" ? "#AAAAAA" : status === "success" ? "green" : "red",
+          color: status === "idle" ? "#AAAAAA" : status === "success" ? "green" : "red",
         }}
       />
     </box>

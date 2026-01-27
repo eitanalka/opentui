@@ -23,7 +23,7 @@ export default function TextSelectionDemo() {
   const [selectionEndText, setSelectionEndText] = createSignal("")
 
   const section1TextStyle: TextProps["style"] = {
-    fg: "#f0f6fc",
+    color: "#f0f6fc",
     zIndex: 21,
     flexShrink: 0,
   }
@@ -128,9 +128,9 @@ export default function TextSelectionDemo() {
             }}
           >
             <text style={{ width: 27, height: 1, zIndex: 26, selectionBg: "#4a5568", selectionFg: "#ffffff" }}>
-              <span style={{ fg: "yellow" }}>Important:</span>{" "}
-              <span style={{ bold: true, fg: "cyan" }}>Nested content</span>{" "}
-              <span style={{ italic: true, fg: "green" }}></span>
+              <span style={{ color: "yellow" }}>Important:</span>{" "}
+              <span style={{ bold: true, color: "cyan" }}>Nested content</span>{" "}
+              <span style={{ italic: true, color: "green" }}></span>
             </text>
           </box>
         </box>
@@ -158,20 +158,20 @@ export default function TextSelectionDemo() {
             }}
             title="Code Example"
           >
-            <text style={{ fg: "#f0f6fc", zIndex: 21 }}>
-              <span style={{ fg: "magenta" }}>function</span> <span style={{ fg: "cyan" }}>handleSelection</span>(){" "}
+            <text style={{ color: "#f0f6fc", zIndex: 21 }}>
+              <span style={{ color: "magenta" }}>function</span> <span style={{ color: "cyan" }}>handleSelection</span>(){" "}
               {"{"}
             </text>
-            <text style={{ fg: "#f0f6fc", zIndex: 21 }}>
+            <text style={{ color: "#f0f6fc", zIndex: 21 }}>
               {"  "}
-              <span style={{ fg: "magenta" }}>const</span> selected ={" "}
-              <span style={{ fg: "cyan" }}>getSelectedText</span>()
+              <span style={{ color: "magenta" }}>const</span> selected ={" "}
+              <span style={{ color: "cyan" }}>getSelectedText</span>()
             </text>
-            <text style={{ fg: "#f0f6fc", zIndex: 21 }}>
+            <text style={{ color: "#f0f6fc", zIndex: 21 }}>
               {"  "}
-              <span style={{ fg: "yellow" }}>console</span>.<span style={{ fg: "green" }}>log</span>(selected)
+              <span style={{ color: "yellow" }}>console</span>.<span style={{ color: "green" }}>log</span>(selected)
             </text>
-            <text style={{ fg: "#e6edf3", zIndex: 21 }}>{"}"}</text>
+            <text style={{ color: "#e6edf3", zIndex: 21 }}>{"}"}</text>
           </box>
         </box>
         <text style={{ left: 2, top: 17, zIndex: 2 }}>
@@ -193,14 +193,14 @@ export default function TextSelectionDemo() {
         }}
         title="README"
       >
-        <text style={{ fg: "#f0f6fc", zIndex: 31, height: "auto" }}>
-          <span style={{ bold: true, fg: "cyan" }}>Selection Demo</span>
+        <text style={{ color: "#f0f6fc", zIndex: 31, height: "auto" }}>
+          <span style={{ bold: true, color: "cyan" }}>Selection Demo</span>
           {"\n"}
-          <span style={{ fg: "green" }}>✓</span> Cross-renderable selection
+          <span style={{ color: "green" }}>✓</span> Cross-renderable selection
           {"\n"}
-          <span style={{ fg: "green" }}>✓</span> Nested boxes
+          <span style={{ color: "green" }}>✓</span> Nested boxes
           {"\n"}
-          <span style={{ fg: "green" }}>✓</span> Styled text support
+          <span style={{ color: "green" }}>✓</span> Styled text support
         </text>
       </box>
       <box
@@ -219,10 +219,10 @@ export default function TextSelectionDemo() {
         }}
         title="Selection Status"
       >
-        <text style={{ fg: "#f0f6fc", zIndex: 2 }}>{statusText()}</text>
-        <text style={{ fg: "#7dd3fc", zIndex: 2 }}>{selectionStartText()}</text>
-        <text style={{ fg: "#94a3b8", zIndex: 2 }}>{selectionMiddleText()}</text>
-        <text style={{ fg: "#7dd3fc", zIndex: 2 }}>{selectionEndText()}</text>
+        <text style={{ color: "#f0f6fc", zIndex: 2 }}>{statusText()}</text>
+        <text style={{ color: "#7dd3fc", zIndex: 2 }}>{selectionStartText()}</text>
+        <text style={{ color: "#94a3b8", zIndex: 2 }}>{selectionMiddleText()}</text>
+        <text style={{ color: "#7dd3fc", zIndex: 2 }}>{selectionEndText()}</text>
       </box>
     </>
   )

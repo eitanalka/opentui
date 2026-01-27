@@ -33,23 +33,23 @@ export default function DiffDemo() {
  }`
 
   const syntaxStyle = SyntaxStyle.fromStyles({
-    keyword: { fg: "#C792EA" } as any,
-    "keyword.import": { fg: "#C792EA" } as any,
-    string: { fg: "#C3E88D" } as any,
-    comment: { fg: "#546E7A" } as any,
-    number: { fg: "#F78C6C" } as any,
-    boolean: { fg: "#F78C6C" } as any,
-    constant: { fg: "#F78C6C" } as any,
-    function: { fg: "#82AAFF" } as any,
-    "function.call": { fg: "#82AAFF" } as any,
-    constructor: { fg: "#FFCB6B" } as any,
-    type: { fg: "#FFCB6B" } as any,
-    operator: { fg: "#89DDFF" } as any,
-    variable: { fg: "#EEFFFF" } as any,
-    property: { fg: "#89DDFF" } as any,
-    bracket: { fg: "#FFFFFF" } as any,
-    punctuation: { fg: "#FFFFFF" } as any,
-    default: { fg: "#A6ACCD" } as any,
+    keyword: { color: "#C792EA" } as any,
+    "keyword.import": { color: "#C792EA" } as any,
+    string: { color: "#C3E88D" } as any,
+    comment: { color: "#546E7A" } as any,
+    number: { color: "#F78C6C" } as any,
+    boolean: { color: "#F78C6C" } as any,
+    constant: { color: "#F78C6C" } as any,
+    function: { color: "#82AAFF" } as any,
+    "function.call": { color: "#82AAFF" } as any,
+    constructor: { color: "#FFCB6B" } as any,
+    type: { color: "#FFCB6B" } as any,
+    operator: { color: "#89DDFF" } as any,
+    variable: { color: "#EEFFFF" } as any,
+    property: { color: "#89DDFF" } as any,
+    bracket: { color: "#FFFFFF" } as any,
+    punctuation: { color: "#FFFFFF" } as any,
+    default: { color: "#A6ACCD" } as any,
   })
 
   useKeyboard((key) => {
@@ -71,10 +71,10 @@ export default function DiffDemo() {
   return (
     <box flexDirection="column" width="100%" height="100%" gap={1}>
       <box flexDirection="column" backgroundColor="#0D1117" padding={1} border borderColor="#30363D">
-        <text fg="#4ECDC4">Diff Demo - Unified & Split View</text>
-        <text fg="#888888">Keybindings:</text>
-        <text fg="#AAAAAA"> V - Toggle view ({currentView().toUpperCase()})</text>
-        <text fg="#AAAAAA"> L - Toggle line numbers ({showLineNumbers() ? "ON" : "OFF"})</text>
+        <text color="#4ECDC4">Diff Demo - Unified & Split View</text>
+        <text color="#888888">Keybindings:</text>
+        <text color="#AAAAAA"> V - Toggle view ({currentView().toUpperCase()})</text>
+        <text color="#AAAAAA"> L - Toggle line numbers ({showLineNumbers() ? "ON" : "OFF"})</text>
       </box>
 
       <box flexGrow={1} border borderStyle="single" borderColor="#4ECDC4" backgroundColor="#0D1117">

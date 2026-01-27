@@ -42,7 +42,7 @@ describe("SolidJS Renderer - Dynamic and Portal Components", () => {
       testSetup = await testRender(
         () => (
           <box>
-            <Dynamic component="text" style={{ fg: color() }}>
+            <Dynamic component="text" style={{ color: color() }}>
               {text()}
             </Dynamic>
           </box>

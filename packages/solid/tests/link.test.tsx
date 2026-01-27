@@ -40,7 +40,7 @@ describe("Link Rendering Tests", () => {
       () => (
         <text>
           <u>
-            <a href="https://opentui.com" style={{ fg: "blue" }}>
+            <a href="https://opentui.com" style={{ color: "blue" }}>
               opentui.com
             </a>
           </u>
@@ -84,7 +84,7 @@ describe("Link Rendering Tests", () => {
       () => (
         <text>
           <a href="https://opentui.com">
-            <span style={{ fg: "blue", bold: true }}>styled text</span> default style
+            <span style={{ color: "blue", bold: true }}>styled text</span> default style
           </a>
         </text>
       ),
@@ -129,8 +129,8 @@ describe("Link Rendering Tests", () => {
       () => (
         <text>
           <a href="https://example.com">
-            <span style={{ fg: "red" }}>
-              Level 1<span style={{ bg: "white" }}> Level 2</span>
+            <span style={{ color: "red" }}>
+              Level 1<span style={{ backgroundColor: "white" }}> Level 2</span>
             </span>
           </a>
         </text>
@@ -233,7 +233,7 @@ describe("Link Rendering Tests", () => {
         () => (
           <text>
             <a href="https://opentui.com">
-              <span style={{ fg: "blue" }}>styled</span> plain
+              <span style={{ color: "blue" }}>styled</span> plain
             </a>
           </text>
         ),

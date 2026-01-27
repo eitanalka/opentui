@@ -122,7 +122,7 @@ segments to exercise truncation on formatted content.`,
         justifyContent="center"
         border
       >
-        <text fg="#58a6ff" content="Text Truncation Demo - Press 'T' to toggle truncation" />
+        <text color="#58a6ff" content="Text Truncation Demo - Press 'T' to toggle truncation" />
       </box>
       <box flexGrow={1} flexDirection="row" gap={1} padding={1}>
         <box flexGrow={leftGrow()} flexDirection="column" gap={1}>
@@ -135,7 +135,7 @@ segments to exercise truncation on formatted content.`,
             padding={1}
             border
           >
-            <text content={singleLineText1} fg="#c9d1d9" wrapMode={wrapMode()} truncate={truncateEnabled()} />
+            <text content={singleLineText1} color="#c9d1d9" wrapMode={wrapMode()} truncate={truncateEnabled()} />
           </box>
           <box
             minHeight={5}
@@ -146,7 +146,7 @@ segments to exercise truncation on formatted content.`,
             padding={1}
             border
           >
-            <text content={singleLineText2} fg="#3fb950" wrapMode={wrapMode()} truncate={truncateEnabled()} />
+            <text content={singleLineText2} color="#3fb950" wrapMode={wrapMode()} truncate={truncateEnabled()} />
           </box>
           <box
             minHeight={7}
@@ -157,7 +157,7 @@ segments to exercise truncation on formatted content.`,
             padding={1}
             border
           >
-            <text content={singleLineText3} fg="#d29922" wrapMode={wrapMode()} truncate={truncateEnabled()} />
+            <text content={singleLineText3} color="#d29922" wrapMode={wrapMode()} truncate={truncateEnabled()} />
           </box>
         </box>
         <box flexGrow={rightGrow()} flexDirection="column" gap={1}>
@@ -170,7 +170,7 @@ segments to exercise truncation on formatted content.`,
             padding={1}
             border
           >
-            <text content={multilineText1} fg="#f778ba" wrapMode={wrapMode()} truncate={truncateEnabled()} />
+            <text content={multilineText1} color="#f778ba" wrapMode={wrapMode()} truncate={truncateEnabled()} />
           </box>
           <box
             flexGrow={1}
@@ -181,7 +181,7 @@ segments to exercise truncation on formatted content.`,
             padding={1}
             border
           >
-            <text content={multilineText2} fg="#bc8cff" wrapMode={wrapMode()} truncate={truncateEnabled()} />
+            <text content={multilineText2} color="#bc8cff" wrapMode={wrapMode()} truncate={truncateEnabled()} />
           </box>
           <box
             flexGrow={1}
@@ -192,7 +192,7 @@ segments to exercise truncation on formatted content.`,
             padding={1}
             border
           >
-            <text content={styledContent()} fg="#c9d1d9" wrapMode={wrapMode()} truncate={truncateEnabled()} />
+            <text content={styledContent()} color="#c9d1d9" wrapMode={wrapMode()} truncate={truncateEnabled()} />
           </box>
         </box>
       </box>
@@ -205,7 +205,7 @@ segments to exercise truncation on formatted content.`,
         justifyContent="center"
         border
       >
-        <text fg="#8b949e" content={footerContent()} />
+        <text color="#8b949e" content={footerContent()} />
       </box>
       <box
         height={7}
@@ -219,10 +219,10 @@ segments to exercise truncation on formatted content.`,
         padding={1}
         border
       >
-        <text fg="#8b949e" content={statusText()} />
-        <text fg="#7dd3fc" content={selectionStartText()} />
-        <text fg="#94a3b8" content={selectionMiddleText()} />
-        <text fg="#7dd3fc" content={selectionEndText()} />
+        <text color="#8b949e" content={statusText()} />
+        <text color="#7dd3fc" content={selectionStartText()} />
+        <text color="#94a3b8" content={selectionMiddleText()} />
+        <text color="#7dd3fc" content={selectionEndText()} />
       </box>
     </box>
   )

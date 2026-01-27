@@ -8,8 +8,8 @@ describe("TextNodeRenderable", () => {
     it("should create TextNode with default options", () => {
       const node = new TextNodeRenderable({})
 
-      expect(node.fg).toBeUndefined()
-      expect(node.bg).toBeUndefined()
+      expect(node.color).toBeUndefined()
+      expect(node.backgroundColor).toBeUndefined()
       expect(node.attributes).toBe(0)
       expect(node.children).toEqual([])
     })
@@ -20,40 +20,40 @@ describe("TextNodeRenderable", () => {
       const attributes = 1
 
       const node = new TextNodeRenderable({
-        fg: fgColor,
-        bg: bgColor,
+        color: fgColor,
+        backgroundColor: bgColor,
         attributes,
       })
 
-      expect(node.fg).toEqual(fgColor)
-      expect(node.bg).toEqual(bgColor)
+      expect(node.color).toEqual(fgColor)
+      expect(node.backgroundColor).toEqual(bgColor)
       expect(node.attributes).toBe(attributes)
     })
 
     it("should parse color strings in constructor", () => {
       const node = new TextNodeRenderable({
-        fg: "#ff0000",
-        bg: "blue",
+        color: "#ff0000",
+        backgroundColor: "blue",
       })
 
-      expect(node.fg?.r).toBe(1)
-      expect(node.fg?.g).toBe(0)
-      expect(node.fg?.b).toBe(0)
-      expect(node.fg?.a).toBe(1)
-      expect(node.bg?.r).toBe(0)
-      expect(node.bg?.g).toBe(0)
-      expect(node.bg?.b).toBe(1)
-      expect(node.bg?.a).toBe(1)
+      expect(node.color?.r).toBe(1)
+      expect(node.color?.g).toBe(0)
+      expect(node.color?.b).toBe(0)
+      expect(node.color?.a).toBe(1)
+      expect(node.backgroundColor?.r).toBe(0)
+      expect(node.backgroundColor?.g).toBe(0)
+      expect(node.backgroundColor?.b).toBe(1)
+      expect(node.backgroundColor?.a).toBe(1)
     })
 
     it("should handle undefined colors", () => {
       const node = new TextNodeRenderable({
-        fg: undefined,
-        bg: undefined,
+        color: undefined,
+        backgroundColor: undefined,
       })
 
-      expect(node.fg).toBeUndefined()
-      expect(node.bg).toBeUndefined()
+      expect(node.color).toBeUndefined()
+      expect(node.backgroundColor).toBeUndefined()
     })
   })
 
@@ -151,11 +151,11 @@ describe("TextNodeRenderable", () => {
       const secondChild = node.children[1] as TextNodeRenderable
 
       expect(firstChild.children).toEqual(["Hello"])
-      expect(firstChild.fg).toEqual(RGBA.fromInts(255, 0, 0, 255))
+      expect(firstChild.color).toEqual(RGBA.fromInts(255, 0, 0, 255))
       expect(firstChild.attributes).toBe(1)
 
       expect(secondChild.children).toEqual([" World"])
-      expect(secondChild.fg).toEqual(RGBA.fromInts(0, 255, 0, 255))
+      expect(secondChild.color).toEqual(RGBA.fromInts(0, 255, 0, 255))
       expect(secondChild.attributes).toBe(0)
     })
 
@@ -177,7 +177,7 @@ describe("TextNodeRenderable", () => {
 
       const styledChild = node.children[1] as TextNodeRenderable
       expect(styledChild.children).toEqual(["Second"])
-      expect(styledChild.fg).toEqual(RGBA.fromInts(255, 255, 0, 255))
+      expect(styledChild.color).toEqual(RGBA.fromInts(255, 255, 0, 255))
       expect(styledChild.attributes).toBe(2)
     })
   })
@@ -228,7 +228,7 @@ describe("TextNodeRenderable", () => {
 
       const styledChild = node.children[1] as TextNodeRenderable
       expect(styledChild.children).toEqual(["Middle"])
-      expect(styledChild.fg).toEqual(RGBA.fromInts(128, 128, 128, 255))
+      expect(styledChild.color).toEqual(RGBA.fromInts(128, 128, 128, 255))
       expect(styledChild.attributes).toBe(4)
     })
 
@@ -273,7 +273,7 @@ describe("TextNodeRenderable", () => {
   describe("Style Inheritance and Merging", () => {
     it("should merge styles with parent styles", () => {
       const node = new TextNodeRenderable({
-        fg: RGBA.fromInts(255, 0, 0, 255),
+        color: RGBA.fromInts(255, 0, 0, 255),
         attributes: 1,
       })
 
@@ -291,8 +291,8 @@ describe("TextNodeRenderable", () => {
 
     it("should inherit undefined styles from parent", () => {
       const node = new TextNodeRenderable({
-        fg: RGBA.fromInts(255, 0, 0, 255),
-        // bg and attributes undefined (attributes defaults to 0)
+        color: RGBA.fromInts(255, 0, 0, 255),
+        // backgroundColor and attributes undefined (attributes defaults to 0)
       })
 
       const parentStyle = {
@@ -351,8 +351,8 @@ describe("TextNodeRenderable", () => {
   describe("gatherWithInheritedStyle Method", () => {
     it("should gather chunks with inherited styles", () => {
       const node = new TextNodeRenderable({
-        fg: RGBA.fromInts(255, 0, 0, 255),
-        bg: RGBA.fromInts(0, 0, 255, 255),
+        color: RGBA.fromInts(255, 0, 0, 255),
+        backgroundColor: RGBA.fromInts(0, 0, 255, 255),
         attributes: 1,
       })
 
@@ -376,11 +376,11 @@ describe("TextNodeRenderable", () => {
 
     it("should recursively gather from child TextNodes", () => {
       const parent = new TextNodeRenderable({
-        fg: RGBA.fromInts(255, 0, 0, 255),
+        color: RGBA.fromInts(255, 0, 0, 255),
       })
 
       const child = new TextNodeRenderable({
-        bg: RGBA.fromInts(0, 255, 0, 255),
+        backgroundColor: RGBA.fromInts(0, 255, 0, 255),
       })
 
       child.add("Child")
@@ -424,18 +424,18 @@ describe("TextNodeRenderable", () => {
 
     it("should allow children to override parent styles independently", () => {
       const parent = new TextNodeRenderable({
-        fg: RGBA.fromInts(255, 0, 0, 255),
-        bg: RGBA.fromInts(0, 0, 255, 255),
+        color: RGBA.fromInts(255, 0, 0, 255),
+        backgroundColor: RGBA.fromInts(0, 0, 255, 255),
         attributes: 1,
       })
 
       const childOverrideFg = new TextNodeRenderable({
-        fg: RGBA.fromInts(0, 255, 0, 255),
+        color: RGBA.fromInts(0, 255, 0, 255),
       })
       childOverrideFg.add("Green Text")
 
       const childOverrideBg = new TextNodeRenderable({
-        bg: RGBA.fromInts(255, 255, 0, 255),
+        backgroundColor: RGBA.fromInts(255, 255, 0, 255),
       })
       childOverrideBg.add("Yellow BG")
 
@@ -473,16 +473,16 @@ describe("TextNodeRenderable", () => {
 
     it("should support multi-level inheritance (grandparent -> parent -> child)", () => {
       const grandparent = new TextNodeRenderable({
-        fg: RGBA.fromInts(255, 0, 0, 255),
+        color: RGBA.fromInts(255, 0, 0, 255),
         attributes: 1,
       })
 
       const parent = new TextNodeRenderable({
-        bg: RGBA.fromInts(0, 0, 255, 255),
+        backgroundColor: RGBA.fromInts(0, 0, 255, 255),
       })
 
       const child = new TextNodeRenderable({
-        fg: RGBA.fromInts(0, 255, 0, 255),
+        color: RGBA.fromInts(0, 255, 0, 255),
         attributes: 2,
       })
 
@@ -514,18 +514,18 @@ describe("TextNodeRenderable", () => {
 
     it("should support partial style overrides in children", () => {
       const parent = new TextNodeRenderable({
-        fg: RGBA.fromInts(255, 0, 0, 255),
-        bg: RGBA.fromInts(0, 0, 255, 255),
+        color: RGBA.fromInts(255, 0, 0, 255),
+        backgroundColor: RGBA.fromInts(0, 0, 255, 255),
         attributes: 1,
       })
 
       const childPartial1 = new TextNodeRenderable({
-        fg: RGBA.fromInts(0, 255, 0, 255),
+        color: RGBA.fromInts(0, 255, 0, 255),
       })
       childPartial1.add("Green on Blue")
 
       const childPartial2 = new TextNodeRenderable({
-        bg: RGBA.fromInts(255, 255, 0, 255),
+        backgroundColor: RGBA.fromInts(255, 255, 0, 255),
       })
       childPartial2.add("Red on Yellow")
 
@@ -535,7 +535,7 @@ describe("TextNodeRenderable", () => {
       childPartial3.add("Red on Blue Bold+Italic")
 
       const childPartial4 = new TextNodeRenderable({
-        fg: RGBA.fromInts(255, 255, 255, 255),
+        color: RGBA.fromInts(255, 255, 255, 255),
         attributes: 4,
       })
       childPartial4.add("White on Blue Bold+Underline")
@@ -578,14 +578,14 @@ describe("TextNodeRenderable", () => {
   describe("Static Factory Methods", () => {
     it("should create TextNode from string using fromString", () => {
       const node = TextNodeRenderable.fromString("Hello World", {
-        fg: "#ff0000",
+        color: "#ff0000",
         attributes: 1,
       })
 
       expect(node.children).toEqual(["Hello World"])
-      expect(node.fg?.r).toBe(1)
-      expect(node.fg?.g).toBe(0)
-      expect(node.fg?.b).toBe(0)
+      expect(node.color?.r).toBe(1)
+      expect(node.color?.g).toBe(0)
+      expect(node.color?.b).toBe(0)
       expect(node.attributes).toBe(1)
     })
 
@@ -597,18 +597,18 @@ describe("TextNodeRenderable", () => {
       child2.add("Second")
 
       const parent = TextNodeRenderable.fromNodes([child1, child2], {
-        fg: RGBA.fromInts(255, 255, 0, 255),
+        color: RGBA.fromInts(255, 255, 0, 255),
       })
 
       expect(parent.children).toEqual([child1, child2])
-      expect(parent.fg).toEqual(RGBA.fromInts(255, 255, 0, 255))
+      expect(parent.color).toEqual(RGBA.fromInts(255, 255, 0, 255))
     })
   })
 
   describe("Utility Methods", () => {
     it("should convert to chunks using toChunks", () => {
       const node = new TextNodeRenderable({
-        fg: "#00ff00",
+        color: "#00ff00",
       })
 
       node.add("Test")
@@ -679,33 +679,33 @@ describe("TextNodeRenderable", () => {
       // Check first chunk: "Hello " (no styling)
       const helloChild = node.children[0] as TextNodeRenderable
       expect(helloChild.children).toEqual(["Hello "])
-      expect(helloChild.fg).toBeUndefined()
+      expect(helloChild.color).toBeUndefined()
       expect(helloChild.attributes).toBe(0)
 
       // Check second chunk: "World" (red styling)
       const redChild = node.children[1] as TextNodeRenderable
       expect(redChild.children).toEqual(["World"])
-      expect(redChild.fg?.r).toBe(1)
-      expect(redChild.fg?.g).toBe(0)
-      expect(redChild.fg?.b).toBe(0)
+      expect(redChild.color?.r).toBe(1)
+      expect(redChild.color?.g).toBe(0)
+      expect(redChild.color?.b).toBe(0)
       expect(redChild.attributes).toBe(0)
 
       // Check third chunk: " with " (no styling)
       const withChild = node.children[2] as TextNodeRenderable
       expect(withChild.children).toEqual([" with "])
-      expect(withChild.fg).toBeUndefined()
+      expect(withChild.color).toBeUndefined()
       expect(withChild.attributes).toBe(0)
 
       // Check fourth chunk: "bold" (bold styling)
       const boldChild = node.children[3] as TextNodeRenderable
       expect(boldChild.children).toEqual(["bold"])
-      expect(boldChild.fg).toBeUndefined()
+      expect(boldChild.color).toBeUndefined()
       expect(boldChild.attributes).toBe(1) // bold attribute
 
       // Check fifth chunk: " text!" (no styling)
       const textChild = node.children[4] as TextNodeRenderable
       expect(textChild.children).toEqual([" text!"])
-      expect(textChild.fg).toBeUndefined()
+      expect(textChild.color).toBeUndefined()
       expect(textChild.attributes).toBe(0)
     })
 
@@ -729,20 +729,20 @@ describe("TextNodeRenderable", () => {
 
       const redNode = node.children[0] as TextNodeRenderable
       expect(redNode.children).toEqual(["Red"])
-      expect(redNode.fg).toEqual(RGBA.fromInts(255, 0, 0, 255))
-      expect(redNode.bg).toEqual(RGBA.fromInts(0, 0, 0, 255))
+      expect(redNode.color).toEqual(RGBA.fromInts(255, 0, 0, 255))
+      expect(redNode.backgroundColor).toEqual(RGBA.fromInts(0, 0, 0, 255))
       expect(redNode.attributes).toBe(1)
 
       const blueNode = node.children[1] as TextNodeRenderable
       expect(blueNode.children).toEqual(["Blue"])
-      expect(blueNode.fg).toEqual(RGBA.fromInts(0, 0, 255, 255))
-      expect(blueNode.bg).toBeUndefined()
+      expect(blueNode.color).toEqual(RGBA.fromInts(0, 0, 255, 255))
+      expect(blueNode.backgroundColor).toBeUndefined()
       expect(blueNode.attributes).toBe(2)
 
       const greenNode = node.children[2] as TextNodeRenderable
       expect(greenNode.children).toEqual(["Green"])
-      expect(greenNode.fg).toEqual(RGBA.fromInts(0, 255, 0, 255))
-      expect(greenNode.bg).toBeUndefined()
+      expect(greenNode.color).toEqual(RGBA.fromInts(0, 255, 0, 255))
+      expect(greenNode.backgroundColor).toBeUndefined()
       expect(greenNode.attributes).toBe(0)
     })
 
@@ -777,19 +777,19 @@ describe("TextNodeRenderable", () => {
       // First chunk: empty text with red styling
       const emptyRedNode = node.children[0] as TextNodeRenderable
       expect(emptyRedNode.children).toEqual([""])
-      expect(emptyRedNode.fg).toEqual(RGBA.fromInts(255, 0, 0, 255))
+      expect(emptyRedNode.color).toEqual(RGBA.fromInts(255, 0, 0, 255))
       expect(emptyRedNode.attributes).toBe(1)
 
       // Second chunk: "middle" with green styling
       const middleNode = node.children[1] as TextNodeRenderable
       expect(middleNode.children).toEqual(["middle"])
-      expect(middleNode.fg).toEqual(RGBA.fromInts(0, 255, 0, 255))
+      expect(middleNode.color).toEqual(RGBA.fromInts(0, 255, 0, 255))
       expect(middleNode.attributes).toBe(0)
 
       // Third chunk: empty text with blue styling
       const emptyBlueNode = node.children[2] as TextNodeRenderable
       expect(emptyBlueNode.children).toEqual([""])
-      expect(emptyBlueNode.fg).toEqual(RGBA.fromInts(0, 0, 255, 255))
+      expect(emptyBlueNode.color).toEqual(RGBA.fromInts(0, 0, 255, 255))
       expect(emptyBlueNode.attributes).toBe(2)
     })
   })
@@ -857,13 +857,13 @@ describe("TextNodeRenderable", () => {
 
     it("should merge link with other styles", () => {
       const parent = new TextNodeRenderable({
-        fg: RGBA.fromInts(255, 0, 0, 255),
+        color: RGBA.fromInts(255, 0, 0, 255),
         attributes: 1,
         link: { url: "https://opentui.com" },
       })
 
       const child = new TextNodeRenderable({
-        bg: RGBA.fromInts(0, 0, 255, 255),
+        backgroundColor: RGBA.fromInts(0, 0, 255, 255),
         attributes: 2,
       })
       child.add("Styled linked text")
@@ -919,7 +919,7 @@ describe("TextNodeRenderable", () => {
 
     it("should inherit link when node has no link", () => {
       const node = new TextNodeRenderable({
-        fg: RGBA.fromInts(0, 255, 0, 255),
+        color: RGBA.fromInts(0, 255, 0, 255),
       })
 
       const parentStyle = {
@@ -939,17 +939,17 @@ describe("TextNodeRenderable", () => {
       // Grandparent with link
       const grandparent = new TextNodeRenderable({
         link: { url: "https://grandparent.com" },
-        fg: RGBA.fromInts(255, 0, 0, 255),
+        color: RGBA.fromInts(255, 0, 0, 255),
       })
 
-      // Parent inherits link, adds bg
+      // Parent inherits link, adds backgroundColor
       const parent = new TextNodeRenderable({
-        bg: RGBA.fromInts(0, 0, 255, 255),
+        backgroundColor: RGBA.fromInts(0, 0, 255, 255),
       })
 
-      // Child1 inherits link, overrides fg
+      // Child1 inherits link, overrides color
       const child1 = new TextNodeRenderable({
-        fg: RGBA.fromInts(0, 255, 0, 255),
+        color: RGBA.fromInts(0, 255, 0, 255),
       })
       child1.add("Child1")
 

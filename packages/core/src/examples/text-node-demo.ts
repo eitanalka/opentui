@@ -111,29 +111,29 @@ function showExample1(): void {
 
   // Example 1: Basic TextNode Creation
   const titleNode = TextNodeRenderable.fromString("Basic TextNode Demo", {
-    fg: "#58a6ff",
+    color: "#58a6ff",
     attributes: 1, // bold
   })
 
   const subtitleNode = TextNodeRenderable.fromString("\n\nCreating individual TextNodes with different styles:", {
-    fg: "#8b949e",
+    color: "#8b949e",
   })
 
   const redNode = TextNodeRenderable.fromString("\n\nRed Text", {
-    fg: "#ff7b72",
+    color: "#ff7b72",
   })
 
   const blueNode = TextNodeRenderable.fromString(" | Blue Text", {
-    fg: "#79c0ff",
+    color: "#79c0ff",
   })
 
   const greenNode = TextNodeRenderable.fromString(" | Green Text", {
-    fg: "#56d364",
+    color: "#56d364",
   })
 
   const yellowNode = TextNodeRenderable.fromString(" | Yellow Background", {
-    fg: "#000000",
-    bg: "#d29922",
+    color: "#000000",
+    backgroundColor: "#d29922",
   })
 
   // Create a container node that holds all the styled nodes
@@ -166,44 +166,44 @@ function showExample2(): void {
 
   // Example 2: Nested TextNode Composition
   const titleNode = TextNodeRenderable.fromString("Nested Composition Demo", {
-    fg: "#58a6ff",
+    color: "#58a6ff",
     attributes: 1, // bold
   })
 
   const introNode = TextNodeRenderable.fromString("\n\nBuilding complex text by nesting TextNodes:", {
-    fg: "#8b949e",
+    color: "#8b949e",
   })
 
   // Create nested structure
   const codeBlock = TextNodeRenderable.fromString(
     "\n\nfunction calculateTotal(items) {\n  return items.reduce((sum, item) => {\n    return sum + item.price;\n  }, 0);\n}",
     {
-      fg: "#f0f6fc",
-      bg: "#0d1117",
+      color: "#f0f6fc",
+      backgroundColor: "#0d1117",
     },
   )
 
   const commentNode = TextNodeRenderable.fromString("\n\n// This is a nested comment", {
-    fg: "#8b949e",
+    color: "#8b949e",
   })
 
   const highlightNode = TextNodeRenderable.fromString(" with ", {
-    fg: "#79c0ff",
+    color: "#79c0ff",
     attributes: 1, // bold
   })
 
   const highlightNode2 = TextNodeRenderable.fromString("highlighting", {
-    fg: "#ff7b72",
+    color: "#ff7b72",
     attributes: 4, // underline
   })
 
   // Create a sentence that combines multiple styled parts
   const sentenceNode = TextNodeRenderable.fromNodes([
-    TextNodeRenderable.fromString("\n\nThis demonstrates ", { fg: "#c9d1d9" }),
+    TextNodeRenderable.fromString("\n\nThis demonstrates ", { color: "#c9d1d9" }),
     highlightNode,
-    TextNodeRenderable.fromString("and ", { fg: "#c9d1d9" }),
+    TextNodeRenderable.fromString("and ", { color: "#c9d1d9" }),
     highlightNode2,
-    TextNodeRenderable.fromString(" within the same text flow.", { fg: "#c9d1d9" }),
+    TextNodeRenderable.fromString(" within the same text flow.", { color: "#c9d1d9" }),
   ])
 
   // Create the main container
@@ -228,25 +228,25 @@ function showExample3(): void {
 
   // Example 3: Dynamic TextNode Updates
   const titleNode = TextNodeRenderable.fromString("Dynamic Updates Demo", {
-    fg: "#58a6ff",
+    color: "#58a6ff",
     attributes: 1, // bold
   })
 
   const introNode = TextNodeRenderable.fromString("\n\nTextNodes can be updated dynamically:", {
-    fg: "#8b949e",
+    color: "#8b949e",
   })
 
   const counterNode = TextNodeRenderable.fromString(`\n\nCounter: 0`, {
-    fg: "#56d364",
+    color: "#56d364",
     attributes: 1, // bold
   })
 
   const statusNode = TextNodeRenderable.fromString("\n\nStatus: Idle", {
-    fg: "#79c0ff",
+    color: "#79c0ff",
   })
 
   const progressNode = TextNodeRenderable.fromString("\n\nProgress: [          ]", {
-    fg: "#d29922",
+    color: "#d29922",
   })
 
   // Store references to nodes that will be updated
@@ -298,44 +298,44 @@ function showExample4(): void {
 
   // Example 4: Complex Document Structure
   const titleNode = TextNodeRenderable.fromString("Complex Document Demo", {
-    fg: "#58a6ff",
+    color: "#58a6ff",
     attributes: 1, // bold
   })
 
   const introNode = TextNodeRenderable.fromString("\n\nBuilding a complete document with TextNodes:", {
-    fg: "#8b949e",
+    color: "#8b949e",
   })
 
   // Document sections
   const headerNode = TextNodeRenderable.fromString("\n\n📋 Project Status Report", {
-    fg: "#ffffff",
+    color: "#ffffff",
     attributes: 1, // bold
   })
 
   const section1Node = TextNodeRenderable.fromNodes([
-    TextNodeRenderable.fromString("\n\n🚀 ", { fg: "#56d364" }),
-    TextNodeRenderable.fromString("Progress", { fg: "#58a6ff", attributes: 1 }),
-    TextNodeRenderable.fromString(": 85% complete", { fg: "#c9d1d9" }),
+    TextNodeRenderable.fromString("\n\n🚀 ", { color: "#56d364" }),
+    TextNodeRenderable.fromString("Progress", { color: "#58a6ff", attributes: 1 }),
+    TextNodeRenderable.fromString(": 85% complete", { color: "#c9d1d9" }),
   ])
 
   const section2Node = TextNodeRenderable.fromNodes([
-    TextNodeRenderable.fromString("\n\n⚠️  ", { fg: "#d29922" }),
-    TextNodeRenderable.fromString("Issues", { fg: "#ff7b72", attributes: 1 }),
-    TextNodeRenderable.fromString(": 2 minor issues found", { fg: "#c9d1d9" }),
+    TextNodeRenderable.fromString("\n\n⚠️  ", { color: "#d29922" }),
+    TextNodeRenderable.fromString("Issues", { color: "#ff7b72", attributes: 1 }),
+    TextNodeRenderable.fromString(": 2 minor issues found", { color: "#c9d1d9" }),
   ])
 
   const section3Node = TextNodeRenderable.fromNodes([
-    TextNodeRenderable.fromString("\n\n✅ ", { fg: "#56d364" }),
-    TextNodeRenderable.fromString("Next Steps", { fg: "#58a6ff", attributes: 1 }),
-    TextNodeRenderable.fromString(": Code review and testing", { fg: "#c9d1d9" }),
+    TextNodeRenderable.fromString("\n\n✅ ", { color: "#56d364" }),
+    TextNodeRenderable.fromString("Next Steps", { color: "#58a6ff", attributes: 1 }),
+    TextNodeRenderable.fromString(": Code review and testing", { color: "#c9d1d9" }),
   ])
 
   const footerNode = TextNodeRenderable.fromString("\n\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━", {
-    fg: "#30363d",
+    color: "#30363d",
   })
 
   const signatureNode = TextNodeRenderable.fromString("\nGenerated by OpenTUI TextNode Demo", {
-    fg: "#8b949e",
+    color: "#8b949e",
     attributes: 2, // italic
   })
 

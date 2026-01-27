@@ -75,7 +75,7 @@ function formatEventAsText(renderer: CliRenderer, eventType: string, event: any)
   }
 
   const typeNode = TextNodeRenderable.fromString(`${icon}${eventType.toUpperCase()}`, {
-    fg: typeColor,
+    color: typeColor,
     attributes: 1, // bold
   })
   eventText.textNode.add(typeNode)
@@ -83,7 +83,7 @@ function formatEventAsText(renderer: CliRenderer, eventType: string, event: any)
   // Key name (if available)
   if (event.name) {
     const keyNode = TextNodeRenderable.fromString(` ${event.name}`, {
-      fg: "#FFA657",
+      color: "#FFA657",
       attributes: 1,
     })
     eventText.textNode.add(keyNode)
@@ -100,7 +100,7 @@ function formatEventAsText(renderer: CliRenderer, eventType: string, event: any)
 
   if (modifiers.length > 0) {
     const modNode = TextNodeRenderable.fromString(` [${modifiers.join("+")}]`, {
-      fg: "#D2A8FF",
+      color: "#D2A8FF",
     })
     eventText.textNode.add(modNode)
   }
@@ -110,7 +110,7 @@ function formatEventAsText(renderer: CliRenderer, eventType: string, event: any)
     const raw = event.raw || event.sequence
     const displayRaw = JSON.stringify(raw)
     const rawNode = TextNodeRenderable.fromString(` ${displayRaw}`, {
-      fg: "#79C0FF",
+      color: "#79C0FF",
     })
     eventText.textNode.add(rawNode)
   }
@@ -118,7 +118,7 @@ function formatEventAsText(renderer: CliRenderer, eventType: string, event: any)
   // Source
   if (event.source) {
     const sourceNode = TextNodeRenderable.fromString(` (${event.source})`, {
-      fg: "#8B949E",
+      color: "#8B949E",
     })
     eventText.textNode.add(sourceNode)
   }
@@ -127,7 +127,7 @@ function formatEventAsText(renderer: CliRenderer, eventType: string, event: any)
   if (event.text && eventType === "paste") {
     const textPreview = event.text.length > 50 ? event.text.substring(0, 47) + "..." : event.text
     const pasteNode = TextNodeRenderable.fromString(`\n  "${textPreview}"`, {
-      fg: "#A5D6FF",
+      color: "#A5D6FF",
     })
     eventText.textNode.add(pasteNode)
   }
@@ -136,7 +136,7 @@ function formatEventAsText(renderer: CliRenderer, eventType: string, event: any)
   if (eventType === "capabilities") {
     const capsText = JSON.stringify(event, null, 2)
     const capsNode = TextNodeRenderable.fromString(`\n${capsText}`, {
-      fg: "#8B949E",
+      color: "#8B949E",
     })
     eventText.textNode.add(capsNode)
   }
@@ -144,7 +144,7 @@ function formatEventAsText(renderer: CliRenderer, eventType: string, event: any)
   // Timestamp
   const time = new Date().toLocaleTimeString()
   const timeNode = TextNodeRenderable.fromString(`\n  ${time}`, {
-    fg: "#6E7681",
+    color: "#6E7681",
   })
   eventText.textNode.add(timeNode)
 
@@ -152,7 +152,7 @@ function formatEventAsText(renderer: CliRenderer, eventType: string, event: any)
   if (showJson && eventType !== "capabilities") {
     const jsonText = JSON.stringify({ type: eventType, timestamp: new Date().toISOString(), ...event }, null, 2)
     const jsonNode = TextNodeRenderable.fromString(`\n\n${jsonText}`, {
-      fg: "#8B949E",
+      color: "#8B949E",
     })
     eventText.textNode.add(jsonNode)
   }

@@ -24,9 +24,9 @@ export default function TextStyleScene() {
         <br />
         works! {counter()} times
       </text>
-      <text style={{ bg: "red", fg: "black" }}>
-        Hello {counter()} <span style={{ bg: "yellow", fg: "black" }}>World</span>{" "}
-        <span style={{ attributes: TextAttributes.UNDERLINE, bg: "blue", fg: "yellow" }}>{counter()}</span>
+      <text style={{ backgroundColor: "red", color: "black" }}>
+        Hello {counter()} <span style={{ backgroundColor: "yellow", color: "black" }}>World</span>{" "}
+        <span style={{ attributes: TextAttributes.UNDERLINE, backgroundColor: "blue", color: "yellow" }}>{counter()}</span>
       </text>
       <text>
         Toggle{" "}
@@ -42,7 +42,7 @@ export default function TextStyleScene() {
       <text>
         Hyperlinks:{" "}
         <u>
-          <a href="https://opentui.com" style={{ fg: "blue" }}>
+          <a href="https://opentui.com" style={{ color: "blue" }}>
             opentui.com
           </a>
         </u>{" "}

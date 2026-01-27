@@ -10,6 +10,12 @@ import type { LineInfo } from "../zig"
 import { SyntaxStyle } from "../syntax-style"
 import type { ColorInput } from "../lib/RGBA"
 
+// TODO: Revisit text attribute shorthand properties. Consider aligning with CSS:
+// - CSS uses `font-weight: bold` not `bold: true`
+// - CSS uses `font-style: italic` not `italic: true`
+// - CSS uses `text-decoration: underline` not `underline: true`
+// For now, we support both `attributes` bitmask and shorthand booleans for convenience.
+
 /**
  * Style properties specific to TextBufferRenderable.
  */
@@ -17,6 +23,16 @@ export interface TextBufferStyleProps extends StyleProps {
   color?: ColorInput
   backgroundColor?: ColorInput
   attributes?: number
+
+  // Shorthand properties (converted to attributes bitmask by reconciler)
+  bold?: boolean
+  italic?: boolean
+  underline?: boolean
+  dim?: boolean
+  blink?: boolean
+  inverse?: boolean
+  hidden?: boolean
+  strikethrough?: boolean
 }
 
 export interface TextBufferOptions extends RenderableOptions<TextBufferRenderable> {
@@ -31,6 +47,16 @@ export interface TextBufferOptions extends RenderableOptions<TextBufferRenderabl
   tabIndicatorColor?: string | RGBA
   truncate?: boolean
   style?: Style<TextBufferStyleProps>
+
+  // Shorthand properties (converted to attributes bitmask by reconciler)
+  bold?: boolean
+  italic?: boolean
+  underline?: boolean
+  dim?: boolean
+  blink?: boolean
+  inverse?: boolean
+  hidden?: boolean
+  strikethrough?: boolean
 }
 
 export abstract class TextBufferRenderable extends Renderable implements LineInfoProvider {

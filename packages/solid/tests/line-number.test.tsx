@@ -38,8 +38,8 @@ console.log(test())`
       <box id="root" width="100%" height="100%">
         <line_number
           id="line-numbers"
-          fg="#888888"
-          bg="#000000"
+          color="#888888"
+          backgroundColor="#000000"
           minWidth={3}
           paddingRight={1}
           width="100%"

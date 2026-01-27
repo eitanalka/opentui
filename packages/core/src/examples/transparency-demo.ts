@@ -38,12 +38,12 @@ class DraggableTransparentBox extends BoxRenderable {
       width,
       height,
       zIndex,
-      backgroundColor: bg,
+      backgroundColor: backgroundColor,
       position: "absolute",
       left: x,
       top: y,
     })
-    this.alphaPercentage = Math.round(bg.a * 100)
+    this.alphaPercentage = Math.round(backgroundColor.a * 100)
   }
 
   protected renderSelf(buffer: OptimizedBuffer): void {

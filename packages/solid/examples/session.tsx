@@ -117,9 +117,9 @@ export function Session() {
     <box paddingTop={1} paddingBottom={1} paddingLeft={2} paddingRight={2} flexGrow={1} maxHeight="100%">
       <box paddingBottom={1}>
         <text>
-          <span style={{ fg: "#00ff00" }}>📨</span> <span style={{ fg: "#ffffff" }}>Live Message Stream</span>
+          <span style={{ color: "#00ff00" }}>📨</span> <span style={{ color: "#ffffff" }}>Live Message Stream</span>
         </text>
-        <text fg="#666666">Messages arrive in chunks - watch them build character by character!</text>
+        <text color="#666666">Messages arrive in chunks - watch them build character by character!</text>
       </box>
 
       <scrollbox
@@ -137,7 +137,7 @@ export function Session() {
       </scrollbox>
 
       <box paddingTop={1}>
-        <text fg="#666666">
+        <text color="#666666">
           Messages: {messages.data.length} |{" "}
           <Show when={isChunkingActive()} fallback="Waiting for next message...">
             Receiving message...
@@ -170,18 +170,18 @@ function MessageItem(props: { message: Message }) {
     >
       <box flexDirection="row" paddingBottom={0.5}>
         <text>
-          <Show when={props.message.role === "user"} fallback={<span style={{ fg: "#0088ff" }}>🤖 Assistant</span>}>
-            <span style={{ fg: "#00ff00" }}>👤 You</span>
+          <Show when={props.message.role === "user"} fallback={<span style={{ color: "#0088ff" }}>🤖 Assistant</span>}>
+            <span style={{ color: "#00ff00" }}>👤 You</span>
           </Show>
         </text>
         <box flexGrow={1} />
-        <text fg="#666666">{timeString()}</text>
+        <text color="#666666">{timeString()}</text>
       </box>
 
       <text>
         {props.message.content}
         <Show when={!props.message.isComplete} fallback={""}>
-          <span style={{ fg: "#ffff00" }}>▊</span>
+          <span style={{ color: "#ffff00" }}>▊</span>
         </Show>
       </text>
 
@@ -191,7 +191,7 @@ function MessageItem(props: { message: Message }) {
             Math.round((props.message.content.length / props.message.fullContent!.length) * 100),
           )
           return (
-            <text fg="#666666" paddingTop={0.5}>
+            <text color="#666666" paddingTop={0.5}>
               Receiving message... ({progress()}%)
             </text>
           )

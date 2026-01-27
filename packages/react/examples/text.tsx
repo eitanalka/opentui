@@ -5,63 +5,63 @@ function App() {
   return (
     <text>
       Color Showcase{"\n"}
-      <span fg="red">Red text</span> <span fg="green">Green text</span> <span fg="blue">Blue text</span>{" "}
-      <span fg="yellow">Yellow text</span>
+      <span color="red">Red text</span> <span color="green">Green text</span> <span color="blue">Blue text</span>{" "}
+      <span color="yellow">Yellow text</span>
       {"\n"}
-      <span fg="magenta">Magenta</span> <span fg="cyan">Cyan</span> <span fg="white">White</span>
+      <span color="magenta">Magenta</span> <span color="cyan">Cyan</span> <span color="white">White</span>
       {"\n"}
       Background colors:{"\n"}
-      <span fg="red" bg="yellow">
+      <span color="red" backgroundColor="yellow">
         Red on Yellow
       </span>{" "}
-      <span fg="blue" bg="green">
+      <span color="blue" backgroundColor="green">
         Blue on Green
       </span>{" "}
-      <span fg="white" bg="magenta">
+      <span color="white" backgroundColor="magenta">
         White on Magenta
       </span>
       {"\n"}
-      <span fg="yellow" bg="blue">
+      <span color="yellow" backgroundColor="blue">
         Yellow on Blue
       </span>{" "}
-      <span fg="green" bg="red">
+      <span color="green" backgroundColor="red">
         Green on Red
       </span>{" "}
-      <span fg="cyan" bg="black">
+      <span color="cyan" backgroundColor="black">
         Cyan on Black
       </span>
       {"\n"}
       Hyperlinks:{"\n"}
       <u>
-        <a href="https://opentui.com" fg="blue">
+        <a href="https://opentui.com" color="blue">
           opentui.com
         </a>
       </u>{" "}
       - Click if your terminal supports OSC 8{"\n"}
       Bright colors:{"\n"}
-      <span fg="brightRed">Bright Red</span> <span fg="brightGreen">Bright Green</span>{" "}
-      <span fg="brightBlue">Bright Blue</span>
+      <span color="brightRed">Bright Red</span> <span color="brightGreen">Bright Green</span>{" "}
+      <span color="brightBlue">Bright Blue</span>
       {"\n"}
-      <span fg="brightYellow">Bright Yellow</span> <span fg="brightMagenta">Bright Magenta</span>{" "}
-      <span fg="brightCyan">Bright Cyan</span>
+      <span color="brightYellow">Bright Yellow</span> <span color="brightMagenta">Bright Magenta</span>{" "}
+      <span color="brightCyan">Bright Cyan</span>
       {"\n"}
       Text Formatting:{"\n"}
       <strong>Strong/Bold text</strong> - <em>Emphasized/Italic text</em> - <u>Underlined text</u>
       {"\n"}
-      <b fg="yellow">Bold yellow</b> - <i fg="green">Italic green</i> - <u fg="magenta">Underlined magenta</u>
+      <b color="yellow">Bold yellow</b> - <i color="green">Italic green</i> - <u color="magenta">Underlined magenta</u>
       {"\n"}
       Complex nesting:{"\n"}
-      <strong fg="red">
-        Bold red with <em fg="blue">italic blue nested</em> inside
+      <strong color="red">
+        Bold red with <em color="blue">italic blue nested</em> inside
       </strong>
       {"\n"}
       <em>
-        Italic with <u fg="cyan">underlined cyan</u> and <strong fg="yellow">bold yellow</strong>
+        Italic with <u color="cyan">underlined cyan</u> and <strong color="yellow">bold yellow</strong>
       </em>
       {"\n"}
-      <span bg="black" fg="white">
-        Background with <strong fg="brightRed">bold bright red</strong> and{" "}
-        <u fg="brightGreen">underlined bright green</u>
+      <span backgroundColor="black" color="white">
+        Background with <strong color="brightRed">bold bright red</strong> and{" "}
+        <u color="brightGreen">underlined bright green</u>
       </span>
       {"\n"}
     </text>

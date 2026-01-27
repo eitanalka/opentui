@@ -199,10 +199,10 @@ const AutocompleteDemo = () => {
   return (
     <box height="100%" width="100%" flexDirection="column" gap={1} padding={2}>
       <box>
-        <text attributes={TextAttributes.BOLD} fg="#7aa2f7">
+        <text attributes={TextAttributes.BOLD} color="#7aa2f7">
           Autocomplete Demo
         </text>
-        <text attributes={TextAttributes.DIM} fg="#9aa5ce">
+        <text attributes={TextAttributes.DIM} color="#9aa5ce">
           Type @ to trigger autocomplete. Use arrow keys to navigate, Enter to select.
         </text>
       </box>
@@ -237,7 +237,7 @@ const AutocompleteDemo = () => {
               each={options()}
               fallback={
                 <box paddingLeft={1} paddingRight={1}>
-                  <text fg="#9aa5ce">No matching items</text>
+                  <text color="#9aa5ce">No matching items</text>
                 </box>
               }
             >
@@ -248,9 +248,9 @@ const AutocompleteDemo = () => {
                   backgroundColor={index() === store.selected ? "#7aa2f7" : undefined}
                   flexDirection="row"
                 >
-                  <text fg={index() === store.selected ? "#1a1b26" : "#c0caf5"}>@{option.display}</text>
+                  <text color={index() === store.selected ? "#1a1b26" : "#c0caf5"}>@{option.display}</text>
                   <Show when={option.description}>
-                    <text fg={index() === store.selected ? "#1a1b26" : "#9aa5ce"}> - {option.description}</text>
+                    <text color={index() === store.selected ? "#1a1b26" : "#9aa5ce"}> - {option.description}</text>
                   </Show>
                 </box>
               )}
@@ -260,8 +260,8 @@ const AutocompleteDemo = () => {
       </box>
 
       <box marginTop={2}>
-        <text fg="#9aa5ce">Current input: </text>
-        <text fg="#c0caf5">{inputValue() || "(empty)"}</text>
+        <text color="#9aa5ce">Current input: </text>
+        <text color="#c0caf5">{inputValue() || "(empty)"}</text>
       </box>
     </box>
   )

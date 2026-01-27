@@ -35,8 +35,8 @@ export class TextRenderable extends TextBufferRenderable {
       ctx,
       {
         id: `${this.id}-root`,
-        fg: this._defaultFg,
-        bg: this._defaultBg,
+        color: this._defaultFg,
+        backgroundColor: this._defaultBg,
         attributes: this._defaultAttributes,
       },
       this,
@@ -132,11 +132,11 @@ export class TextRenderable extends TextBufferRenderable {
   }
 
   protected onFgChanged(newColor: RGBA): void {
-    this.rootTextNode.fg = newColor
+    this.rootTextNode.color = newColor
   }
 
   protected onBgChanged(newColor: RGBA): void {
-    this.rootTextNode.bg = newColor
+    this.rootTextNode.backgroundColor = newColor
   }
 
   protected onAttributesChanged(newAttributes: number): void {

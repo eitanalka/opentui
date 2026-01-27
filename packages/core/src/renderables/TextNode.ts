@@ -5,11 +5,26 @@ import { isStyledText, StyledText } from "../lib/styled-text"
 import { type TextChunk } from "../text-buffer"
 import type { RenderContext } from "../types"
 
+// TODO: Revisit text attribute shorthand properties. Consider aligning with CSS:
+// - CSS uses `font-weight: bold` not `bold: true`
+// - CSS uses `font-style: italic` not `italic: true`
+// - CSS uses `text-decoration: underline` not `underline: true`
+// For now, we support both `attributes` bitmask and shorthand booleans for convenience.
 export interface TextNodeOptions extends BaseRenderableOptions {
-  fg?: string | RGBA
-  bg?: string | RGBA
+  color?: string | RGBA
+  backgroundColor?: string | RGBA
   attributes?: number
   link?: { url: string }
+
+  // Shorthand properties (converted to attributes bitmask by reconciler)
+  bold?: boolean
+  italic?: boolean
+  underline?: boolean
+  dim?: boolean
+  blink?: boolean
+  inverse?: boolean
+  hidden?: boolean
+  strikethrough?: boolean
 }
 
 const BrandedTextNodeRenderable: unique symbol = Symbol.for("@opentui/core/TextNodeRenderable")
@@ -21,8 +36,8 @@ export function isTextNodeRenderable(obj: any): obj is TextNodeRenderable {
 function styledTextToTextNodes(styledText: StyledText): TextNodeRenderable[] {
   return styledText.chunks.map((chunk) => {
     const node = new TextNodeRenderable({
-      fg: chunk.fg,
-      bg: chunk.bg,
+      color: chunk.fg,
+      backgroundColor: chunk.bg,
       attributes: chunk.attributes,
       link: chunk.link,
     })
@@ -44,8 +59,8 @@ export class TextNodeRenderable extends BaseRenderable {
   constructor(options: TextNodeOptions) {
     super(options)
 
-    this._fg = options.fg ? parseColor(options.fg) : undefined
-    this._bg = options.bg ? parseColor(options.bg) : undefined
+    this._fg = options.color ? parseColor(options.color) : undefined
+    this._bg = options.backgroundColor ? parseColor(options.backgroundColor) : undefined
     this._attributes = options.attributes ?? 0
     this._link = options.link
   }
@@ -255,31 +270,31 @@ export class TextNodeRenderable extends BaseRenderable {
     return this._children.findIndex((child) => isTextNodeRenderable(child) && child.id === id)
   }
 
-  public get fg(): RGBA | undefined {
+  public get color(): RGBA | undefined {
     return this._fg
   }
 
-  public set fg(fg: RGBA | string | undefined) {
-    if (!fg) {
+  public set color(color: RGBA | string | undefined) {
+    if (!color) {
       this._fg = undefined
       this.requestRender()
       return
     }
-    this._fg = parseColor(fg)
+    this._fg = parseColor(color)
     this.requestRender()
   }
 
-  public set bg(bg: RGBA | string | undefined) {
-    if (!bg) {
+  public set backgroundColor(backgroundColor: RGBA | string | undefined) {
+    if (!backgroundColor) {
       this._bg = undefined
       this.requestRender()
       return
     }
-    this._bg = parseColor(bg)
+    this._bg = parseColor(backgroundColor)
     this.requestRender()
   }
 
-  public get bg(): RGBA | undefined {
+  public get backgroundColor(): RGBA | undefined {
     return this._bg
   }
 

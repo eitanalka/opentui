@@ -338,15 +338,15 @@ describe("Textarea Cursor Behavior Tests", () => {
           <box paddingLeft={2} paddingRight={2} gap={1}>
             <box paddingLeft={1} gap={1}>
               <box>
-                <text fg="#E8EDF2">Custom answer</text>
+                <text color="#E8EDF2">Custom answer</text>
               </box>
               <box>
                 <box flexDirection="row">
                   <box paddingRight={1}>
-                    <text fg="#8B98A5">1.</text>
+                    <text color="#8B98A5">1.</text>
                   </box>
                   <box>
-                    <text fg="#E8EDF2">Type your own answer</text>
+                    <text color="#E8EDF2">Type your own answer</text>
                   </box>
                 </box>
                 <Show when={editing()}>
@@ -371,8 +371,8 @@ describe("Textarea Cursor Behavior Tests", () => {
               </box>
             </box>
             <box paddingBottom={1} gap={1} flexDirection="row">
-              <text fg="#E8EDF2">
-                enter <span style={{ fg: "#8B98A5" }}>submit</span>
+              <text color="#E8EDF2">
+                enter <span style={{ color: "#8B98A5" }}>submit</span>
               </text>
             </box>
           </box>
@@ -435,15 +435,15 @@ describe("Textarea Cursor Behavior Tests", () => {
           <box paddingLeft={2} paddingRight={2} gap={1}>
             <box paddingLeft={1} gap={1}>
               <box>
-                <text fg="#E8EDF2">Custom answer</text>
+                <text color="#E8EDF2">Custom answer</text>
               </box>
               <box>
                 <box flexDirection="row">
                   <box paddingRight={1}>
-                    <text fg="#8B98A5">1.</text>
+                    <text color="#8B98A5">1.</text>
                   </box>
                   <box>
-                    <text fg="#E8EDF2">Type your own answer</text>
+                    <text color="#E8EDF2">Type your own answer</text>
                   </box>
                 </box>
                 <Show when={editing()}>
@@ -469,8 +469,8 @@ describe("Textarea Cursor Behavior Tests", () => {
               </box>
             </box>
             <box paddingBottom={1} gap={1} flexDirection="row">
-              <text fg="#E8EDF2">
-                enter <span style={{ fg: "#8B98A5" }}>submit</span>
+              <text color="#E8EDF2">
+                enter <span style={{ color: "#8B98A5" }}>submit</span>
               </text>
             </box>
           </box>
@@ -534,15 +534,15 @@ describe("Textarea Cursor Behavior Tests", () => {
           <box paddingLeft={2} paddingRight={2} gap={1}>
             <box paddingLeft={1} gap={1}>
               <box>
-                <text fg="#E8EDF2">Custom answer</text>
+                <text color="#E8EDF2">Custom answer</text>
               </box>
               <box>
                 <box flexDirection="row">
                   <box paddingRight={1}>
-                    <text fg="#8B98A5">1.</text>
+                    <text color="#8B98A5">1.</text>
                   </box>
                   <box>
-                    <text fg="#E8EDF2">Type your own answer</text>
+                    <text color="#E8EDF2">Type your own answer</text>
                   </box>
                 </box>
                 <Show when={editing()}>
@@ -569,8 +569,8 @@ describe("Textarea Cursor Behavior Tests", () => {
               </box>
             </box>
             <box paddingBottom={1} gap={1} flexDirection="row">
-              <text fg="#E8EDF2">
-                enter <span style={{ fg: "#8B98A5" }}>submit</span>
+              <text color="#E8EDF2">
+                enter <span style={{ color: "#8B98A5" }}>submit</span>
               </text>
             </box>
           </box>

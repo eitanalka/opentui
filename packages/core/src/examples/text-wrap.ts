@@ -252,164 +252,164 @@ function handleGlobalMouse(event: MouseEvent): void {
 // Create styled demo text using TextNodes
 function createDemoText(): TextNodeRenderable {
   const titleNode = TextNodeRenderable.fromString("🎨 OpenTUI Text Wrapping Demo", {
-    fg: "#7aa2f7",
+    color: "#7aa2f7",
     attributes: 1, // bold
   })
 
   const introNode = TextNodeRenderable.fromString("\n\nWelcome to the ", {
-    fg: "#c0caf5",
+    color: "#c0caf5",
   })
 
   const highlightNode = TextNodeRenderable.fromString("text wrapping demonstration", {
-    fg: "#9ece6a",
+    color: "#9ece6a",
     attributes: 1, // bold
   })
 
   const introContNode = TextNodeRenderable.fromString(
     ". This example showcases how OpenTUI handles automatic text wrapping with styled content using TextNodes.",
     {
-      fg: "#c0caf5",
+      color: "#c0caf5",
     },
   )
 
   const featuresTitle = TextNodeRenderable.fromString("\n\n✨ Key Features:", {
-    fg: "#bb9af7",
+    color: "#bb9af7",
     attributes: 1,
   })
 
   const feature1Node = TextNodeRenderable.fromNodes([
-    TextNodeRenderable.fromString("\n• ", { fg: "#9ece6a" }),
-    TextNodeRenderable.fromString("Word-based wrapping", { fg: "#c0caf5", attributes: 1 }),
-    TextNodeRenderable.fromString(" - Preserves word boundaries when breaking lines 📖", { fg: "#565f89" }),
+    TextNodeRenderable.fromString("\n• ", { color: "#9ece6a" }),
+    TextNodeRenderable.fromString("Word-based wrapping", { color: "#c0caf5", attributes: 1 }),
+    TextNodeRenderable.fromString(" - Preserves word boundaries when breaking lines 📖", { color: "#565f89" }),
   ])
 
   const feature2Node = TextNodeRenderable.fromNodes([
-    TextNodeRenderable.fromString("\n• ", { fg: "#9ece6a" }),
-    TextNodeRenderable.fromString("Character-based wrapping", { fg: "#c0caf5", attributes: 1 }),
-    TextNodeRenderable.fromString(" - Breaks at any character for precise control ✂️", { fg: "#565f89" }),
+    TextNodeRenderable.fromString("\n• ", { color: "#9ece6a" }),
+    TextNodeRenderable.fromString("Character-based wrapping", { color: "#c0caf5", attributes: 1 }),
+    TextNodeRenderable.fromString(" - Breaks at any character for precise control ✂️", { color: "#565f89" }),
   ])
 
   const feature3Node = TextNodeRenderable.fromNodes([
-    TextNodeRenderable.fromString("\n• ", { fg: "#9ece6a" }),
-    TextNodeRenderable.fromString("Dynamic resizing", { fg: "#c0caf5", attributes: 1 }),
-    TextNodeRenderable.fromString(" - Text reflows automatically as container dimensions change 🔄", { fg: "#565f89" }),
+    TextNodeRenderable.fromString("\n• ", { color: "#9ece6a" }),
+    TextNodeRenderable.fromString("Dynamic resizing", { color: "#c0caf5", attributes: 1 }),
+    TextNodeRenderable.fromString(" - Text reflows automatically as container dimensions change 🔄", { color: "#565f89" }),
   ])
 
   const feature4Node = TextNodeRenderable.fromNodes([
-    TextNodeRenderable.fromString("\n• ", { fg: "#9ece6a" }),
-    TextNodeRenderable.fromString("Rich styling", { fg: "#c0caf5", attributes: 1 }),
+    TextNodeRenderable.fromString("\n• ", { color: "#9ece6a" }),
+    TextNodeRenderable.fromString("Rich styling", { color: "#c0caf5", attributes: 1 }),
     TextNodeRenderable.fromString(" - Individual text segments can have different colors and attributes 🎨", {
-      fg: "#565f89",
+      color: "#565f89",
     }),
   ])
 
   const demoTitle = TextNodeRenderable.fromString("\n\n🔧 How It Works:", {
-    fg: "#bb9af7",
+    color: "#bb9af7",
     attributes: 1,
   })
 
   const demoText = TextNodeRenderable.fromString(
     "\n\nTextNodes are created with specific styling and then composed together to form rich, formatted text content. Each node can contain different foreground colors, background colors, and text attributes like ",
     {
-      fg: "#c0caf5",
+      color: "#c0caf5",
     },
   )
 
   const boldExample = TextNodeRenderable.fromString("bold", {
-    fg: "#f7768e",
+    color: "#f7768e",
     attributes: 1,
   })
 
   const demoCont = TextNodeRenderable.fromString(", ", {
-    fg: "#c0caf5",
+    color: "#c0caf5",
   })
 
   const italicExample = TextNodeRenderable.fromString("italic", {
-    fg: "#f7768e",
+    color: "#f7768e",
     attributes: 2,
   })
 
   const demoCont2 = TextNodeRenderable.fromString(", and ", {
-    fg: "#c0caf5",
+    color: "#c0caf5",
   })
 
   const underlineExample = TextNodeRenderable.fromString("underline", {
-    fg: "#f7768e",
+    color: "#f7768e",
     attributes: 4,
   })
 
   const demoCont3 = TextNodeRenderable.fromString(
     ". When the container is resized, the text automatically reflows to fit the new dimensions while maintaining the specified wrapping mode.",
     {
-      fg: "#c0caf5",
+      color: "#c0caf5",
     },
   )
 
   const codeTitle = TextNodeRenderable.fromString("\n\n💻 Example Code: 🖥️", {
-    fg: "#bb9af7",
+    color: "#bb9af7",
     attributes: 1,
   })
 
   const codeBlock = TextNodeRenderable.fromString(
     `\n\nconst styledText = TextNodeRenderable.fromNodes([
-  TextNodeRenderable.fromString("Hello ", { fg: "#9ece6a" }),
-  TextNodeRenderable.fromString("World", { fg: "#7aa2f7", attributes: 1 }),
-  TextNodeRenderable.fromString("!", { fg: "#f7768e" })
+  TextNodeRenderable.fromString("Hello ", { color: "#9ece6a" }),
+  TextNodeRenderable.fromString("World", { color: "#7aa2f7", attributes: 1 }),
+  TextNodeRenderable.fromString("!", { color: "#f7768e" })
 ]);
 
 textRenderable.add(styledText);`,
     {
-      fg: "#c0caf5",
-      bg: "#1a1a2e",
+      color: "#c0caf5",
+      backgroundColor: "#1a1a2e",
     },
   )
 
   const interactionTitle = TextNodeRenderable.fromString("\n\n🎮 Try It Out:", {
-    fg: "#bb9af7",
+    color: "#bb9af7",
     attributes: 1,
   })
 
   const interactionText = TextNodeRenderable.fromString(
     "\n\nDrag the borders or corners of this text box to resize it and watch how the text wrapping adapts in real-time. Press ",
     {
-      fg: "#c0caf5",
+      color: "#c0caf5",
     },
   )
 
   const keyW = TextNodeRenderable.fromString("W", {
-    fg: "#9ece6a",
+    color: "#9ece6a",
     attributes: 1,
   })
 
   const interactionCont = TextNodeRenderable.fromString(" to toggle wrapping on/off, ", {
-    fg: "#c0caf5",
+    color: "#c0caf5",
   })
 
   const keyM = TextNodeRenderable.fromString("M", {
-    fg: "#bb9af7",
+    color: "#bb9af7",
     attributes: 1,
   })
 
   const interactionCont2 = TextNodeRenderable.fromString(" to switch between word and character wrapping modes, and ", {
-    fg: "#c0caf5",
+    color: "#c0caf5",
   })
 
   const keyD = TextNodeRenderable.fromString("D", {
-    fg: "#f7768e",
+    color: "#f7768e",
     attributes: 1,
   })
 
   const interactionCont3 = TextNodeRenderable.fromString(
     " to download and display the Babylon.js library source code. The text will reflow instantly to demonstrate the different wrapping behaviors.",
     {
-      fg: "#c0caf5",
+      color: "#c0caf5",
     },
   )
 
   const conclusionNode = TextNodeRenderable.fromString(
     "\n\n🚀 This demonstrates the power of OpenTUI's flexible text rendering system, combining rich styling with dynamic layout capabilities! ✨🎨📝",
     {
-      fg: "#9ece6a",
+      color: "#9ece6a",
       attributes: 1,
     },
   )
@@ -589,7 +589,7 @@ export function run(renderer: CliRenderer): void {
 
         // Add header text node
         const headerNode = TextNodeRenderable.fromString(`// Loaded from: ${filePath}\n// Size: ${fileSizeMB} MB\n\n`, {
-          fg: "#9ece6a",
+          color: "#9ece6a",
         })
         textRenderable.add(headerNode)
 
@@ -613,7 +613,7 @@ export function run(renderer: CliRenderer): void {
       // Show error in text renderable
       const errorMessage = error instanceof Error ? error.message : "Unknown error"
       const errorTextNode = TextNodeRenderable.fromString(`ERROR: ${errorMessage}\n\nPress L to try again.`, {
-        fg: "#f7768e",
+        color: "#f7768e",
       })
 
       if (textRenderable) {
@@ -697,7 +697,7 @@ export function run(renderer: CliRenderer): void {
           const babylonTextNode = TextNodeRenderable.fromString(
             `// Downloaded Babylon.js (${loadedContent.length.toLocaleString()} chars, ${fileSizeMB} MB)\n// Stored at: ${filePath}\n\n${loadedContent}`,
             {
-              fg: "#c0caf5",
+              color: "#c0caf5",
             },
           )
 

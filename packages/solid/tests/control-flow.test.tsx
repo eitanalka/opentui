@@ -608,7 +608,7 @@ describe("SolidJS Renderer - Control Flow Components", () => {
             <text>
               Base text
               <Show when={showExtra()}>
-                <span style={{ fg: "red" }}> extra styled text</span>
+                <span style={{ color: "red" }}> extra styled text</span>
               </Show>
             </text>
           </box>
@@ -637,7 +637,7 @@ describe("SolidJS Renderer - Control Flow Components", () => {
             <text>
               Base text
               <br />
-              <span style={{ fg: "red" }}>
+              <span style={{ color: "red" }}>
                 <Show when={showExtra()}>extra styled text</Show>
               </span>
               <br />

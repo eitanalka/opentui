@@ -189,7 +189,7 @@ Theme & Display:
 Other:
   ? : Toggle this help screen
   Ctrl+C : Exit`}
-        style={{ fg: "#E6EDF3" }}
+        style={{ color: "#E6EDF3" }}
       />
     </box>
   )
@@ -243,7 +243,7 @@ export function App() {
           backgroundColor: theme.backgroundColor,
         }}
       >
-        <text content="Ctrl+C to exit | Press ? for keybindings" style={{ fg: "#888888" }} />
+        <text content="Ctrl+C to exit | Press ? for keybindings" style={{ color: "#888888" }} />
       </box>
 
       <diff

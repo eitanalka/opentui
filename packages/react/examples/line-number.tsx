@@ -121,18 +121,18 @@ console.log('Even numbers:', evens)`
   return (
     <box flexDirection="column" width="100%" height="100%" gap={1}>
       <box flexDirection="column" backgroundColor="#0D1117" padding={1} flexShrink={0} border borderColor="#30363D">
-        <text fg="#4ECDC4">Line Numbers Demo</text>
-        <text fg="#888888">Keybindings:</text>
-        <text fg="#AAAAAA">L - Toggle line numbers ({showLineNumbers ? "ON" : "OFF"})</text>
-        <text fg="#AAAAAA">H - Toggle diff highlights ({showDiffHighlights ? "ON" : "OFF"})</text>
-        <text fg="#AAAAAA">D - Toggle diagnostics ({showDiagnostics ? "ON" : "OFF"})</text>
+        <text color="#4ECDC4">Line Numbers Demo</text>
+        <text color="#888888">Keybindings:</text>
+        <text color="#AAAAAA">L - Toggle line numbers ({showLineNumbers ? "ON" : "OFF"})</text>
+        <text color="#AAAAAA">H - Toggle diff highlights ({showDiffHighlights ? "ON" : "OFF"})</text>
+        <text color="#AAAAAA">D - Toggle diagnostics ({showDiagnostics ? "ON" : "OFF"})</text>
       </box>
 
       <box flexGrow={1} border borderStyle="single" borderColor="#4ECDC4" backgroundColor="#0D1117">
         <line-number
           ref={lineNumberRef}
-          fg="#6b7280"
-          bg="#161b22"
+          color="#6b7280"
+          backgroundColor="#161b22"
           minWidth={3}
           paddingRight={1}
           showLineNumbers={showLineNumbers}

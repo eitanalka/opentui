@@ -693,14 +693,14 @@ describe("TextRenderable Selection", () => {
       })
 
       const node1 = new TextNodeRenderable({
-        fg: RGBA.fromValues(1, 0, 0, 1),
-        bg: RGBA.fromValues(0, 0, 0, 1),
+        color: RGBA.fromValues(1, 0, 0, 1),
+        backgroundColor: RGBA.fromValues(0, 0, 0, 1),
       })
       node1.add("Hello")
 
       const node2 = new TextNodeRenderable({
-        fg: RGBA.fromValues(0, 1, 0, 1),
-        bg: RGBA.fromValues(0, 0, 0, 1),
+        color: RGBA.fromValues(0, 1, 0, 1),
+        backgroundColor: RGBA.fromValues(0, 0, 0, 1),
       })
       node2.add(" World")
 
@@ -819,16 +819,16 @@ describe("TextRenderable Selection", () => {
 
       // Create nested structure: Parent -> [Child1, Child2]
       const parent = new TextNodeRenderable({
-        fg: RGBA.fromValues(1, 1, 0, 1),
+        color: RGBA.fromValues(1, 1, 0, 1),
       })
 
       const child1 = new TextNodeRenderable({
-        fg: RGBA.fromValues(1, 0, 0, 1),
+        color: RGBA.fromValues(1, 0, 0, 1),
       })
       child1.add("Red")
 
       const child2 = new TextNodeRenderable({
-        fg: RGBA.fromValues(0, 1, 0, 1),
+        color: RGBA.fromValues(0, 1, 0, 1),
       })
       child2.add(" Green")
 
@@ -836,7 +836,7 @@ describe("TextRenderable Selection", () => {
       parent.add(child2)
 
       const standalone = new TextNodeRenderable({
-        fg: RGBA.fromValues(0, 0, 1, 1),
+        color: RGBA.fromValues(0, 0, 1, 1),
       })
       standalone.add(" Blue")
 
@@ -880,13 +880,13 @@ describe("TextRenderable Selection", () => {
       })
 
       const redParent = new TextNodeRenderable({
-        fg: RGBA.fromValues(1, 0, 0, 1), // Red
+        color: RGBA.fromValues(1, 0, 0, 1), // Red
       })
 
       const redChild = new TextNodeRenderable({})
 
       const greenGrandchild = new TextNodeRenderable({
-        fg: RGBA.fromValues(0, 1, 0, 1), // Green
+        color: RGBA.fromValues(0, 1, 0, 1), // Green
       })
       greenGrandchild.add("Green")
 
@@ -894,7 +894,7 @@ describe("TextRenderable Selection", () => {
       redParent.add(redChild)
 
       const blueNode = new TextNodeRenderable({
-        fg: RGBA.fromValues(0, 0, 1, 1), // Blue
+        color: RGBA.fromValues(0, 0, 1, 1), // Blue
       })
       blueNode.add(" Blue")
 
@@ -1021,13 +1021,13 @@ describe("TextRenderable Selection", () => {
       inheritingChild.add("Inherit")
 
       const overridingChild = new TextNodeRenderable({
-        fg: RGBA.fromValues(0, 1, 0, 1),
-        bg: RGBA.fromValues(1, 1, 0, 1),
+        color: RGBA.fromValues(0, 1, 0, 1),
+        backgroundColor: RGBA.fromValues(1, 1, 0, 1),
       })
       overridingChild.add(" Override")
 
       const partialOverrideChild = new TextNodeRenderable({
-        fg: RGBA.fromValues(0, 0, 1, 1),
+        color: RGBA.fromValues(0, 0, 1, 1),
       })
       partialOverrideChild.add(" Partial")
 
@@ -1252,7 +1252,7 @@ describe("TextRenderable Selection", () => {
       text.add(baseNode)
 
       const styledNode = new TextNodeRenderable({
-        fg: RGBA.fromValues(1, 0, 0, 1),
+        color: RGBA.fromValues(1, 0, 0, 1),
       })
 
       const nodeStyledText = new StyledText([

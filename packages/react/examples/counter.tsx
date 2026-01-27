@@ -13,7 +13,7 @@ export const App = () => {
     return () => clearInterval(interval)
   }, [])
 
-  return <text content={`${counter} tests passed...`} fg="#00FF00" />
+  return <text content={`${counter} tests passed...`} color="#00FF00" />
 }
 
 const renderer = await createCliRenderer()

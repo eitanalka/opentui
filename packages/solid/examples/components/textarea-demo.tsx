@@ -136,7 +136,7 @@ export function TextareaDemo() {
           style={{ flexGrow: 1 }}
         />
       </box>
-      <text style={{ fg: "#A5D6FF", height: 1 }}>{statusText()}</text>
+      <text style={{ color: "#A5D6FF", height: 1 }}>{statusText()}</text>
     </box>
   )
 }

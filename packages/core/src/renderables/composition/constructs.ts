@@ -114,12 +114,14 @@ export const vstyles = {
     StyledText({ attributes: TextAttributes.BOLD | TextAttributes.ITALIC | TextAttributes.UNDERLINE }, ...children),
 
   // Color helpers
-  color: (color: string | RGBA, ...children: (string | TextNodeRenderable)[]) => StyledText({ fg: color }, ...children),
+  color: (color: string | RGBA, ...children: (string | TextNodeRenderable)[]) =>
+    StyledText({ color: color }, ...children),
   bgColor: (bgColor: string | RGBA, ...children: (string | TextNodeRenderable)[]) =>
-    StyledText({ bg: bgColor }, ...children),
-  fg: (color: string | RGBA, ...children: (string | TextNodeRenderable)[]) => StyledText({ fg: color }, ...children),
+    StyledText({ backgroundColor: bgColor }, ...children),
+  fg: (color: string | RGBA, ...children: (string | TextNodeRenderable)[]) =>
+    StyledText({ color: color }, ...children),
   bg: (bgColor: string | RGBA, ...children: (string | TextNodeRenderable)[]) =>
-    StyledText({ bg: bgColor }, ...children),
+    StyledText({ backgroundColor: bgColor }, ...children),
 
   // Custom styling function
   styled: (attributes: number = 0, ...children: (string | TextNodeRenderable)[]) =>

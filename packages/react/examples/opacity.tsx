@@ -48,7 +48,7 @@ export default function App() {
     <box flexDirection="column" width="100%" height="100%">
       {/* Header */}
       <box height={3} backgroundColor="#16213e" border borderStyle="single" alignItems="center" justifyContent="center">
-        <text fg="#e94560">
+        <text color="#e94560">
           OPACITY DEMO | 1-4: Toggle opacity | A: {animating ? "Stop" : "Animate"} | Ctrl+C: Exit
         </text>
       </box>
@@ -74,8 +74,8 @@ export default function App() {
               justifyContent="center"
               flexDirection="column"
             >
-              <text fg="#ffffff">Box {i + 1}</text>
-              <text fg="#ffffff">Opacity: {opacities[i].toFixed(1)}</text>
+              <text color="#ffffff">Box {i + 1}</text>
+              <text color="#ffffff">Opacity: {opacities[i].toFixed(1)}</text>
             </box>
           ))}
         </box>
@@ -94,7 +94,7 @@ export default function App() {
           padding={1}
           flexDirection="column"
         >
-          <text fg="#ffffff">Parent: 0.7 opacity</text>
+          <text color="#ffffff">Parent: 0.7 opacity</text>
           <box
             backgroundColor="#0f3460"
             opacity={0.5}
@@ -104,8 +104,8 @@ export default function App() {
             justifyContent="center"
             flexDirection="column"
           >
-            <text fg="#ffffff">Child: 0.5 opacity</text>
-            <text fg="#ffcc00">Effective: 0.35</text>
+            <text color="#ffffff">Child: 0.5 opacity</text>
+            <text color="#ffcc00">Effective: 0.35</text>
           </box>
         </box>
       </box>

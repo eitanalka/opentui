@@ -7,7 +7,6 @@ import {
   blue,
   bold,
   underline,
-  fg,
   type MouseEvent,
   type CliRenderer,
   type RenderContext,
@@ -110,8 +109,8 @@ class DraggableStyledText extends TextRenderable {
 ${underline("Complex:")} a̐éö̲  Z͑͗͛̒͘a̴͈͚̐̓l̷͓̱͉g̶̙̗̓͘o̵͍͈  क्‍ष`
 
     this.content = content
-    this.fg = RGBA.fromInts(255, 255, 255, 255)
-    this.bg = RGBA.fromInts(0, 0, 0, 0)
+    this.color = RGBA.fromInts(255, 255, 255, 255)
+    this.backgroundColor = RGBA.fromInts(0, 0, 0, 0)
   }
 
   protected onMouseEvent(event: MouseEvent): void {

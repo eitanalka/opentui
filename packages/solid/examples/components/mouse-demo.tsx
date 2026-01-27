@@ -28,19 +28,19 @@ class DraggableTransparentBox extends BoxRenderable {
     this.screenSizeY = 52
   }
 
-  constructor(ctx: RenderContext, x: number, y: number, width: number, height: number, bg: RGBA, zIndex: number) {
+  constructor(ctx: RenderContext, x: number, y: number, width: number, height: number, backgroundColor: RGBA, zIndex: number) {
     super(ctx, {
       width,
       height,
       zIndex,
-      backgroundColor: bg,
+      backgroundColor: backgroundColor,
       titleAlignment: "center",
       position: "absolute",
       left: x,
       top: y,
       border: true,
     })
-    this.alphaPercentage = Math.round(bg.a * 100)
+    this.alphaPercentage = Math.round(backgroundColor.a * 100)
   }
 
   normalizeCoordinates(x: number, y: number): { x: number; y: number } {

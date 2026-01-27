@@ -37,7 +37,7 @@ describe("Link Rendering Tests", () => {
     testSetup = await testRender(
       <text>
         <u>
-          <a href="https://opentui.com" fg="blue">
+          <a href="https://opentui.com" color="blue">
             opentui.com
           </a>
         </u>
