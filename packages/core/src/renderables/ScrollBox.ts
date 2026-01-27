@@ -419,6 +419,7 @@ export class ScrollBoxRenderable extends BoxRenderable {
   }
 
   protected onMouseEvent(event: MouseEvent): void {
+    super.onMouseEvent(event)
     if (event.type === "scroll") {
       let dir = event.scroll?.direction
       if (event.modifiers.shift)

@@ -90,6 +90,7 @@ export interface StyleProps {
  * Generic T allows subclasses to define their own styleable properties.
  */
 export type Style<T extends StyleProps = StyleProps> = T & {
+  hover?: T
   focus?: T
 }
 
@@ -278,6 +279,7 @@ export abstract class Renderable extends BaseRenderable {
 
   protected _focusable: boolean = false
   protected _focused: boolean = false
+  protected _hovered: boolean = false
   protected keypressHandler: ((key: KeyEvent) => void) | null = null
   protected pasteHandler: ((event: PasteEvent) => void) | null = null
 
@@ -443,9 +445,9 @@ export abstract class Renderable extends BaseRenderable {
    * This ensures properties reset to defaults when states become inactive.
    */
   private computeBaseStyles(style: Style<StyleProps>): StyleProps {
-    const { focus, ...base } = style
+    const { hover, focus, ...base } = style
     const baseStyles: StyleProps = {}
-    for (const state of [focus]) {
+    for (const state of [hover, focus]) {
       if (state) {
         for (const key of Object.keys(state)) {
           ;(baseStyles as any)[key] = undefined
@@ -488,7 +490,12 @@ export abstract class Renderable extends BaseRenderable {
     // Start with base styles
     const merged: StyleProps = { ...this._baseStyles }
 
-    // Apply focus styles if focused
+    // Apply hover styles if hovered (lowest priority state)
+    if (this._hovered && this._style.hover) {
+      Object.assign(merged, this._style.hover)
+    }
+
+    // Apply focus styles if focused (higher priority than hover)
     if (this._focused && this._style.focus) {
       Object.assign(merged, this._style.focus)
     }
@@ -1606,8 +1613,20 @@ export abstract class Renderable extends BaseRenderable {
   }
 
   protected onMouseEvent(event: MouseEvent): void {
-    // Default implementation: do nothing
-    // Override this method to provide custom event handling
+    if (event.defaultPrevented) return
+
+    // Handle hover state changes
+    if (event.type === "over") {
+      if (!this._hovered) {
+        this._hovered = true
+        this.onStateChange()
+      }
+    } else if (event.type === "out") {
+      if (this._hovered) {
+        this._hovered = false
+        this.onStateChange()
+      }
+    }
   }
 
   public set onMouse(handler: ((event: MouseEvent) => void) | undefined) {

@@ -141,6 +141,7 @@ export abstract class TextBufferRenderable extends Renderable implements LineInf
   }
 
   protected onMouseEvent(event: any): void {
+    super.onMouseEvent(event)
     if (event.type === "scroll") {
       this.handleScroll(event)
     }

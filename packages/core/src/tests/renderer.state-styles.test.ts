@@ -6,6 +6,7 @@ import { SelectRenderable } from "../renderables/Select"
 import { SliderRenderable } from "../renderables/Slider"
 import { ASCIIFontRenderable } from "../renderables/ASCIIFont"
 import { parseColor } from "../lib/RGBA"
+import { MouseEvent } from "../renderer"
 
 let renderer: TestRenderer
 let renderOnce: () => Promise<void>
@@ -487,5 +488,268 @@ describe("State-based styles - ASCIIFontRenderable", () => {
     await renderOnce()
 
     expect(asciiFont.backgroundColor).toEqual("#333333")
+  })
+})
+
+describe("State-based styles - Hover", () => {
+  test("hover changes backgroundColor when style.hover.backgroundColor is set", async () => {
+    const box = new BoxRenderable(renderer, {
+      id: "test-box",
+      width: 10,
+      height: 5,
+      style: {
+        backgroundColor: "red",
+        hover: {
+          backgroundColor: "blue",
+        },
+      },
+    })
+
+    renderer.root.add(box)
+    await renderOnce()
+
+    // Initial state
+    expect(box.backgroundColor).toEqual(parseColor("red"))
+
+    // Simulate mouse over
+    const mouseEvent = new MouseEvent(box, { type: "over", x: 5, y: 2, button: 0, modifiers: { shift: false, alt: false, ctrl: false } })
+    box.processMouseEvent(mouseEvent)
+    await renderOnce()
+
+    // After hover
+    expect(box.backgroundColor).toEqual(parseColor("blue"))
+  })
+
+  test("mouseout returns styles to base values", async () => {
+    const box = new BoxRenderable(renderer, {
+      id: "test-box",
+      width: 10,
+      height: 5,
+      style: {
+        backgroundColor: "red",
+        hover: {
+          backgroundColor: "blue",
+        },
+      },
+    })
+
+    renderer.root.add(box)
+    await renderOnce()
+
+    // Hover first
+    const overEvent = new MouseEvent(box, { type: "over", x: 5, y: 2, button: 0, modifiers: { shift: false, alt: false, ctrl: false } })
+    box.processMouseEvent(overEvent)
+    await renderOnce()
+
+    expect(box.backgroundColor).toEqual(parseColor("blue"))
+
+    // Mouse out
+    const outEvent = new MouseEvent(box, { type: "out", x: 5, y: 2, button: 0, modifiers: { shift: false, alt: false, ctrl: false } })
+    box.processMouseEvent(outEvent)
+    await renderOnce()
+
+    // Should return to base
+    expect(box.backgroundColor).toEqual(parseColor("red"))
+  })
+
+  test("focus takes precedence over hover", async () => {
+    const box = new BoxRenderable(renderer, {
+      id: "test-box",
+      width: 10,
+      height: 5,
+      focusable: true,
+      style: {
+        backgroundColor: "red",
+        hover: { backgroundColor: "blue" },
+        focus: { backgroundColor: "green" },
+      },
+    })
+
+    renderer.root.add(box)
+    await renderOnce()
+
+    // Hover first
+    box.processMouseEvent(new MouseEvent(box, { type: "over", x: 5, y: 2, button: 0, modifiers: { shift: false, alt: false, ctrl: false } }))
+    await renderOnce()
+    expect(box.backgroundColor).toEqual(parseColor("blue"))
+
+    // Then focus - should override hover
+    box.focus()
+    await renderOnce()
+    expect(box.backgroundColor).toEqual(parseColor("green"))
+
+    // Blur - should return to hover (still hovering)
+    box.blur()
+    await renderOnce()
+    expect(box.backgroundColor).toEqual(parseColor("blue"))
+  })
+
+  test("hover works on TextRenderable", async () => {
+    const text = new TextRenderable(renderer, {
+      id: "test-text",
+      content: "Hello",
+      style: {
+        color: "white",
+        hover: {
+          color: "yellow",
+        },
+      },
+    })
+
+    renderer.root.add(text)
+    await renderOnce()
+
+    // Initial state
+    expect(text.color).toEqual(parseColor("white"))
+
+    // Hover
+    text.processMouseEvent(new MouseEvent(text, { type: "over", x: 0, y: 0, button: 0, modifiers: { shift: false, alt: false, ctrl: false } }))
+    await renderOnce()
+
+    expect(text.color).toEqual(parseColor("yellow"))
+
+    // Mouse out
+    text.processMouseEvent(new MouseEvent(text, { type: "out", x: 0, y: 0, button: 0, modifiers: { shift: false, alt: false, ctrl: false } }))
+    await renderOnce()
+
+    expect(text.color).toEqual(parseColor("white"))
+  })
+
+  test("hover works on SelectRenderable", async () => {
+    const select = new SelectRenderable(renderer, {
+      id: "test-select",
+      width: 20,
+      height: 5,
+      options: [
+        { name: "Option 1", description: "First option" },
+        { name: "Option 2", description: "Second option" },
+      ],
+      style: {
+        backgroundColor: "#000000",
+        hover: {
+          backgroundColor: "#333333",
+        },
+      },
+    })
+
+    renderer.root.add(select)
+    select.blur()
+    await renderOnce()
+
+    // Initial state
+    // @ts-expect-error - accessing private property for testing
+    expect(select._backgroundColor).toEqual(parseColor("#000000"))
+
+    // Hover
+    select.processMouseEvent(new MouseEvent(select, { type: "over", x: 5, y: 2, button: 0, modifiers: { shift: false, alt: false, ctrl: false } }))
+    await renderOnce()
+
+    // @ts-expect-error - accessing private property for testing
+    expect(select._backgroundColor).toEqual(parseColor("#333333"))
+
+    // Mouse out
+    select.processMouseEvent(new MouseEvent(select, { type: "out", x: 5, y: 2, button: 0, modifiers: { shift: false, alt: false, ctrl: false } }))
+    await renderOnce()
+
+    // @ts-expect-error - accessing private property for testing
+    expect(select._backgroundColor).toEqual(parseColor("#000000"))
+  })
+
+  test("hover-only backgroundColor resets to default on mouseout", async () => {
+    const box = new BoxRenderable(renderer, {
+      id: "test-box",
+      width: 10,
+      height: 5,
+      style: {
+        // No backgroundColor in base - only in hover
+        hover: {
+          backgroundColor: "blue",
+        },
+      },
+    })
+
+    renderer.root.add(box)
+    await renderOnce()
+
+    // Initial state: should have default backgroundColor (transparent)
+    expect(box.backgroundColor).toEqual(parseColor("transparent"))
+
+    // Hover
+    box.processMouseEvent(new MouseEvent(box, { type: "over", x: 5, y: 2, button: 0, modifiers: { shift: false, alt: false, ctrl: false } }))
+    await renderOnce()
+
+    // After hover: should have hover backgroundColor
+    expect(box.backgroundColor).toEqual(parseColor("blue"))
+
+    // Mouse out
+    box.processMouseEvent(new MouseEvent(box, { type: "out", x: 5, y: 2, button: 0, modifiers: { shift: false, alt: false, ctrl: false } }))
+    await renderOnce()
+
+    // After mouseout: should reset to default (transparent)
+    expect(box.backgroundColor).toEqual(parseColor("transparent"))
+  })
+
+  test("preventDefault on mouseover prevents hover state change", async () => {
+    const box = new BoxRenderable(renderer, {
+      id: "test-box",
+      width: 10,
+      height: 5,
+      style: {
+        backgroundColor: "red",
+        hover: {
+          backgroundColor: "blue",
+        },
+      },
+      onMouseOver: (event) => {
+        event.preventDefault()
+      },
+    })
+
+    renderer.root.add(box)
+    await renderOnce()
+
+    // Initial state
+    expect(box.backgroundColor).toEqual(parseColor("red"))
+
+    // Try to hover - but preventDefault is called
+    box.processMouseEvent(new MouseEvent(box, { type: "over", x: 5, y: 2, button: 0, modifiers: { shift: false, alt: false, ctrl: false } }))
+    await renderOnce()
+
+    // Should still have base backgroundColor because preventDefault was called
+    expect(box.backgroundColor).toEqual(parseColor("red"))
+  })
+
+  test("preventDefault on mouseout prevents hover state change", async () => {
+    const box = new BoxRenderable(renderer, {
+      id: "test-box",
+      width: 10,
+      height: 5,
+      style: {
+        backgroundColor: "red",
+        hover: {
+          backgroundColor: "blue",
+        },
+      },
+      onMouseOut: (event) => {
+        event.preventDefault()
+      },
+    })
+
+    renderer.root.add(box)
+    await renderOnce()
+
+    // Hover normally (no preventDefault on over)
+    box.processMouseEvent(new MouseEvent(box, { type: "over", x: 5, y: 2, button: 0, modifiers: { shift: false, alt: false, ctrl: false } }))
+    await renderOnce()
+
+    // Should have hover backgroundColor
+    expect(box.backgroundColor).toEqual(parseColor("blue"))
+
+    // Try to mouseout - but preventDefault is called
+    box.processMouseEvent(new MouseEvent(box, { type: "out", x: 5, y: 2, button: 0, modifiers: { shift: false, alt: false, ctrl: false } }))
+    await renderOnce()
+
+    // Should still have hover backgroundColor because preventDefault was called
+    expect(box.backgroundColor).toEqual(parseColor("blue"))
   })
 })

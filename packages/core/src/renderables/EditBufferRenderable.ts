@@ -392,6 +392,7 @@ export abstract class EditBufferRenderable extends Renderable implements LineInf
   }
 
   protected override onMouseEvent(event: any): void {
+    super.onMouseEvent(event)
     if (event.type === "scroll") {
       this.handleScroll(event)
     }
