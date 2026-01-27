@@ -46,6 +46,7 @@ export type NonStyledProps =
   | "selectable"
   | "renderAfter"
   | "renderBefore"
+  | "disabled"
   | `on${string}`
 
 /** React-specific props for all components */
