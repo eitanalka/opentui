@@ -91,7 +91,7 @@ export async function run(renderer: CliRenderer): Promise<void> {
     position: "absolute",
     left: 1,
     top: 1,
-    fg: "#FFFFFF",
+    color: "#FFFFFF",
     zIndex: 20,
   })
   parentContainer.add(instructionsText)
@@ -102,7 +102,7 @@ export async function run(renderer: CliRenderer): Promise<void> {
     position: "absolute",
     left: 1,
     top: 2,
-    fg: "#FFFFFF",
+    color: "#FFFFFF",
     zIndex: 20,
   })
   parentContainer.add(particleCountText)
@@ -113,7 +113,7 @@ export async function run(renderer: CliRenderer): Promise<void> {
     position: "absolute",
     left: 1,
     top: 3,
-    fg: "#FFFFFF",
+    color: "#FFFFFF",
     zIndex: 20,
   })
   parentContainer.add(configInfoText)

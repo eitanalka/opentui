@@ -540,7 +540,7 @@ describe("InputRenderable", () => {
       const { input } = createInputRenderable({ width: 20, height: 1 })
 
       input.backgroundColor = "#ff0000"
-      input.textColor = "#00ff00"
+      input.color = "#00ff00"
       input.focusedBackgroundColor = "#0000ff"
       input.focusedTextColor = "#ffff00"
       input.placeholderColor = "#ff00ff"

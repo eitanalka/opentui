@@ -201,7 +201,7 @@ export function run(rendererInstance: CliRenderer): void {
     position: "absolute",
     left: renderer.terminalWidth - 32,
     top: 1,
-    fg: RGBA.fromInts(255, 255, 0, 255),
+    color: RGBA.fromInts(255, 255, 0, 255),
     zIndex: 25,
   })
   parentContainer.add(scrollInstructions)

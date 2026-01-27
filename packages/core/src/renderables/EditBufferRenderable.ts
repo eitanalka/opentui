@@ -21,14 +21,14 @@ export interface ContentChangeEvent {
  * Style properties specific to EditBufferRenderable.
  */
 export interface EditBufferStyleProps extends StyleProps {
-  textColor?: ColorInput
+  color?: ColorInput
   backgroundColor?: ColorInput
   cursorColor?: ColorInput
 }
 
 export interface EditBufferOptions extends RenderableOptions<EditBufferRenderable> {
   style?: Style<EditBufferStyleProps>
-  textColor?: string | RGBA
+  color?: string | RGBA
   backgroundColor?: string | RGBA
   selectionBg?: string | RGBA
   selectionFg?: string | RGBA
@@ -77,7 +77,7 @@ export abstract class EditBufferRenderable extends Renderable implements LineInf
   public readonly editorView: EditorView
 
   protected _defaultOptions = {
-    textColor: RGBA.fromValues(1, 1, 1, 1),
+    color: RGBA.fromValues(1, 1, 1, 1),
     backgroundColor: "transparent",
     selectionBg: undefined,
     selectionFg: undefined,
@@ -99,7 +99,7 @@ export abstract class EditBufferRenderable extends Renderable implements LineInf
   constructor(ctx: RenderContext, options: EditBufferOptions) {
     super(ctx, options)
 
-    this._textColor = parseColor(options.textColor ?? this._defaultOptions.textColor)
+    this._textColor = parseColor(options.color ?? this._defaultOptions.color)
     this._backgroundColor = parseColor(options.backgroundColor ?? this._defaultOptions.backgroundColor)
     this._defaultAttributes = options.attributes ?? this._defaultOptions.attributes
     this._selectionBg = options.selectionBg ? parseColor(options.selectionBg) : this._defaultOptions.selectionBg
@@ -155,8 +155,8 @@ export abstract class EditBufferRenderable extends Renderable implements LineInf
   protected override applyMergedStyles(styles: EditBufferStyleProps): void {
     super.applyMergedStyles(styles)
 
-    if ("textColor" in styles) {
-      const newColor = parseColor(styles.textColor ?? this._defaultOptions.textColor)
+    if ("color" in styles) {
+      const newColor = parseColor(styles.color ?? this._defaultOptions.color)
       this._textColor = newColor
       this.editBuffer.setDefaultFg(newColor)
     }
@@ -231,12 +231,12 @@ export abstract class EditBufferRenderable extends Renderable implements LineInf
     this.requestRender()
   }
 
-  get textColor(): RGBA {
+  get color(): RGBA {
     return this._textColor
   }
 
-  set textColor(value: RGBA | string | undefined) {
-    const newColor = parseColor(value ?? this._defaultOptions.textColor)
+  set color(value: RGBA | string | undefined) {
+    const newColor = parseColor(value ?? this._defaultOptions.color)
     if (this._textColor !== newColor) {
       this._textColor = newColor
       this.editBuffer.setDefaultFg(newColor)

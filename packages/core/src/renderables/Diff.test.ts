@@ -2491,7 +2491,7 @@ test("DiffRenderable - fg prop is passed to CodeRenderable on construction", asy
     diff: simpleDiff,
     view: "unified",
     syntaxStyle,
-    fg: customFg,
+    color: customFg,
     width: "100%",
     height: "100%",
   })
@@ -2499,11 +2499,11 @@ test("DiffRenderable - fg prop is passed to CodeRenderable on construction", asy
   currentRenderer.root.add(diffRenderable)
   await renderOnce()
 
-  expect(diffRenderable.fg).toEqual(RGBA.fromHex(customFg))
+  expect(diffRenderable.color).toEqual(RGBA.fromHex(customFg))
 
   const leftCodeRenderable = (diffRenderable as any).leftCodeRenderable
   expect(leftCodeRenderable).toBeDefined()
-  expect(leftCodeRenderable.fg).toEqual(RGBA.fromHex(customFg))
+  expect(leftCodeRenderable.color).toEqual(RGBA.fromHex(customFg))
 })
 
 test("DiffRenderable - fg prop can be updated via setter", async () => {
@@ -2518,7 +2518,7 @@ test("DiffRenderable - fg prop can be updated via setter", async () => {
     diff: simpleDiff,
     view: "unified",
     syntaxStyle,
-    fg: initialFg,
+    color: initialFg,
     width: "100%",
     height: "100%",
   })
@@ -2526,13 +2526,13 @@ test("DiffRenderable - fg prop can be updated via setter", async () => {
   currentRenderer.root.add(diffRenderable)
   await renderOnce()
 
-  diffRenderable.fg = updatedFg
+  diffRenderable.color = updatedFg
   await renderOnce()
 
-  expect(diffRenderable.fg).toEqual(RGBA.fromHex(updatedFg))
+  expect(diffRenderable.color).toEqual(RGBA.fromHex(updatedFg))
 
   const leftCodeRenderable = (diffRenderable as any).leftCodeRenderable
-  expect(leftCodeRenderable.fg).toEqual(RGBA.fromHex(updatedFg))
+  expect(leftCodeRenderable.color).toEqual(RGBA.fromHex(updatedFg))
 })
 
 test("DiffRenderable - fg prop is passed to both CodeRenderables in split view", async () => {
@@ -2546,7 +2546,7 @@ test("DiffRenderable - fg prop is passed to both CodeRenderables in split view",
     diff: simpleDiff,
     view: "split",
     syntaxStyle,
-    fg: customFg,
+    color: customFg,
     width: "100%",
     height: "100%",
   })
@@ -2554,15 +2554,15 @@ test("DiffRenderable - fg prop is passed to both CodeRenderables in split view",
   currentRenderer.root.add(diffRenderable)
   await renderOnce()
 
-  expect(diffRenderable.fg).toEqual(RGBA.fromHex(customFg))
+  expect(diffRenderable.color).toEqual(RGBA.fromHex(customFg))
 
   const leftCodeRenderable = (diffRenderable as any).leftCodeRenderable
   const rightCodeRenderable = (diffRenderable as any).rightCodeRenderable
 
   expect(leftCodeRenderable).toBeDefined()
   expect(rightCodeRenderable).toBeDefined()
-  expect(leftCodeRenderable.fg).toEqual(RGBA.fromHex(customFg))
-  expect(rightCodeRenderable.fg).toEqual(RGBA.fromHex(customFg))
+  expect(leftCodeRenderable.color).toEqual(RGBA.fromHex(customFg))
+  expect(rightCodeRenderable.color).toEqual(RGBA.fromHex(customFg))
 })
 
 test("DiffRenderable - fg prop updates both CodeRenderables in split view", async () => {
@@ -2577,7 +2577,7 @@ test("DiffRenderable - fg prop updates both CodeRenderables in split view", asyn
     diff: simpleDiff,
     view: "split",
     syntaxStyle,
-    fg: initialFg,
+    color: initialFg,
     width: "100%",
     height: "100%",
   })
@@ -2588,12 +2588,12 @@ test("DiffRenderable - fg prop updates both CodeRenderables in split view", asyn
   const leftCodeRenderable = (diffRenderable as any).leftCodeRenderable
   const rightCodeRenderable = (diffRenderable as any).rightCodeRenderable
 
-  diffRenderable.fg = updatedFg
+  diffRenderable.color = updatedFg
   await renderOnce()
 
-  expect(diffRenderable.fg).toEqual(RGBA.fromHex(updatedFg))
-  expect(leftCodeRenderable.fg).toEqual(RGBA.fromHex(updatedFg))
-  expect(rightCodeRenderable.fg).toEqual(RGBA.fromHex(updatedFg))
+  expect(diffRenderable.color).toEqual(RGBA.fromHex(updatedFg))
+  expect(leftCodeRenderable.color).toEqual(RGBA.fromHex(updatedFg))
+  expect(rightCodeRenderable.color).toEqual(RGBA.fromHex(updatedFg))
 })
 
 test("DiffRenderable - fg prop defaults to undefined when not specified", async () => {
@@ -2613,7 +2613,7 @@ test("DiffRenderable - fg prop defaults to undefined when not specified", async 
   currentRenderer.root.add(diffRenderable)
   await renderOnce()
 
-  expect(diffRenderable.fg).toBeUndefined()
+  expect(diffRenderable.color).toBeUndefined()
 })
 
 test("DiffRenderable - fg prop can be set to undefined to clear it", async () => {
@@ -2627,7 +2627,7 @@ test("DiffRenderable - fg prop can be set to undefined to clear it", async () =>
     diff: simpleDiff,
     view: "unified",
     syntaxStyle,
-    fg: initialFg,
+    color: initialFg,
     width: "100%",
     height: "100%",
   })
@@ -2635,12 +2635,12 @@ test("DiffRenderable - fg prop can be set to undefined to clear it", async () =>
   currentRenderer.root.add(diffRenderable)
   await renderOnce()
 
-  expect(diffRenderable.fg).toEqual(RGBA.fromHex(initialFg))
+  expect(diffRenderable.color).toEqual(RGBA.fromHex(initialFg))
 
-  diffRenderable.fg = undefined
+  diffRenderable.color = undefined
   await renderOnce()
 
-  expect(diffRenderable.fg).toBeUndefined()
+  expect(diffRenderable.color).toBeUndefined()
 })
 
 test("DiffRenderable - fg prop accepts RGBA directly", async () => {
@@ -2654,7 +2654,7 @@ test("DiffRenderable - fg prop accepts RGBA directly", async () => {
     diff: simpleDiff,
     view: "unified",
     syntaxStyle,
-    fg: customFg,
+    color: customFg,
     width: "100%",
     height: "100%",
   })
@@ -2662,10 +2662,10 @@ test("DiffRenderable - fg prop accepts RGBA directly", async () => {
   currentRenderer.root.add(diffRenderable)
   await renderOnce()
 
-  expect(diffRenderable.fg).toEqual(customFg)
+  expect(diffRenderable.color).toEqual(customFg)
 
   const leftCodeRenderable = (diffRenderable as any).leftCodeRenderable
-  expect(leftCodeRenderable.fg).toEqual(customFg)
+  expect(leftCodeRenderable.color).toEqual(customFg)
 })
 
 test("DiffRenderable - split view with word wrapping: changing diff content should not misalign sides", async () => {

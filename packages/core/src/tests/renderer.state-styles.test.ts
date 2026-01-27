@@ -233,15 +233,15 @@ describe("State-based styles - Focus", () => {
 })
 
 describe("State-based styles - TextRenderable", () => {
-  test("focus changes fg color when style.focus.fg is set", async () => {
+  test("focus changes color when style.focus.color is set", async () => {
     const text = new TextRenderable(renderer, {
       id: "test-text",
       content: "Hello",
       focusable: true,
       style: {
-        fg: "white",
+        color: "white",
         focus: {
-          fg: "yellow",
+          color: "yellow",
         },
       },
     })
@@ -249,33 +249,33 @@ describe("State-based styles - TextRenderable", () => {
     renderer.root.add(text)
     await renderOnce()
 
-    // Initial state: should have base fg
-    expect(text.fg).toEqual(parseColor("white"))
+    // Initial state: should have base color
+    expect(text.color).toEqual(parseColor("white"))
 
     // Focus the text
     text.focus()
     await renderOnce()
 
-    // After focus: should have focus fg
-    expect(text.fg).toEqual(parseColor("yellow"))
+    // After focus: should have focus color
+    expect(text.color).toEqual(parseColor("yellow"))
 
     // Blur the text
     text.blur()
     await renderOnce()
 
-    // After blur: should return to base fg
-    expect(text.fg).toEqual(parseColor("white"))
+    // After blur: should return to base color
+    expect(text.color).toEqual(parseColor("white"))
   })
 
-  test("focus changes bg color when style.focus.bg is set", async () => {
+  test("focus changes backgroundColor when style.focus.backgroundColor is set", async () => {
     const text = new TextRenderable(renderer, {
       id: "test-text",
       content: "Hello",
       focusable: true,
       style: {
-        bg: "transparent",
+        backgroundColor: "transparent",
         focus: {
-          bg: "blue",
+          backgroundColor: "blue",
         },
       },
     })
@@ -283,15 +283,15 @@ describe("State-based styles - TextRenderable", () => {
     renderer.root.add(text)
     await renderOnce()
 
-    // Initial state: should have base bg
-    expect(text.bg).toEqual(parseColor("transparent"))
+    // Initial state: should have base backgroundColor
+    expect(text.backgroundColor).toEqual(parseColor("transparent"))
 
     // Focus the text
     text.focus()
     await renderOnce()
 
-    // After focus: should have focus bg
-    expect(text.bg).toEqual(parseColor("blue"))
+    // After focus: should have focus backgroundColor
+    expect(text.backgroundColor).toEqual(parseColor("blue"))
   })
 })
 
@@ -333,7 +333,7 @@ describe("State-based styles - SelectRenderable", () => {
     expect(select._backgroundColor).toEqual(parseColor("#00008B"))
   })
 
-  test("focus changes textColor when style.focus.textColor is set", async () => {
+  test("focus changes color when style.focus.color is set", async () => {
     const select = new SelectRenderable(renderer, {
       id: "test-select",
       width: 20,
@@ -342,9 +342,9 @@ describe("State-based styles - SelectRenderable", () => {
         { name: "Option 1", description: "First option" },
       ],
       style: {
-        textColor: "white",
+        color: "white",
         focus: {
-          textColor: "cyan",
+          color: "cyan",
         },
       },
     })
@@ -403,7 +403,7 @@ describe("State-based styles - SliderRenderable", () => {
     expect(slider.backgroundColor).toEqual(parseColor("#252527"))
   })
 
-  test("focus changes foregroundColor when style.focus.foregroundColor is set", async () => {
+  test("focus changes color when style.focus.color is set", async () => {
     const slider = new SliderRenderable(renderer, {
       id: "test-slider",
       orientation: "vertical",
@@ -411,9 +411,9 @@ describe("State-based styles - SliderRenderable", () => {
       height: 10,
       focusable: true,
       style: {
-        foregroundColor: "#9a9ea3",
+        color: "#9a9ea3",
         focus: {
-          foregroundColor: "#00ff00",
+          color: "#00ff00",
         },
       },
     })
@@ -421,12 +421,12 @@ describe("State-based styles - SliderRenderable", () => {
     renderer.root.add(slider)
     await renderOnce()
 
-    expect(slider.foregroundColor).toEqual(parseColor("#9a9ea3"))
+    expect(slider.color).toEqual(parseColor("#9a9ea3"))
 
     slider.focus()
     await renderOnce()
 
-    expect(slider.foregroundColor).toEqual(parseColor("#00ff00"))
+    expect(slider.color).toEqual(parseColor("#00ff00"))
   })
 })
 

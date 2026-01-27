@@ -43,7 +43,7 @@ describe("TextRenderable Selection - Buffer Validation", () => {
     const text1 = new TextRenderable(currentRenderer, {
       id: "text1",
       content: "This is a paragraph in the first box.",
-      fg: "#f0f6fc",
+      color: "#f0f6fc",
       selectionBg: "#4a5568",
       selectionFg: "#ffffff",
     })
@@ -52,7 +52,7 @@ describe("TextRenderable Selection - Buffer Validation", () => {
     const text2 = new TextRenderable(currentRenderer, {
       id: "text2",
       content: "It contains multiple lines of text",
-      fg: "#f0f6fc",
+      color: "#f0f6fc",
       selectionBg: "#4a5568",
       selectionFg: "#ffffff",
     })
@@ -61,7 +61,7 @@ describe("TextRenderable Selection - Buffer Validation", () => {
     const text3 = new TextRenderable(currentRenderer, {
       id: "text3",
       content: "that can be selected independently.",
-      fg: "#f0f6fc",
+      color: "#f0f6fc",
       selectionBg: "#4a5568",
       selectionFg: "#ffffff",
     })

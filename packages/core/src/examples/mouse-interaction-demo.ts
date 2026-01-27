@@ -334,7 +334,7 @@ export function run(renderer: CliRenderer): void {
     position: "absolute",
     left: 2,
     top: 1,
-    fg: RGBA.fromInts(72, 209, 204),
+    color: RGBA.fromInts(72, 209, 204),
     attributes: TextAttributes.BOLD,
     zIndex: 1000,
   })
@@ -350,7 +350,7 @@ Scroll on boxes: shows direction • Escape: menu`,
     top: 2,
     width: renderer.width - 4,
     height: 3,
-    fg: RGBA.fromInts(176, 196, 222),
+    color: RGBA.fromInts(176, 196, 222),
     zIndex: 1000,
   })
   mainGroup.add(instructionsText)

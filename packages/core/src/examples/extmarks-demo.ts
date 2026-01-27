@@ -100,7 +100,7 @@ export async function run(rendererInstance: CliRenderer): Promise<void> {
   helpText = new TextRenderable(renderer, {
     id: "help",
     content: "Move cursor with arrows. Try backspacing at end of [VIRTUAL] markers!",
-    fg: "#FFA657",
+    color: "#FFA657",
     height: 1,
   })
   parentContainer.add(helpText)
@@ -108,7 +108,7 @@ export async function run(rendererInstance: CliRenderer): Promise<void> {
   statusText = new TextRenderable(renderer, {
     id: "status",
     content: "",
-    fg: "#A5D6FF",
+    color: "#A5D6FF",
     height: 1,
   })
   parentContainer.add(statusText)

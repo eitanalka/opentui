@@ -46,7 +46,7 @@ export function run(renderer: CliRenderer): void {
         position: "absolute",
         left: 10,
         top: 5,
-        fg: "#FFFF00",
+        color: "#FFFF00",
         attributes: TextAttributes.BOLD | TextAttributes.UNDERLINE,
         zIndex: 10,
       })
@@ -59,7 +59,7 @@ export function run(renderer: CliRenderer): void {
         position: "absolute",
         left: 10,
         top: 8,
-        fg: "#FFFFFF",
+        color: "#FFFFFF",
         attributes: TextAttributes.BOLD,
         zIndex: 10,
       })
@@ -71,7 +71,7 @@ export function run(renderer: CliRenderer): void {
         position: "absolute",
         left: 10,
         top: 9,
-        fg: "#FFFFFF",
+        color: "#FFFFFF",
         attributes: TextAttributes.ITALIC,
         zIndex: 10,
       })
@@ -83,7 +83,7 @@ export function run(renderer: CliRenderer): void {
         position: "absolute",
         left: 10,
         top: 10,
-        fg: "#FFFFFF",
+        color: "#FFFFFF",
         attributes: TextAttributes.UNDERLINE,
         zIndex: 10,
       })
@@ -95,7 +95,7 @@ export function run(renderer: CliRenderer): void {
         position: "absolute",
         left: 10,
         top: 11,
-        fg: "#FFFFFF",
+        color: "#FFFFFF",
         attributes: TextAttributes.DIM,
         zIndex: 10,
       })
@@ -107,7 +107,7 @@ export function run(renderer: CliRenderer): void {
         position: "absolute",
         left: 10,
         top: 12,
-        fg: "#FF6464",
+        color: "#FF6464",
         attributes: TextAttributes.BOLD | TextAttributes.ITALIC | TextAttributes.UNDERLINE,
         zIndex: 10,
       })
@@ -120,7 +120,7 @@ export function run(renderer: CliRenderer): void {
         position: "absolute",
         left: 10,
         top: 15,
-        fg: "#CCCCCC",
+        color: "#CCCCCC",
         zIndex: 10,
       })
       tabGroup.add(gradientTitle)
@@ -136,7 +136,7 @@ export function run(renderer: CliRenderer): void {
           position: "absolute",
           left: 10 + i,
           top: 17,
-          fg: hexColor,
+          color: hexColor,
           zIndex: 10,
         })
         tabGroup.add(gradientPixel)
@@ -171,7 +171,7 @@ export function run(renderer: CliRenderer): void {
             const existingPixel = tabGroup.getRenderable(pixelId) as TextRenderable
             if (existingPixel) {
               existingPixel.setPosition({ left: x, top: y })
-              existingPixel.fg = color
+              existingPixel.color = color
             } else {
               const wheelPixel = new TextRenderable(renderer, {
                 id: pixelId,
@@ -179,7 +179,7 @@ export function run(renderer: CliRenderer): void {
                 position: "absolute",
                 left: x,
                 top: y,
-                fg: color,
+                color: color,
                 zIndex: 10,
               })
               tabGroup.add(wheelPixel)
@@ -220,7 +220,7 @@ export function run(renderer: CliRenderer): void {
         position: "absolute",
         left: 10,
         top: 5,
-        fg: "#FFFF00",
+        color: "#FFFF00",
         attributes: TextAttributes.BOLD | TextAttributes.UNDERLINE,
         zIndex: 10,
       })
@@ -247,7 +247,7 @@ export function run(renderer: CliRenderer): void {
         position: "absolute",
         left: 12,
         top: 10,
-        fg: "#FFFFFF",
+        color: "#FFFFFF",
         attributes: TextAttributes.BOLD,
         zIndex: 10,
       })
@@ -274,7 +274,7 @@ export function run(renderer: CliRenderer): void {
         position: "absolute",
         left: 37,
         top: 12,
-        fg: "#FFFFFF",
+        color: "#FFFFFF",
         attributes: TextAttributes.BOLD,
         zIndex: 10,
       })
@@ -286,7 +286,7 @@ export function run(renderer: CliRenderer): void {
         position: "absolute",
         left: 10,
         top: 18,
-        fg: "#CCCCCC",
+        color: "#CCCCCC",
         zIndex: 10,
       })
       tabGroup.add(description)
@@ -297,7 +297,7 @@ export function run(renderer: CliRenderer): void {
         position: "absolute",
         left: 10,
         top: 20,
-        fg: "#FFFFFF",
+        color: "#FFFFFF",
         attributes: TextAttributes.BOLD,
         zIndex: 10,
       })
@@ -369,7 +369,7 @@ export function run(renderer: CliRenderer): void {
         position: "absolute",
         left: 10,
         top: 5,
-        fg: "#FFFF00",
+        color: "#FFFF00",
         attributes: TextAttributes.BOLD | TextAttributes.UNDERLINE,
         zIndex: 10,
       })
@@ -396,7 +396,7 @@ export function run(renderer: CliRenderer): void {
         position: "absolute",
         left: 12,
         top: 10,
-        fg: "#FFFFFF",
+        color: "#FFFFFF",
         attributes: TextAttributes.BOLD,
         zIndex: 10,
       })
@@ -422,7 +422,7 @@ export function run(renderer: CliRenderer): void {
         position: "absolute",
         left: 32,
         top: 10,
-        fg: "#FFFFFF",
+        color: "#FFFFFF",
         attributes: TextAttributes.BOLD,
         zIndex: 10,
       })
@@ -448,7 +448,7 @@ export function run(renderer: CliRenderer): void {
         position: "absolute",
         left: 52,
         top: 10,
-        fg: "#FFFFFF",
+        color: "#FFFFFF",
         attributes: TextAttributes.BOLD,
         zIndex: 10,
       })
@@ -461,7 +461,7 @@ export function run(renderer: CliRenderer): void {
         position: "absolute",
         left: 10,
         top: 15,
-        fg: "#CCCCCC",
+        color: "#CCCCCC",
         attributes: TextAttributes.UNDERLINE,
         zIndex: 10,
       })
@@ -487,7 +487,7 @@ export function run(renderer: CliRenderer): void {
         position: "absolute",
         left: 12,
         top: 18,
-        fg: "#FFFFFF",
+        color: "#FFFFFF",
         zIndex: 10,
       })
       tabGroup.add(partialLeftLabel)
@@ -512,7 +512,7 @@ export function run(renderer: CliRenderer): void {
         position: "absolute",
         left: 32,
         top: 18,
-        fg: "#FFFFFF",
+        color: "#FFFFFF",
         zIndex: 10,
       })
       tabGroup.add(partialAnimatedLabel)
@@ -523,7 +523,7 @@ export function run(renderer: CliRenderer): void {
         position: "absolute",
         left: 30,
         top: 22,
-        fg: "#AAAAAA",
+        color: "#AAAAAA",
         zIndex: 10,
       })
       tabGroup.add(partialPhase)
@@ -534,7 +534,7 @@ export function run(renderer: CliRenderer): void {
         position: "absolute",
         left: 10,
         top: 25,
-        fg: "#CCCCCC",
+        color: "#CCCCCC",
         attributes: TextAttributes.UNDERLINE,
         zIndex: 10,
       })
@@ -603,7 +603,7 @@ export function run(renderer: CliRenderer): void {
         position: "absolute",
         left: 12,
         top: 29,
-        fg: "#FFFFFF",
+        color: "#FFFFFF",
         attributes: TextAttributes.BOLD,
         zIndex: 10,
       })
@@ -630,7 +630,7 @@ export function run(renderer: CliRenderer): void {
         position: "absolute",
         left: 32,
         top: 29,
-        fg: "#FFFFFF",
+        color: "#FFFFFF",
         attributes: TextAttributes.BOLD,
         zIndex: 10,
       })
@@ -657,7 +657,7 @@ export function run(renderer: CliRenderer): void {
         position: "absolute",
         left: 52,
         top: 29,
-        fg: "#FFFFFF",
+        color: "#FFFFFF",
         attributes: TextAttributes.BOLD,
         zIndex: 10,
       })
@@ -705,7 +705,7 @@ export function run(renderer: CliRenderer): void {
         position: "absolute",
         left: 10,
         top: 5,
-        fg: "#FFFF00",
+        color: "#FFFF00",
         attributes: TextAttributes.BOLD | TextAttributes.UNDERLINE,
         zIndex: 10,
       })
@@ -717,7 +717,7 @@ export function run(renderer: CliRenderer): void {
         position: "absolute",
         left: animPosition,
         top: 8,
-        fg: "#00FF00",
+        color: "#00FF00",
         attributes: TextAttributes.BOLD | TextAttributes.UNDERLINE,
         zIndex: 10,
       })
@@ -759,7 +759,7 @@ export function run(renderer: CliRenderer): void {
         position: "absolute",
         left: 52,
         top: 14,
-        fg: "#FFFFFF",
+        color: "#FFFFFF",
         attributes: TextAttributes.BOLD,
         zIndex: 10,
       })
@@ -813,7 +813,7 @@ export function run(renderer: CliRenderer): void {
         position: "absolute",
         left: 10,
         top: 5,
-        fg: "#FFFF00",
+        color: "#FFFF00",
         attributes: TextAttributes.BOLD | TextAttributes.UNDERLINE,
         zIndex: 10,
       })
@@ -890,7 +890,7 @@ export function run(renderer: CliRenderer): void {
         position: "absolute",
         left: 10,
         top: 5,
-        fg: "#FFFF00",
+        color: "#FFFF00",
         attributes: TextAttributes.BOLD | TextAttributes.UNDERLINE,
         zIndex: 10,
       })
@@ -917,7 +917,7 @@ export function run(renderer: CliRenderer): void {
         position: "absolute",
         left: 22,
         top: 12,
-        fg: "#FFFFFF",
+        color: "#FFFFFF",
         attributes: TextAttributes.BOLD,
         zIndex: 10,
       })
@@ -929,7 +929,7 @@ export function run(renderer: CliRenderer): void {
         position: "absolute",
         left: 10,
         top: 18,
-        fg: "#FFFFFF",
+        color: "#FFFFFF",
         attributes: TextAttributes.UNDERLINE,
         zIndex: 10,
       })
@@ -941,7 +941,7 @@ export function run(renderer: CliRenderer): void {
         position: "absolute",
         left: 10,
         top: 19,
-        fg: "#CCCCCC",
+        color: "#CCCCCC",
         zIndex: 10,
       })
       tabGroup.add(keyT)
@@ -952,7 +952,7 @@ export function run(renderer: CliRenderer): void {
         position: "absolute",
         left: 10,
         top: 20,
-        fg: "#CCCCCC",
+        color: "#CCCCCC",
         zIndex: 10,
       })
       tabGroup.add(keyR)
@@ -963,7 +963,7 @@ export function run(renderer: CliRenderer): void {
         position: "absolute",
         left: 10,
         top: 21,
-        fg: "#CCCCCC",
+        color: "#CCCCCC",
         zIndex: 10,
       })
       tabGroup.add(keyB)
@@ -974,7 +974,7 @@ export function run(renderer: CliRenderer): void {
         position: "absolute",
         left: 10,
         top: 22,
-        fg: "#CCCCCC",
+        color: "#CCCCCC",
         zIndex: 10,
       })
       tabGroup.add(keyL)
@@ -985,7 +985,7 @@ export function run(renderer: CliRenderer): void {
         position: "absolute",
         left: 10,
         top: 24,
-        fg: "#AAAAAA",
+        color: "#AAAAAA",
         zIndex: 10,
       })
       tabGroup.add(borderState)

@@ -20,15 +20,15 @@ export interface LineColorConfig {
  * Style properties specific to LineNumberRenderable.
  */
 export interface LineNumberStyleProps extends StyleProps {
-  fg?: ColorInput
-  bg?: ColorInput
+  color?: ColorInput
+  backgroundColor?: ColorInput
 }
 
 export interface LineNumberOptions extends RenderableOptions<LineNumberRenderable> {
   style?: Style<LineNumberStyleProps>
   target?: Renderable & LineInfoProvider
-  fg?: string | RGBA
-  bg?: string | RGBA
+  color?: string | RGBA
+  backgroundColor?: string | RGBA
   minWidth?: number
   paddingRight?: number
   lineColors?: Map<number, string | RGBA | LineColorConfig>
@@ -380,8 +380,8 @@ export class LineNumberRenderable extends Renderable {
       height: "auto",
     })
 
-    this._fg = parseColor(options.fg ?? "#888888")
-    this._bg = parseColor(options.bg ?? "transparent")
+    this._fg = parseColor(options.color ?? "#888888")
+    this._bg = parseColor(options.backgroundColor ?? "transparent")
     this._minWidth = options.minWidth ?? 3
     this._paddingRight = options.paddingRight ?? 1
     this._lineNumberOffset = options.lineNumberOffset ?? 0
@@ -423,11 +423,11 @@ export class LineNumberRenderable extends Renderable {
   protected override applyMergedStyles(styles: LineNumberStyleProps): void {
     super.applyMergedStyles(styles)
 
-    if ("fg" in styles) {
-      this._fg = parseColor(styles.fg ?? "#888888")
+    if ("color" in styles) {
+      this._fg = parseColor(styles.color ?? "#888888")
     }
-    if ("bg" in styles) {
-      this._bg = parseColor(styles.bg ?? "transparent")
+    if ("backgroundColor" in styles) {
+      this._bg = parseColor(styles.backgroundColor ?? "transparent")
     }
   }
 

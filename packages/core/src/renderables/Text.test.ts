@@ -443,35 +443,35 @@ describe("TextRenderable Selection", () => {
       const { text: statusText } = await createTextRenderable(currentRenderer, {
         content: "Selected 5 chars:",
         selectable: true,
-        fg: "#f0f6fc",
+        color: "#f0f6fc",
         top: 0,
       })
 
       const { text: selectionStartText } = await createTextRenderable(currentRenderer, {
         content: '"Hello"',
         selectable: true,
-        fg: "#7dd3fc",
+        color: "#7dd3fc",
         top: 1,
       })
 
       const { text: selectionMiddleText } = await createTextRenderable(currentRenderer, {
         content: "",
         selectable: true,
-        fg: "#94a3b8",
+        color: "#94a3b8",
         top: 2,
       })
 
       const { text: selectionEndText } = await createTextRenderable(currentRenderer, {
         content: "",
         selectable: true,
-        fg: "#7dd3fc",
+        color: "#7dd3fc",
         top: 3,
       })
 
       const { text: debugText } = await createTextRenderable(currentRenderer, {
         content: "Selected renderables: 2/5",
         selectable: true,
-        fg: "#e6edf3",
+        color: "#e6edf3",
         top: 4,
       })
 
@@ -509,7 +509,7 @@ describe("TextRenderable Selection", () => {
       const { text: statusText } = await createTextRenderable(currentRenderer, {
         content: "Selected 5 chars:",
         selectable: true,
-        fg: "#f0f6fc",
+        color: "#f0f6fc",
         top: 0,
         wrapMode: "none",
       })
@@ -518,7 +518,7 @@ describe("TextRenderable Selection", () => {
         top: 1,
         content: '"Hello"',
         selectable: true,
-        fg: "#7dd3fc",
+        color: "#7dd3fc",
         wrapMode: "none",
       })
 
@@ -526,7 +526,7 @@ describe("TextRenderable Selection", () => {
         top: 2,
         content: "Selected renderables: 2/5",
         selectable: true,
-        fg: "#e6edf3",
+        color: "#e6edf3",
         wrapMode: "none",
       })
 
@@ -562,7 +562,7 @@ describe("TextRenderable Selection", () => {
       const { text: statusText } = await createTextRenderable(currentRenderer, {
         content: "",
         selectable: true,
-        fg: "#f0f6fc",
+        color: "#f0f6fc",
         top: 0,
         wrapMode: "none",
       })
@@ -574,7 +574,7 @@ describe("TextRenderable Selection", () => {
       const { text: selectionStartText } = await createTextRenderable(currentRenderer, {
         content: "",
         selectable: true,
-        fg: "#7dd3fc",
+        color: "#7dd3fc",
         top: 1,
         wrapMode: "none",
       })
@@ -586,7 +586,7 @@ describe("TextRenderable Selection", () => {
       const { text: debugText } = await createTextRenderable(currentRenderer, {
         content: "",
         selectable: true,
-        fg: "#e6edf3",
+        color: "#e6edf3",
         top: 2,
         wrapMode: "none",
       })
@@ -633,7 +633,7 @@ describe("TextRenderable Selection", () => {
       const { text: statusText } = await createTextRenderable(currentRenderer, {
         content: "Status: Selection active",
         selectable: true,
-        fg: "#f0f6fc",
+        color: "#f0f6fc",
         top: 2,
         wrapMode: "none",
       })
@@ -641,7 +641,7 @@ describe("TextRenderable Selection", () => {
       const { text: selectionStartText } = await createTextRenderable(currentRenderer, {
         content: "Start: (10,5)",
         selectable: true,
-        fg: "#7dd3fc",
+        color: "#7dd3fc",
         top: 3,
         wrapMode: "none",
       })
@@ -649,7 +649,7 @@ describe("TextRenderable Selection", () => {
       const { text: selectionEndText } = await createTextRenderable(currentRenderer, {
         content: "End: (45,12)",
         selectable: true,
-        fg: "#7dd3fc",
+        color: "#7dd3fc",
         top: 4,
         wrapMode: "none",
       })
@@ -657,7 +657,7 @@ describe("TextRenderable Selection", () => {
       const { text: debugText } = await createTextRenderable(currentRenderer, {
         content: "Debug: Cross-renderable selection spanning 3 elements",
         selectable: true,
-        fg: "#e6edf3",
+        color: "#e6edf3",
         top: 5,
         wrapMode: "none",
       })
@@ -876,7 +876,7 @@ describe("TextRenderable Selection", () => {
       const { text, root } = await createTextRenderable(currentRenderer, {
         content: "",
         selectable: true,
-        fg: RGBA.fromValues(1, 1, 1, 1), // White default
+        color: RGBA.fromValues(1, 1, 1, 1), // White default
       })
 
       const redParent = new TextNodeRenderable({
@@ -978,8 +978,8 @@ describe("TextRenderable Selection", () => {
       const { text, root } = await createTextRenderable(currentRenderer, {
         content: "",
         selectable: true,
-        fg: RGBA.fromValues(1, 0, 0, 1),
-        bg: RGBA.fromValues(0, 0, 1, 1),
+        color: RGBA.fromValues(1, 0, 0, 1),
+        backgroundColor: RGBA.fromValues(0, 0, 1, 1),
       })
 
       const child1 = new TextNodeRenderable({})
@@ -1013,8 +1013,8 @@ describe("TextRenderable Selection", () => {
       const { text, root } = await createTextRenderable(currentRenderer, {
         content: "",
         selectable: true,
-        fg: RGBA.fromValues(1, 0, 0, 1),
-        bg: RGBA.fromValues(0, 0, 1, 1),
+        color: RGBA.fromValues(1, 0, 0, 1),
+        backgroundColor: RGBA.fromValues(0, 0, 1, 1),
       })
 
       const inheritingChild = new TextNodeRenderable({})
@@ -1063,8 +1063,8 @@ describe("TextRenderable Selection", () => {
       const { text, root } = await createTextRenderable(currentRenderer, {
         content: "",
         selectable: true,
-        fg: RGBA.fromValues(0, 1, 0, 1),
-        bg: RGBA.fromValues(0, 0, 0, 1),
+        color: RGBA.fromValues(0, 1, 0, 1),
+        backgroundColor: RGBA.fromValues(0, 0, 0, 1),
       })
 
       const grandparent = new TextNodeRenderable({})
@@ -1103,8 +1103,8 @@ describe("TextRenderable Selection", () => {
       const { text, root } = await createTextRenderable(currentRenderer, {
         content: "",
         selectable: true,
-        fg: RGBA.fromValues(1, 0, 0, 1),
-        bg: RGBA.fromValues(0, 0, 0, 1),
+        color: RGBA.fromValues(1, 0, 0, 1),
+        backgroundColor: RGBA.fromValues(0, 0, 0, 1),
       })
 
       const child1 = new TextNodeRenderable({})
@@ -1119,8 +1119,8 @@ describe("TextRenderable Selection", () => {
       await renderOnce()
       expect(text.plainText).toBe("Before Change")
 
-      text.fg = RGBA.fromValues(0, 0, 1, 1)
-      text.bg = RGBA.fromValues(1, 1, 1, 1)
+      text.color = RGBA.fromValues(0, 0, 1, 1)
+      text.backgroundColor = RGBA.fromValues(1, 1, 1, 1)
 
       await renderOnce()
 
@@ -2002,14 +2002,14 @@ describe("TextRenderable Selection", () => {
         content: "Important Notification",
         attributes: 1, // BOLD
         marginBottom: 1,
-        fg: "#f8fafc",
+        color: "#f8fafc",
       })
       innerContentBox.add(titleText)
 
       const messageText = new TextRenderable(currentRenderer, {
         content:
           "This is a longer message that should wrap properly within the absolutely positioned box with appropriate width constraints and padding applied.",
-        fg: "#e2e8f0",
+        color: "#e2e8f0",
         wrapMode: "word",
         width: "100%",
       })
@@ -2060,7 +2060,7 @@ describe("TextRenderable Selection", () => {
 
       const topRightText = new TextRenderable(currentRenderer, {
         content: "Error: File not found in the specified directory path",
-        fg: "#991b1b",
+        color: "#991b1b",
         wrapMode: "word",
         width: "100%",
       })
@@ -2082,7 +2082,7 @@ describe("TextRenderable Selection", () => {
 
       const bottomLeftText = new TextRenderable(currentRenderer, {
         content: "Success: Operation completed successfully!",
-        fg: "#166534",
+        color: "#166534",
         wrapMode: "word",
         width: "100%",
       })
@@ -2139,7 +2139,7 @@ describe("TextRenderable Selection", () => {
       const longText = new TextRenderable(currentRenderer, {
         content:
           "This is an extremely long piece of text that needs to wrap multiple times within the constrained width of the absolutely positioned container box with significant padding on all sides.",
-        fg: "#cdd6f4",
+        color: "#cdd6f4",
         wrapMode: "word",
         width: "100%",
       })
@@ -2188,13 +2188,13 @@ describe("TextRenderable Selection", () => {
       const headerText = new TextRenderable(currentRenderer, {
         content: "System Update",
         attributes: 1, // BOLD
-        fg: "#1e40af",
+        color: "#1e40af",
       })
       infoBox.add(headerText)
 
       const bodyText = new TextRenderable(currentRenderer, {
         content: "A new version is available with bug fixes and performance improvements.",
-        fg: "#1e3a8a",
+        color: "#1e3a8a",
         wrapMode: "word",
         width: "100%",
         marginTop: 1,
@@ -2203,7 +2203,7 @@ describe("TextRenderable Selection", () => {
 
       const footerText = new TextRenderable(currentRenderer, {
         content: "Click to install",
-        fg: "#60a5fa",
+        color: "#60a5fa",
         marginTop: 1,
       })
       infoBox.add(footerText)

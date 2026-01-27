@@ -18,7 +18,7 @@ const defaultTrackBackgroundColor = RGBA.fromHex("#252527")
  */
 export interface SliderStyleProps extends StyleProps {
   backgroundColor?: ColorInput
-  foregroundColor?: ColorInput
+  color?: ColorInput
 }
 
 export interface SliderOptions extends RenderableOptions<SliderRenderable> {
@@ -28,7 +28,7 @@ export interface SliderOptions extends RenderableOptions<SliderRenderable> {
   max?: number
   viewPortSize?: number
   backgroundColor?: ColorInput
-  foregroundColor?: ColorInput
+  color?: ColorInput
   onChange?: (value: number) => void
   style?: Style<SliderStyleProps>
 }
@@ -52,7 +52,7 @@ export class SliderRenderable extends Renderable {
     this._viewPortSize = options.viewPortSize ?? Math.max(1, (this._max - this._min) * 0.1)
     this._onChange = options.onChange
     this._backgroundColor = options.backgroundColor ? parseColor(options.backgroundColor) : defaultTrackBackgroundColor
-    this._foregroundColor = options.foregroundColor ? parseColor(options.foregroundColor) : defaultThumbBackgroundColor
+    this._foregroundColor = options.color ? parseColor(options.color) : defaultThumbBackgroundColor
 
     this.setupMouseHandling()
 
@@ -123,11 +123,11 @@ export class SliderRenderable extends Renderable {
     this.requestRender()
   }
 
-  get foregroundColor(): RGBA {
+  get color(): RGBA {
     return this._foregroundColor
   }
 
-  set foregroundColor(value: ColorInput) {
+  set color(value: ColorInput) {
     this._foregroundColor = parseColor(value)
     this.requestRender()
   }
@@ -373,8 +373,8 @@ export class SliderRenderable extends Renderable {
     if ("backgroundColor" in styles) {
       this._backgroundColor = parseColor(styles.backgroundColor ?? defaultTrackBackgroundColor)
     }
-    if ("foregroundColor" in styles) {
-      this._foregroundColor = parseColor(styles.foregroundColor ?? defaultThumbBackgroundColor)
+    if ("color" in styles) {
+      this._foregroundColor = parseColor(styles.color ?? defaultThumbBackgroundColor)
     }
   }
 }

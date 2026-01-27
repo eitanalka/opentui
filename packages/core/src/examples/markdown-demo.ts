@@ -354,7 +354,7 @@ export async function run(rendererInstance: CliRenderer): Promise<void> {
   const instructionsText = new TextRenderable(renderer, {
     id: "instructions",
     content: "ESC to return | Press ? for keybindings",
-    fg: "#888888",
+    color: "#888888",
   })
   titleBox.add(instructionsText)
 
@@ -397,7 +397,7 @@ Streaming:
 Other:
   ? : Toggle this help screen
   ESC : Return to main menu`,
-    fg: "#E6EDF3",
+    color: "#E6EDF3",
   })
 
   helpModal.add(helpContent)
@@ -438,7 +438,7 @@ Other:
   statusText = new TextRenderable(renderer, {
     id: "status-display",
     content: "",
-    fg: "#A5D6FF",
+    color: "#A5D6FF",
     wrapMode: "word",
     flexShrink: 0,
   })

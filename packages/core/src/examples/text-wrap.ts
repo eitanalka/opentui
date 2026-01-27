@@ -489,7 +489,7 @@ export function run(renderer: CliRenderer): void {
 
   textRenderable = new TextRenderable(renderer, {
     id: "text-renderable",
-    fg: "#c0caf5",
+    color: "#c0caf5",
     wrapMode: "word", // Enable text wrapping with word mode
   })
   textRenderable.add(createDemoText())

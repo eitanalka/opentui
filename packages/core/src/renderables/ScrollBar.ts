@@ -151,7 +151,7 @@ export class ScrollBarRenderable extends Renderable {
 
     const arrowOpts = arrowOptions
       ? {
-          foregroundColor: arrowOptions.backgroundColor,
+          color: arrowOptions.backgroundColor,
           backgroundColor: arrowOptions.backgroundColor,
           attributes: arrowOptions.attributes,
           ...arrowOptions,
@@ -307,13 +307,13 @@ export class ScrollBarRenderable extends Renderable {
  * Style properties specific to ArrowRenderable.
  */
 export interface ArrowStyleProps extends StyleProps {
-  foregroundColor?: ColorInput
+  color?: ColorInput
   backgroundColor?: ColorInput
 }
 
 export interface ArrowOptions extends RenderableOptions<ArrowRenderable> {
   direction: "up" | "down" | "left" | "right"
-  foregroundColor?: ColorInput
+  color?: ColorInput
   backgroundColor?: ColorInput
   attributes?: number
   arrowChars?: {
@@ -340,7 +340,7 @@ export class ArrowRenderable extends Renderable {
   constructor(ctx: RenderContext, options: ArrowOptions) {
     super(ctx, options)
     this._direction = options.direction
-    this._foregroundColor = options.foregroundColor ? parseColor(options.foregroundColor) : RGBA.fromValues(1, 1, 1, 1)
+    this._foregroundColor = options.color ? parseColor(options.color) : RGBA.fromValues(1, 1, 1, 1)
     this._backgroundColor = options.backgroundColor ? parseColor(options.backgroundColor) : RGBA.fromValues(0, 0, 0, 0)
     this._attributes = options.attributes ?? 0
 
@@ -371,11 +371,11 @@ export class ArrowRenderable extends Renderable {
     }
   }
 
-  get foregroundColor(): RGBA {
+  get color(): RGBA {
     return this._foregroundColor
   }
 
-  set foregroundColor(value: ColorInput) {
+  set color(value: ColorInput) {
     if (this._foregroundColor !== value) {
       this._foregroundColor = parseColor(value)
       this.requestRender()
@@ -443,8 +443,8 @@ export class ArrowRenderable extends Renderable {
   protected override applyMergedStyles(styles: ArrowStyleProps): void {
     super.applyMergedStyles(styles)
 
-    if ("foregroundColor" in styles) {
-      this._foregroundColor = parseColor(styles.foregroundColor ?? RGBA.fromValues(1, 1, 1, 1))
+    if ("color" in styles) {
+      this._foregroundColor = parseColor(styles.color ?? RGBA.fromValues(1, 1, 1, 1))
     }
     if ("backgroundColor" in styles) {
       this._backgroundColor = parseColor(styles.backgroundColor ?? RGBA.fromValues(0, 0, 0, 0))

@@ -165,7 +165,7 @@ export async function run(renderer: CliRenderer): Promise<void> {
     id: "phong-title",
     content: "WebGPU Phong Lights Demo",
     position: "absolute",
-    fg: "#FFFFFF",
+    color: "#FFFFFF",
     zIndex: 20,
   })
   parentContainer.add(titleText)
@@ -175,7 +175,7 @@ export async function run(renderer: CliRenderer): Promise<void> {
     content: "Ready.",
     position: "absolute",
     top: 1,
-    fg: "#FFFFFF",
+    color: "#FFFFFF",
     zIndex: 20,
   })
   parentContainer.add(statusText)
@@ -185,7 +185,7 @@ export async function run(renderer: CliRenderer): Promise<void> {
     content: "WASD: Move | QE: Rotate | ZX: Zoom | R: Reset | U: Super Sample",
     position: "absolute",
     top: HEIGHT - 2,
-    fg: "#FFFFFF",
+    color: "#FFFFFF",
     zIndex: 20,
   })
   parentContainer.add(controlsText)

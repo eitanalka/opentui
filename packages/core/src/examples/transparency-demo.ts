@@ -30,7 +30,7 @@ class DraggableTransparentBox extends BoxRenderable {
     y: number,
     width: number,
     height: number,
-    bg: RGBA,
+    backgroundColor: RGBA,
     zIndex: number,
   ) {
     super(ctx, {
@@ -120,7 +120,7 @@ ${fg("#A8A8B2")("Click and drag any transparent box to move it around • Watch 
     position: "absolute",
     left: 10,
     top: 6,
-    fg: "#FFB84D",
+    color: "#FFB84D",
     attributes: TextAttributes.BOLD,
     zIndex: 4,
     selectable: false,
@@ -133,7 +133,7 @@ ${fg("#A8A8B2")("Click and drag any transparent box to move it around • Watch 
     position: "absolute",
     left: 15,
     top: 10,
-    fg: "#7B68EE",
+    color: "#7B68EE",
     attributes: TextAttributes.BOLD,
     zIndex: 1,
   })

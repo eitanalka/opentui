@@ -58,7 +58,7 @@ describe("captureSpans", () => {
   test("captures foreground color", async () => {
     const text = new TextRenderable(renderer, {
       content: "Red Text",
-      fg: RGBA.fromHex("#ff0000"),
+      color: RGBA.fromHex("#ff0000"),
     })
     renderer.root.add(text)
     await renderOnce()
@@ -128,11 +128,11 @@ describe("captureSpans", () => {
   test("splits spans when styling changes", async () => {
     const text1 = new TextRenderable(renderer, {
       content: "AAA",
-      fg: RGBA.fromHex("#ff0000"),
+      color: RGBA.fromHex("#ff0000"),
     })
     const text2 = new TextRenderable(renderer, {
       content: "BBB",
-      fg: RGBA.fromHex("#00ff00"),
+      color: RGBA.fromHex("#00ff00"),
     })
     renderer.root.add(text1)
     renderer.root.add(text2)

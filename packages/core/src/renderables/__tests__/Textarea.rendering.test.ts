@@ -1623,7 +1623,7 @@ describe("Textarea - Rendering Tests", () => {
         content: "Important Notification",
         attributes: 1,
         marginBottom: 1,
-        fg: "#f8fafc",
+        color: "#f8fafc",
       })
       innerContentBox.add(titleText)
 
@@ -1798,7 +1798,7 @@ describe("Textarea - Rendering Tests", () => {
       const headerText = new TextRenderable(currentRenderer, {
         content: "System Update",
         attributes: 1,
-        fg: "#1e40af",
+        color: "#1e40af",
       })
       infoBox.add(headerText)
 
@@ -1813,7 +1813,7 @@ describe("Textarea - Rendering Tests", () => {
 
       const footerText = new TextRenderable(currentRenderer, {
         content: "Click to install",
-        fg: "#60a5fa",
+        color: "#60a5fa",
         marginTop: 1,
       })
       infoBox.add(footerText)

@@ -221,8 +221,8 @@ function createLayoutElements(rendererInstance: CliRenderer): void {
   headerText = new TextRenderable(renderer, {
     id: "header-text",
     content: "LAYOUT DEMO",
-    fg: "#ffffff",
-    bg: "transparent",
+    color: "#ffffff",
+    backgroundColor: "transparent",
     zIndex: 1,
   })
 
@@ -256,8 +256,8 @@ function createLayoutElements(rendererInstance: CliRenderer): void {
   sidebarText = new TextRenderable(renderer, {
     id: "sidebar-text",
     content: "SIDEBAR",
-    fg: "#ffffff",
-    bg: "transparent",
+    color: "#ffffff",
+    backgroundColor: "transparent",
     zIndex: 1,
   })
 
@@ -281,8 +281,8 @@ function createLayoutElements(rendererInstance: CliRenderer): void {
   mainContentText = new TextRenderable(renderer, {
     id: "main-content-text",
     content: "MAIN CONTENT",
-    fg: "#1e293b",
-    bg: "transparent",
+    color: "#1e293b",
+    backgroundColor: "transparent",
     zIndex: 1,
   })
 
@@ -306,8 +306,8 @@ function createLayoutElements(rendererInstance: CliRenderer): void {
   rightSidebarText = new TextRenderable(renderer, {
     id: "right-sidebar-text",
     content: "RIGHT",
-    fg: "#ffffff",
-    bg: "transparent",
+    color: "#ffffff",
+    backgroundColor: "transparent",
     zIndex: 1,
   })
 
@@ -331,8 +331,8 @@ function createLayoutElements(rendererInstance: CliRenderer): void {
   footerText = new TextRenderable(renderer, {
     id: "footer-text",
     content: "",
-    fg: "#ffffff",
-    bg: "transparent",
+    color: "#ffffff",
+    backgroundColor: "transparent",
     zIndex: 1,
   })
 
@@ -358,8 +358,8 @@ function createLayoutElements(rendererInstance: CliRenderer): void {
   moveableText = new TextRenderable(renderer, {
     id: "moveable-text",
     content: "MOVE",
-    fg: "#ffffff",
-    bg: "transparent",
+    color: "#ffffff",
+    backgroundColor: "transparent",
     zIndex: 101,
   })
 
@@ -385,8 +385,8 @@ function createLayoutElements(rendererInstance: CliRenderer): void {
   absolutePositionedText = new TextRenderable(renderer, {
     id: "absolute-positioned-text",
     content: "BOTTOM RIGHT",
-    fg: "#ffffff",
-    bg: "transparent",
+    color: "#ffffff",
+    backgroundColor: "transparent",
     zIndex: 151,
   })
 

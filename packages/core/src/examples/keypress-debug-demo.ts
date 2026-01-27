@@ -270,7 +270,7 @@ The debug tool displays all keyboard and
 input events in real-time. Use Shift+S to
 save all captured data to a timestamped
 JSON file in the current directory.`,
-    fg: "#E6EDF3",
+    color: "#E6EDF3",
     flexGrow: 1,
     flexShrink: 1,
   })
@@ -281,7 +281,7 @@ JSON file in the current directory.`,
   scrollHint = new TextRenderable(renderer, {
     id: "scroll-hint",
     content: "↑↓ to scroll",
-    fg: "#6E7681",
+    color: "#6E7681",
     flexShrink: 0,
     height: 1,
     visible: false,

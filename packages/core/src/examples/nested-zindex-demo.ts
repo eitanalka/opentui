@@ -22,7 +22,7 @@ export function run(renderer: CliRenderer): void {
     position: "absolute",
     left: 10,
     top: 2,
-    fg: "#FFFF00",
+    color: "#FFFF00",
     attributes: TextAttributes.BOLD | TextAttributes.UNDERLINE,
     zIndex: 1000,
   })
@@ -79,7 +79,7 @@ export function run(renderer: CliRenderer): void {
     position: "absolute",
     left: 17,
     top: 10,
-    fg: "#FF44FF",
+    color: "#FF44FF",
     attributes: TextAttributes.BOLD,
     zIndex: 10,
   })
@@ -106,7 +106,7 @@ export function run(renderer: CliRenderer): void {
     position: "absolute",
     left: 22,
     top: 12,
-    fg: "#FF88FF",
+    color: "#FF88FF",
     zIndex: 5,
   })
   parentGroupA.add(textA2)
@@ -135,7 +135,7 @@ export function run(renderer: CliRenderer): void {
     position: "absolute",
     left: 32,
     top: 14,
-    fg: "#44FF44",
+    color: "#44FF44",
     attributes: TextAttributes.BOLD,
     zIndex: 20,
   })
@@ -162,7 +162,7 @@ export function run(renderer: CliRenderer): void {
     position: "absolute",
     left: 37,
     top: 16,
-    fg: "#88FF88",
+    color: "#88FF88",
     zIndex: 15,
   })
   parentGroupB.add(textB2)
@@ -191,7 +191,7 @@ export function run(renderer: CliRenderer): void {
     position: "absolute",
     left: 47,
     top: 18,
-    fg: "#FFFF44",
+    color: "#FFFF44",
     attributes: TextAttributes.BOLD,
     zIndex: 30,
   })
@@ -218,7 +218,7 @@ export function run(renderer: CliRenderer): void {
     position: "absolute",
     left: 52,
     top: 20,
-    fg: "#FFFF88",
+    color: "#FFFF88",
     zIndex: 25,
   })
   parentGroupC.add(textC2)
@@ -229,7 +229,7 @@ export function run(renderer: CliRenderer): void {
     position: "absolute",
     left: 10,
     top: 25,
-    fg: "#AAAAAA",
+    color: "#AAAAAA",
     zIndex: 1000,
   })
   parentContainer.add(explanation1)
@@ -240,7 +240,7 @@ export function run(renderer: CliRenderer): void {
     position: "absolute",
     left: 10,
     top: 26,
-    fg: "#AAAAAA",
+    color: "#AAAAAA",
     zIndex: 1000,
   })
   parentContainer.add(explanation2)
@@ -251,7 +251,7 @@ export function run(renderer: CliRenderer): void {
     position: "absolute",
     left: 10,
     top: 28,
-    fg: "#FFFFFF",
+    color: "#FFFFFF",
     attributes: TextAttributes.BOLD,
     zIndex: 1000,
   })
@@ -263,7 +263,7 @@ export function run(renderer: CliRenderer): void {
     position: "absolute",
     left: 10,
     top: 29,
-    fg: "#FFFFFF",
+    color: "#FFFFFF",
     zIndex: 1000,
   })
   parentContainer.add(zIndexDisplay)

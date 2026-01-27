@@ -45,7 +45,7 @@ describe("LineNumber in ScrollBox - Simple Core Test", () => {
       target: codeRenderable,
       minWidth: 3,
       paddingRight: 1,
-      fg: "#888888",
+      color: "#888888",
     })
 
     const scrollBox = new ScrollBoxRenderable(currentRenderer, {
@@ -104,7 +104,7 @@ describe("LineNumber in ScrollBox - Simple Core Test", () => {
       target: code1,
       minWidth: 2,
       paddingRight: 1,
-      fg: "#888888",
+      color: "#888888",
     })
 
     scrollBox.add(lineNum1)
@@ -122,7 +122,7 @@ describe("LineNumber in ScrollBox - Simple Core Test", () => {
       target: code2,
       minWidth: 2,
       paddingRight: 1,
-      fg: "#888888",
+      color: "#888888",
     })
 
     scrollBox.add(lineNum2)

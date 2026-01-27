@@ -465,7 +465,7 @@ class ExampleSelector {
       placeholder: "Filter examples by title...",
       backgroundColor: "transparent",
       focusedBackgroundColor: "transparent",
-      textColor: "#E2E8F0",
+      color: "#E2E8F0",
       focusedTextColor: "#F8FAFC",
       wrapMode: "none",
       showCursor: true,
@@ -509,7 +509,7 @@ class ExampleSelector {
       backgroundColor: "transparent",
       focusedBackgroundColor: "transparent",
       selectedBackgroundColor: "#1E3A5F",
-      textColor: "#E2E8F0",
+      color: "#E2E8F0",
       selectedTextColor: "#38BDF8",
       descriptionColor: "#64748B",
       selectedDescriptionColor: "#94A3B8",
@@ -531,7 +531,7 @@ class ExampleSelector {
       flexShrink: 0,
       alignSelf: "center",
       content: "Type to filter | ↑↓/j/k navigate | Enter run | Esc clear/return | ctrl+c quit",
-      fg: "#94A3B8",
+      color: "#94A3B8",
     })
     this.menuContainer.add(this.instructions)
   }
@@ -667,7 +667,7 @@ class ExampleSelector {
           left: 10,
           top: 10,
           content: `${selected.name} not yet implemented. Press Escape to return.`,
-          fg: "#FFFF00",
+          color: "#FFFF00",
           zIndex: 10,
         })
         this.renderer.root.add(this.notImplementedText)

@@ -171,7 +171,7 @@ function LabeledInput(props: { id: string; label: string; placeholder: string })
         placeholder: props.placeholder,
         width: 20,
         backgroundColor: "white",
-        textColor: "black",
+        color: "black",
         cursorColor: "blue",
         focusedBackgroundColor: "orange",
       }),

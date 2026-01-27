@@ -37,7 +37,7 @@ const defaultTabSelectKeybindings: TabSelectKeyBinding[] = [
  */
 export interface TabSelectStyleProps extends StyleProps {
   backgroundColor?: ColorInput
-  textColor?: ColorInput
+  color?: ColorInput
 }
 
 export interface TabSelectRenderableOptions extends Omit<RenderableOptions<TabSelectRenderable>, "height"> {
@@ -45,7 +45,7 @@ export interface TabSelectRenderableOptions extends Omit<RenderableOptions<TabSe
   options?: TabSelectOption[]
   tabWidth?: number
   backgroundColor?: ColorInput
-  textColor?: ColorInput
+  color?: ColorInput
   focusedBackgroundColor?: ColorInput
   focusedTextColor?: ColorInput
   selectedBackgroundColor?: ColorInput
@@ -109,9 +109,9 @@ export class TabSelectRenderable extends Renderable {
     super(ctx, { ...options, height: calculatedHeight, buffered: true })
 
     this._backgroundColor = parseColor(options.backgroundColor || "transparent")
-    this._textColor = parseColor(options.textColor || "#FFFFFF")
+    this._textColor = parseColor(options.color || "#FFFFFF")
     this._focusedBackgroundColor = parseColor(options.focusedBackgroundColor || options.backgroundColor || "#1a1a1a")
-    this._focusedTextColor = parseColor(options.focusedTextColor || options.textColor || "#FFFFFF")
+    this._focusedTextColor = parseColor(options.focusedTextColor || options.color || "#FFFFFF")
     this._options = options.options || []
     this._tabWidth = options.tabWidth || 20
     this._showDescription = options.showDescription ?? true
@@ -364,7 +364,7 @@ export class TabSelectRenderable extends Renderable {
     this.requestRender()
   }
 
-  public set textColor(color: ColorInput) {
+  public set color(color: ColorInput) {
     this._textColor = parseColor(color)
     this.requestRender()
   }
@@ -479,8 +479,8 @@ export class TabSelectRenderable extends Renderable {
     if ("backgroundColor" in styles) {
       this._backgroundColor = parseColor(styles.backgroundColor ?? "transparent")
     }
-    if ("textColor" in styles) {
-      this._textColor = parseColor(styles.textColor ?? "#FFFFFF")
+    if ("color" in styles) {
+      this._textColor = parseColor(styles.color ?? "#FFFFFF")
     }
   }
 }

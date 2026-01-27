@@ -281,7 +281,7 @@ export async function run(renderer: CliRenderer): Promise<void> {
     position: "absolute",
     left: 0,
     top: uiLine++,
-    fg: "#FFFFFF",
+    color: "#FFFFFF",
     zIndex: 20,
   })
   parentContainer.add(lightVizText)
@@ -292,7 +292,7 @@ export async function run(renderer: CliRenderer): Promise<void> {
     position: "absolute",
     left: 0,
     top: uiLine++,
-    fg: "#FFFFFF",
+    color: "#FFFFFF",
     zIndex: 20,
   })
   parentContainer.add(lightColorText)
@@ -303,7 +303,7 @@ export async function run(renderer: CliRenderer): Promise<void> {
     position: "absolute",
     left: 0,
     top: uiLine++,
-    fg: "#FFFFFF",
+    color: "#FFFFFF",
     zIndex: 20,
   })
   parentContainer.add(customLightsText)
@@ -314,7 +314,7 @@ export async function run(renderer: CliRenderer): Promise<void> {
     position: "absolute",
     left: 0,
     top: uiLine++,
-    fg: "#FFFFFF",
+    color: "#FFFFFF",
     zIndex: 20,
   })
   parentContainer.add(materialToggleText)
@@ -325,7 +325,7 @@ export async function run(renderer: CliRenderer): Promise<void> {
     position: "absolute",
     left: 0,
     top: uiLine++,
-    fg: "#FFFFFF",
+    color: "#FFFFFF",
     zIndex: 20,
   })
   parentContainer.add(textureEffectsText)
@@ -336,7 +336,7 @@ export async function run(renderer: CliRenderer): Promise<void> {
     position: "absolute",
     left: 0,
     top: uiLine++,
-    fg: "#FFFFFF",
+    color: "#FFFFFF",
     zIndex: 20,
   })
   parentContainer.add(filterStatusText)
@@ -347,7 +347,7 @@ export async function run(renderer: CliRenderer): Promise<void> {
     position: "absolute",
     left: 0,
     top: uiLine++,
-    fg: "#FFFFFF",
+    color: "#FFFFFF",
     zIndex: 20,
   })
   param1StatusText.visible = false
@@ -359,7 +359,7 @@ export async function run(renderer: CliRenderer): Promise<void> {
     position: "absolute",
     left: 0,
     top: uiLine++,
-    fg: "#FFFFFF",
+    color: "#FFFFFF",
     zIndex: 20,
   })
   param2StatusText.visible = false
@@ -372,7 +372,7 @@ export async function run(renderer: CliRenderer): Promise<void> {
     position: "absolute",
     left: 0,
     top: HEIGHT - 2,
-    fg: "#FFFFFF",
+    color: "#FFFFFF",
     zIndex: 20,
   })
   parentContainer.add(controlsText)

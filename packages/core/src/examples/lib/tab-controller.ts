@@ -61,7 +61,7 @@ export class TabControllerRenderable extends Renderable {
       zIndex: this.zIndex + 100,
       selectedBackgroundColor: options.selectedBackgroundColor || "#333333",
       selectedTextColor: options.selectedTextColor || "#FFFF00",
-      textColor: parseColor(options.textColor || "#FFFFFF"),
+      color: parseColor(options.textColor || "#FFFFFF"),
       selectedDescriptionColor: options.selectedDescriptionColor || "#FFFFFF",
       backgroundColor: options.tabBarBackgroundColor || options.backgroundColor || "transparent",
       showDescription: options.showDescription ?? true,

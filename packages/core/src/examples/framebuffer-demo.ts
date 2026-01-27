@@ -50,7 +50,7 @@ export function run(renderer: CliRenderer): void {
     position: "absolute",
     left: 2,
     top: 1,
-    fg: RGBA.fromInts(255, 255, 100),
+    color: RGBA.fromInts(255, 255, 100),
     attributes: TextAttributes.BOLD,
     zIndex: 1000,
   })
@@ -62,7 +62,7 @@ export function run(renderer: CliRenderer): void {
     position: "absolute",
     left: 2,
     top: 2,
-    fg: RGBA.fromInts(200, 200, 200),
+    color: RGBA.fromInts(200, 200, 200),
     zIndex: 1000,
   })
   parentContainer.add(subtitleText)
@@ -73,7 +73,7 @@ export function run(renderer: CliRenderer): void {
     position: "absolute",
     left: 2,
     top: 3,
-    fg: RGBA.fromInts(150, 150, 150),
+    color: RGBA.fromInts(150, 150, 150),
     zIndex: 1000,
   })
   parentContainer.add(instructionsText)
@@ -365,7 +365,7 @@ export function run(renderer: CliRenderer): void {
     position: "absolute",
     left: 5,
     top: 34,
-    fg: RGBA.fromInts(255, 255, 200),
+    color: RGBA.fromInts(255, 255, 200),
     attributes: TextAttributes.BOLD,
     zIndex: 1000,
   })
@@ -390,7 +390,7 @@ export function run(renderer: CliRenderer): void {
     position: "absolute",
     left: 60,
     top: 34,
-    fg: RGBA.fromInts(255, 255, 200),
+    color: RGBA.fromInts(255, 255, 200),
     attributes: TextAttributes.BOLD,
     zIndex: 1000,
   })
@@ -625,7 +625,7 @@ export function run(renderer: CliRenderer): void {
     position: "absolute",
     left: 2,
     top: 2,
-    fg: RGBA.fromInts(200, 200, 200),
+    color: RGBA.fromInts(200, 200, 200),
     zIndex: 1000,
   })
   parentContainer.add(debugInstructionsText)

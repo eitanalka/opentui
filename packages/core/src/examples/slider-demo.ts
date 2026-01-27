@@ -177,7 +177,7 @@ export function run(rendererInstance: CliRenderer): void {
     max: 50,
     viewPortSize: 1,
     backgroundColor: "#414868",
-    foregroundColor: "#e0af68",
+    color: "#e0af68",
     onChange: (value: number) => {
       lastActionText = `H1: ${value.toFixed(1)}`
       lastActionColor = "#FFA500"
@@ -217,7 +217,7 @@ export function run(rendererInstance: CliRenderer): void {
     max: 200,
     viewPortSize: 50,
     backgroundColor: "#414868",
-    foregroundColor: "#bb9af7",
+    color: "#bb9af7",
     onChange: (value: number) => {
       lastActionText = `H2: ${value.toFixed(1)}`
       lastActionColor = "#BB9AF7"
@@ -256,7 +256,7 @@ export function run(rendererInstance: CliRenderer): void {
     max: 50,
     viewPortSize: 0.1, // Fine step size for smooth animation
     backgroundColor: "#414868",
-    foregroundColor: "#FF6B6B",
+    color: "#FF6B6B",
     onChange: (value: number) => {
       // Update the animated horizontal slider value display
       updateDisplays()
@@ -313,7 +313,7 @@ ${fg("#565f89")("1w")}`,
     max: 10,
     viewPortSize: 1,
     backgroundColor: "#414868",
-    foregroundColor: "#f7768e",
+    color: "#f7768e",
     onChange: (value: number) => {
       lastActionText = `V1: ${value.toFixed(1)}`
       lastActionColor = "#FF00FF"
@@ -365,7 +365,7 @@ ${fg("#565f89")("3w")}`,
     max: 50,
     viewPortSize: 5,
     backgroundColor: "#414868",
-    foregroundColor: "#ff9e64",
+    color: "#ff9e64",
     onChange: (value: number) => {
       lastActionText = `V2: ${value.toFixed(1)}`
       lastActionColor = "#FF9E64"
@@ -417,7 +417,7 @@ ${fg("#565f89")("5w")}`,
     max: 100,
     viewPortSize: 10,
     backgroundColor: "#414868",
-    foregroundColor: "#73daca",
+    color: "#73daca",
     onChange: (value: number) => {
       lastActionText = `V3: ${value.toFixed(1)}`
       lastActionColor = "#73DACA"
@@ -469,7 +469,7 @@ ${fg("#565f89")("2w")}`,
     max: 100,
     viewPortSize: 0.2, // Fine step size for smooth animation
     backgroundColor: "#414868",
-    foregroundColor: "#FF6B6B",
+    color: "#FF6B6B",
     onChange: (value: number) => {
       // Update the animated vertical slider value display
       updateDisplays()

@@ -178,7 +178,7 @@ export class TextareaRenderable extends EditBufferRenderable {
     const baseOptions = {
       ...options,
       backgroundColor: options.backgroundColor || defaults.backgroundColor,
-      textColor: options.textColor || defaults.textColor,
+      color: options.textColor || defaults.textColor,
     }
     super(ctx, baseOptions)
 
@@ -317,7 +317,7 @@ export class TextareaRenderable extends EditBufferRenderable {
     const effectiveFg = this._focused ? this._focusedTextColor : this._unfocusedTextColor
 
     super.backgroundColor = effectiveBg
-    super.textColor = effectiveFg
+    super.color = effectiveFg
   }
 
   public insertChar(char: string): void {
@@ -671,11 +671,11 @@ export class TextareaRenderable extends EditBufferRenderable {
     }
   }
 
-  override get textColor(): RGBA {
+  get textColor(): RGBA {
     return this._unfocusedTextColor
   }
 
-  override set textColor(value: RGBA | string | undefined) {
+  set textColor(value: RGBA | string | undefined) {
     const newColor = parseColor(value ?? TextareaRenderable.defaults.textColor)
     if (this._unfocusedTextColor !== newColor) {
       this._unfocusedTextColor = newColor

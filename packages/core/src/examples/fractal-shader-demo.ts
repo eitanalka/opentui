@@ -133,7 +133,7 @@ export async function run(renderer: CliRenderer): Promise<void> {
   const titleText = new TextRenderable(renderer, {
     id: "fractal_title",
     content: "Shader by @XorDev",
-    fg: "#FFFFFF",
+    color: "#FFFFFF",
     zIndex: 25,
   })
   parentContainer.add(titleText)
@@ -143,7 +143,7 @@ export async function run(renderer: CliRenderer): Promise<void> {
     content: "Space: Pause/Resume | R: Reset | P: Screenshot | +/-: Speed | Escape: Back to menu",
     position: "absolute",
     top: HEIGHT - 2,
-    fg: "#FFFFFF",
+    color: "#FFFFFF",
     zIndex: 20,
   })
   parentContainer.add(controlsText)
@@ -153,7 +153,7 @@ export async function run(renderer: CliRenderer): Promise<void> {
     content: "Speed: 1.0x",
     position: "absolute",
     top: 1,
-    fg: "#FFFFFF",
+    color: "#FFFFFF",
     zIndex: 20,
   })
   parentContainer.add(statusText)

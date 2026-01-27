@@ -163,7 +163,7 @@ export function run(renderer: CliRenderer): void {
     position: "absolute",
     left: 2,
     top: 1,
-    fg: RGBA.fromInts(255, 215, 135),
+    color: RGBA.fromInts(255, 215, 135),
     attributes: TextAttributes.BOLD,
     zIndex: 1000,
   })
@@ -175,7 +175,7 @@ export function run(renderer: CliRenderer): void {
     position: "absolute",
     left: 2,
     top: 2,
-    fg: RGBA.fromInts(176, 196, 222),
+    color: RGBA.fromInts(176, 196, 222),
     zIndex: 1000,
   })
   mainGroup.add(instructionsText)
@@ -186,7 +186,7 @@ export function run(renderer: CliRenderer): void {
     position: "absolute",
     left: 2,
     top: 4,
-    fg: RGBA.fromInts(144, 238, 144),
+    color: RGBA.fromInts(144, 238, 144),
     attributes: TextAttributes.ITALIC,
     zIndex: 1000,
   })
@@ -198,7 +198,7 @@ export function run(renderer: CliRenderer): void {
     position: "absolute",
     left: 2,
     top: 6,
-    fg: RGBA.fromInts(255, 255, 100),
+    color: RGBA.fromInts(255, 255, 100),
     zIndex: 1000,
   })
   mainGroup.add(rendererStateText)
@@ -209,7 +209,7 @@ export function run(renderer: CliRenderer): void {
     position: "absolute",
     left: 2,
     top: 7,
-    fg: RGBA.fromInts(255, 255, 100),
+    color: RGBA.fromInts(255, 255, 100),
     zIndex: 1000,
   })
   mainGroup.add(renderableStateText)
@@ -400,7 +400,7 @@ export function run(renderer: CliRenderer): void {
     position: "absolute",
     left: 2,
     top: startY - 1,
-    fg: rendererColor,
+    color: rendererColor,
     attributes: TextAttributes.BOLD,
     zIndex: 500,
   })
@@ -412,7 +412,7 @@ export function run(renderer: CliRenderer): void {
     position: "absolute",
     left: 2,
     top: startY + 4,
-    fg: renderableColor,
+    color: renderableColor,
     attributes: TextAttributes.BOLD,
     zIndex: 500,
   })
@@ -424,7 +424,7 @@ export function run(renderer: CliRenderer): void {
     position: "absolute",
     left: 2,
     top: startY + 9,
-    fg: liveColor,
+    color: liveColor,
     attributes: TextAttributes.BOLD,
     zIndex: 500,
   })
@@ -436,7 +436,7 @@ export function run(renderer: CliRenderer): void {
     position: "absolute",
     left: 2,
     top: startY + 14,
-    fg: visibilityColor,
+    color: visibilityColor,
     attributes: TextAttributes.BOLD,
     zIndex: 500,
   })

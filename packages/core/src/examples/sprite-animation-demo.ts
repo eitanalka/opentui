@@ -129,7 +129,7 @@ export async function run(renderer: CliRenderer): Promise<void> {
     position: "absolute",
     left: 1,
     top: 3,
-    fg: "#FFFFFF",
+    color: "#FFFFFF",
     zIndex: 20,
   })
   parentContainer.add(cameraModeText)
@@ -389,7 +389,7 @@ export async function run(renderer: CliRenderer): Promise<void> {
     position: "absolute",
     left: 1,
     top: 1,
-    fg: "#AAAAAA",
+    color: "#AAAAAA",
     zIndex: 20,
   })
   parentContainer.add(instructionsText)

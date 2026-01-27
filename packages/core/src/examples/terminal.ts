@@ -69,7 +69,7 @@ export function run(renderer: CliRenderer): void {
   const subtitleText = new TextRenderable(renderer, {
     id: "terminal_subtitle",
     content: "Enter palette size (1-256) and press Enter to fetch | Press 'c' to clear cache",
-    fg: RGBA.fromInts(148, 163, 184), // Slate-400 - softer contrast
+    color: RGBA.fromInts(148, 163, 184), // Slate-400 - softer contrast
   })
   contentContainer.add(subtitleText)
 
@@ -84,7 +84,7 @@ export function run(renderer: CliRenderer): void {
   const inputLabel = new TextRenderable(renderer, {
     id: "input-label",
     content: "Palette Size: ",
-    fg: RGBA.fromInts(148, 163, 184),
+    color: RGBA.fromInts(148, 163, 184),
   })
   inputContainer.add(inputLabel)
 
@@ -93,7 +93,7 @@ export function run(renderer: CliRenderer): void {
     width: 10,
     height: 1,
     backgroundColor: RGBA.fromInts(30, 41, 59),
-    textColor: RGBA.fromInts(255, 255, 255),
+    color: RGBA.fromInts(255, 255, 255),
     placeholder: "16",
     placeholderColor: RGBA.fromInts(100, 116, 139),
     cursorColor: RGBA.fromInts(139, 92, 246), // Purple cursor
@@ -106,7 +106,7 @@ export function run(renderer: CliRenderer): void {
     id: "terminal_status",
     content: "Status: Ready to fetch palette",
     marginTop: 1,
-    fg: RGBA.fromInts(56, 189, 248), // Sky blue - modern accent
+    color: RGBA.fromInts(56, 189, 248), // Sky blue - modern accent
   })
   contentContainer.add(statusText)
 
@@ -114,7 +114,7 @@ export function run(renderer: CliRenderer): void {
     id: "terminal_instructions",
     content: "Press Escape to return to menu",
     marginTop: 1,
-    fg: RGBA.fromInts(100, 116, 139), // Slate-500 - muted but readable
+    color: RGBA.fromInts(100, 116, 139), // Slate-500 - muted but readable
   })
   contentContainer.add(instructionsText)
 
@@ -132,7 +132,7 @@ export function run(renderer: CliRenderer): void {
     if (isNaN(size) || size < 1 || size > 256) {
       if (statusText) {
         statusText.content = "Status: Invalid palette size. Please enter a number between 1 and 256."
-        statusText.fg = RGBA.fromInts(239, 68, 68) // Red error
+        statusText.color = RGBA.fromInts(239, 68, 68) // Red error
       }
       return
     }
@@ -158,20 +158,20 @@ async function fetchAndDisplayPalette(renderer: CliRenderer, size: number): Prom
   try {
     const wasAlreadyCached = renderer.paletteDetectionStatus === "cached"
     statusText.content = `Status: ${wasAlreadyCached ? "Using cached palette" : "Fetching palette..."}`
-    statusText.fg = RGBA.fromInts(250, 204, 21) // Amber - warm loading state
+    statusText.color = RGBA.fromInts(250, 204, 21) // Amber - warm loading state
 
     const startTime = performance.now()
     terminalColors = await renderer.getPalette({ size })
     const elapsed = Math.round(performance.now() - startTime)
 
     statusText.content = `Status: Palette (${size} colors) fetched in ${elapsed}ms (${wasAlreadyCached ? "from cache" : "from terminal"})`
-    statusText.fg = RGBA.fromInts(34, 197, 94) // Emerald - fresh success state
+    statusText.color = RGBA.fromInts(34, 197, 94) // Emerald - fresh success state
 
     drawPalette(renderer, terminalColors, size)
   } catch (error) {
     if (statusText) {
       statusText.content = `Status: Error - ${error instanceof Error ? error.message : String(error)}`
-      statusText.fg = RGBA.fromInts(239, 68, 68) // Red-500 - modern error state
+      statusText.color = RGBA.fromInts(239, 68, 68) // Red-500 - modern error state
     }
   }
 }
@@ -181,7 +181,7 @@ function clearPaletteCache(renderer: CliRenderer): void {
 
   renderer.clearPaletteCache()
   statusText.content = "Status: Cache cleared. Enter a size and press Enter to fetch palette again."
-  statusText.fg = RGBA.fromInts(148, 163, 184) // Slate-400 - neutral info state
+  statusText.color = RGBA.fromInts(148, 163, 184) // Slate-400 - neutral info state
 }
 
 function drawPalette(renderer: CliRenderer, terminalColors: TerminalColors, size: number): void {

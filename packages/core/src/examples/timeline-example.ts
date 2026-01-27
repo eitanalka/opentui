@@ -184,7 +184,7 @@ class TimelineExample {
       position: "absolute",
       left: 4,
       top: 25,
-      fg: "#FFFFFF",
+      color: "#FFFFFF",
       zIndex: 2,
     })
     this.parentContainer.add(this.statusLine1)
@@ -195,7 +195,7 @@ class TimelineExample {
       position: "absolute",
       left: 4,
       top: 26,
-      fg: "#FFFF00",
+      color: "#FFFF00",
       zIndex: 2,
     })
     this.parentContainer.add(this.statusLine2)
@@ -206,7 +206,7 @@ class TimelineExample {
       position: "absolute",
       left: 4,
       top: 27,
-      fg: "#FFE66D",
+      color: "#FFE66D",
       zIndex: 2,
     })
     this.parentContainer.add(this.statusLine3)
@@ -217,7 +217,7 @@ class TimelineExample {
       position: "absolute",
       left: 4,
       top: 28,
-      fg: "#FF6B6B",
+      color: "#FF6B6B",
       zIndex: 2,
     })
     this.parentContainer.add(this.statusLine4)
@@ -228,7 +228,7 @@ class TimelineExample {
       position: "absolute",
       left: 4,
       top: 29,
-      fg: "#FF9999",
+      color: "#FF9999",
       zIndex: 2,
     })
     this.parentContainer.add(this.statusLine5)
@@ -239,7 +239,7 @@ class TimelineExample {
       position: "absolute",
       left: 4,
       top: 30,
-      fg: "#4ECDC4",
+      color: "#4ECDC4",
       zIndex: 2,
     })
     this.parentContainer.add(this.statusLine6)
@@ -250,7 +250,7 @@ class TimelineExample {
       position: "absolute",
       left: 4,
       top: 31,
-      fg: "#CCCCCC",
+      color: "#CCCCCC",
       zIndex: 2,
     })
     this.parentContainer.add(this.statusLine7)
@@ -261,7 +261,7 @@ class TimelineExample {
       position: "absolute",
       left: 4,
       top: 32,
-      fg: "#FFE66D",
+      color: "#FFE66D",
       zIndex: 2,
     })
     this.parentContainer.add(this.statusLine8)
@@ -272,7 +272,7 @@ class TimelineExample {
       position: "absolute",
       left: 4,
       top: 33,
-      fg: "#9B59B6",
+      color: "#9B59B6",
       zIndex: 2,
     })
     this.parentContainer.add(this.statusLine9)

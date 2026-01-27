@@ -57,8 +57,8 @@ describe("LineNumberRenderable in ScrollBox", () => {
       target: codeRenderable,
       minWidth: 3,
       paddingRight: 1,
-      fg: "#888888",
-      bg: "transparent",
+      color: "#888888",
+      backgroundColor: "transparent",
       width: "100%",
       height: "100%",
     })
@@ -125,7 +125,7 @@ describe("LineNumberRenderable in ScrollBox", () => {
       target: codeRenderable,
       minWidth: 3,
       paddingRight: 1,
-      fg: "#888888",
+      color: "#888888",
       width: "100%",
       height: "100%",
     })
@@ -225,7 +225,7 @@ describe("LineNumberRenderable in ScrollBox", () => {
         target: codeRenderable,
         minWidth: 3,
         paddingRight: 1,
-        fg: "#888888",
+        color: "#888888",
         width: "100%",
         height: "100%",
       })
@@ -305,7 +305,7 @@ describe("LineNumberRenderable in ScrollBox", () => {
       target: codeRenderable,
       minWidth: 4,
       paddingRight: 2,
-      fg: "#888888",
+      color: "#888888",
       width: "100%",
       height: "100%",
     })
@@ -409,7 +409,7 @@ describe("LineNumberRenderable in ScrollBox", () => {
       target: codeRenderable,
       minWidth: 3,
       paddingRight: 1,
-      fg: "#888888",
+      color: "#888888",
       width: "100%",
       height: "100%",
     })
@@ -502,7 +502,7 @@ describe("LineNumberRenderable in ScrollBox", () => {
       target: codeRenderable,
       minWidth: 2,
       paddingRight: 1,
-      fg: "#888888",
+      color: "#888888",
       width: "100%",
       height: "100%",
     })
@@ -587,8 +587,8 @@ describe("LineNumberRenderable in ScrollBox", () => {
       target: codeRenderable,
       minWidth: 3,
       paddingRight: 1,
-      fg: "#ffffff",
-      bg: "#000000",
+      color: "#ffffff",
+      backgroundColor: "#000000",
       lineColors,
       width: "100%",
       height: "100%",
@@ -658,7 +658,7 @@ describe("LineNumberRenderable in ScrollBox", () => {
         target: codeRenderable,
         minWidth: 3,
         paddingRight: 1,
-        fg: "#888888",
+        color: "#888888",
         width: "100%",
         height: "100%",
       })
@@ -719,7 +719,7 @@ describe("LineNumberRenderable in ScrollBox", () => {
       target: codeRenderable,
       minWidth: 3,
       paddingRight: 1,
-      fg: "#888888",
+      color: "#888888",
       width: "100%",
       height: "100%",
     })
@@ -781,7 +781,7 @@ describe("LineNumberRenderable in ScrollBox", () => {
       target: codeRenderable,
       minWidth: 3,
       paddingRight: 1,
-      fg: "#888888",
+      color: "#888888",
       width: "100%",
       height: "100%",
     })

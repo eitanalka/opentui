@@ -37,7 +37,7 @@ export function run(rendererInstance: CliRenderer): void {
   const instructionsText = new TextRenderable(renderer, {
     id: "instructions",
     content: "ESC to return | R to re-transform | Demonstrating HAST tree conversion to syntax-highlighted text",
-    fg: "#888888",
+    color: "#888888",
   })
   titleBox.add(instructionsText)
 
@@ -74,7 +74,7 @@ export function run(rendererInstance: CliRenderer): void {
   const codeDisplay = new TextRenderable(renderer, {
     id: "code-display",
     content: styledText,
-    bg: "#0D1117",
+    backgroundColor: "#0D1117",
     selectable: true,
     selectionBg: "#264F78",
     selectionFg: "#FFFFFF",
@@ -84,7 +84,7 @@ export function run(rendererInstance: CliRenderer): void {
   const timingText = new TextRenderable(renderer, {
     id: "timing-display",
     content: `HAST transformation time: ${transformTime}ms (Cache: ${syntaxStyle.getCacheSize()} entries) (Press 'R' to re-transform)`,
-    fg: "#A8E6CF",
+    color: "#A8E6CF",
   })
   parentContainer.add(timingText)
 

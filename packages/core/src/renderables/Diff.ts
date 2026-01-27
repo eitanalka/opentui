@@ -21,7 +21,7 @@ interface LogicalLine {
  * Style properties specific to DiffRenderable.
  */
 export interface DiffStyleProps extends StyleProps {
-  fg?: ColorInput
+  color?: ColorInput
 }
 
 export interface DiffRenderableOptions extends RenderableOptions<DiffRenderable> {
@@ -30,7 +30,7 @@ export interface DiffRenderableOptions extends RenderableOptions<DiffRenderable>
   style?: Style<DiffStyleProps>
 
   // CodeRenderable options
-  fg?: string | RGBA
+  color?: string | RGBA
   filetype?: string
   syntaxStyle?: SyntaxStyle
   wrapMode?: "word" | "char" | "none"
@@ -118,7 +118,7 @@ export class DiffRenderable extends Renderable {
     this._view = options.view ?? "unified"
 
     // CodeRenderable options
-    this._fg = options.fg ? parseColor(options.fg) : undefined
+    this._fg = options.color ? parseColor(options.color) : undefined
     this._filetype = options.filetype
     this._syntaxStyle = options.syntaxStyle
     this._wrapMode = options.wrapMode
@@ -287,7 +287,7 @@ export class DiffRenderable extends Renderable {
       this.errorTextRenderable = new TextRenderable(this.ctx, {
         id: this.id ? `${this.id}-error-text` : undefined,
         content: errorMessage,
-        fg: "#ef4444",
+        color: "#ef4444",
         width: "100%",
         flexShrink: 0,
       })
@@ -345,7 +345,7 @@ export class DiffRenderable extends Renderable {
         syntaxStyle: this._syntaxStyle ?? SyntaxStyle.create(),
         width: "100%",
         height: "100%",
-        ...(this._fg !== undefined && { fg: this._fg }),
+        ...(this._fg !== undefined && { color: this._fg }),
         ...(drawUnstyledText !== undefined && { drawUnstyledText }),
         ...(this._selectionBg !== undefined && { selectionBg: this._selectionBg }),
         ...(this._selectionFg !== undefined && { selectionFg: this._selectionFg }),
@@ -380,7 +380,7 @@ export class DiffRenderable extends Renderable {
         existingRenderable.selectionFg = this._selectionFg
       }
       if (this._fg !== undefined) {
-        existingRenderable.fg = this._fg
+        existingRenderable.color = this._fg
       }
 
       return existingRenderable
@@ -403,8 +403,8 @@ export class DiffRenderable extends Renderable {
       const newSide = new LineNumberRenderable(this.ctx, {
         id: this.id ? `${this.id}-${side}` : undefined,
         target,
-        fg: this._lineNumberFg,
-        bg: this._lineNumberBg,
+        color: this._lineNumberFg,
+        backgroundColor: this._lineNumberBg,
         lineColors,
         lineSigns,
         lineNumbers,
@@ -1130,19 +1130,19 @@ export class DiffRenderable extends Renderable {
     }
   }
 
-  public get fg(): RGBA | undefined {
+  public get color(): RGBA | undefined {
     return this._fg
   }
 
-  public set fg(value: string | RGBA | undefined) {
+  public set color(value: string | RGBA | undefined) {
     const parsed = value ? parseColor(value) : undefined
     if (this._fg !== parsed) {
       this._fg = parsed
       if (this.leftCodeRenderable) {
-        this.leftCodeRenderable.fg = parsed
+        this.leftCodeRenderable.color = parsed
       }
       if (this.rightCodeRenderable) {
-        this.rightCodeRenderable.fg = parsed
+        this.rightCodeRenderable.color = parsed
       }
     }
   }
@@ -1158,8 +1158,8 @@ export class DiffRenderable extends Renderable {
   protected override applyMergedStyles(styles: DiffStyleProps): void {
     super.applyMergedStyles(styles)
 
-    if ("fg" in styles) {
-      this.fg = styles.fg
+    if ("color" in styles) {
+      this.color = styles.color
     }
   }
 }

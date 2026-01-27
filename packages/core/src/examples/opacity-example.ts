@@ -27,8 +27,8 @@ function createOpacityDemo(rendererInstance: CliRenderer): void {
   infoText = new TextRenderable(renderer, {
     id: "info",
     content: "OPACITY DEMO | 1-4: Toggle opacity | A: Animate | Ctrl+C: Exit",
-    fg: "#e94560",
-    bg: "transparent",
+    color: "#e94560",
+    backgroundColor: "transparent",
   })
   header.add(infoText)
 
@@ -69,15 +69,15 @@ function createOpacityDemo(rendererInstance: CliRenderer): void {
     const label = new TextRenderable(renderer, {
       id: `label-${i}`,
       content: labels[i],
-      fg: "#ffffff",
-      bg: "transparent",
+      color: "#ffffff",
+      backgroundColor: "transparent",
     })
 
     const opacityLabel = new TextRenderable(renderer, {
       id: `opacity-${i}`,
       content: `Opacity: ${opacityValues[i].toFixed(1)}`,
-      fg: "#ffffff",
-      bg: "transparent",
+      color: "#ffffff",
+      backgroundColor: "transparent",
     })
 
     box.add(label)
@@ -105,8 +105,8 @@ function createOpacityDemo(rendererInstance: CliRenderer): void {
   const nestedLabel = new TextRenderable(renderer, {
     id: "nested-label",
     content: "Parent: 0.7 opacity",
-    fg: "#ffffff",
-    bg: "transparent",
+    color: "#ffffff",
+    backgroundColor: "transparent",
   })
 
   const nestedChild = new BoxRenderable(renderer, {
@@ -124,15 +124,15 @@ function createOpacityDemo(rendererInstance: CliRenderer): void {
   const childLabel = new TextRenderable(renderer, {
     id: "child-label",
     content: "Child: 0.5 opacity",
-    fg: "#ffffff",
-    bg: "transparent",
+    color: "#ffffff",
+    backgroundColor: "transparent",
   })
 
   const effectiveLabel = new TextRenderable(renderer, {
     id: "effective-label",
     content: "Effective: 0.35",
-    fg: "#ffcc00",
-    bg: "transparent",
+    color: "#ffcc00",
+    backgroundColor: "transparent",
   })
 
   nestedChild.add(childLabel)

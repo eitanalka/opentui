@@ -73,7 +73,7 @@ function createLayout(rendererInstance: CliRenderer): void {
   headerText = new TextRenderable(renderer, {
     id: "headerText",
     content: "Text Truncation Demo - Press 'T' to toggle truncation",
-    fg: "#58a6ff",
+    color: "#58a6ff",
   })
   header.add(headerText)
 
@@ -119,7 +119,7 @@ function createLayout(rendererInstance: CliRenderer): void {
     id: "singleLineText1",
     content:
       "This is a very long single line of text that will definitely exceed the width of most terminal windows and should be truncated when truncation is enabled",
-    fg: "#c9d1d9",
+    color: "#c9d1d9",
     wrapMode: wrapMode,
   })
   singleLineBox1.add(singleLineText1)
@@ -142,7 +142,7 @@ function createLayout(rendererInstance: CliRenderer): void {
   singleLineText2 = new TextRenderable(renderer, {
     id: "singleLineText2",
     content: "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyz",
-    fg: "#3fb950",
+    color: "#3fb950",
     wrapMode: wrapMode,
   })
   singleLineBox2.add(singleLineText2)
@@ -165,7 +165,7 @@ function createLayout(rendererInstance: CliRenderer): void {
   singleLineText3 = new TextRenderable(renderer, {
     id: "singleLineText3",
     content: "🌟 Unicode test: こんにちは世界 Hello World 你好世界 안녕하세요 🚀 More emoji: 🎨🎭🎪🎬🎮🎯",
-    fg: "#d29922",
+    color: "#d29922",
     wrapMode: wrapMode,
   })
   singleLineBox3.add(singleLineText3)
@@ -200,7 +200,7 @@ function createLayout(rendererInstance: CliRenderer): void {
   multilineText1 = new TextRenderable(renderer, {
     id: "multilineText1",
     content: `This is a multiline text block that demonstrates how truncation works with word wrapping enabled. Each line that exceeds the viewport width will be truncated independently. Try resizing the terminal to see how it behaves!`,
-    fg: "#f778ba",
+    color: "#f778ba",
     wrapMode: wrapMode,
   })
   multilineBox1.add(multilineText1)
@@ -226,7 +226,7 @@ function createLayout(rendererInstance: CliRenderer): void {
 Line 2: Another very long line that will be truncated when enabled
 Line 3: Short line
 Line 4: Yet another extremely long line with lots of text to demonstrate middle truncation behavior`,
-    fg: "#bc8cff",
+    color: "#bc8cff",
     wrapMode: wrapMode,
   })
   multilineBox2.add(multilineText2)
@@ -249,7 +249,7 @@ Line 4: Yet another extremely long line with lots of text to demonstrate middle 
   styledText = new TextRenderable(renderer, {
     id: "styledText",
     content: t`${bold(cyan("Bold Cyan:"))} ${yellow("Yellow text")} ${magenta("and magenta")} ${green("with green parts")} and more styled text that goes on and on`,
-    fg: "#c9d1d9",
+    color: "#c9d1d9",
     wrapMode: wrapMode,
   })
   styledBox.add(styledText)
@@ -272,7 +272,7 @@ Line 4: Yet another extremely long line with lots of text to demonstrate middle 
   footerText = new TextRenderable(renderer, {
     id: "footerText",
     content: "",
-    fg: "#8b949e",
+    color: "#8b949e",
   })
   footer.add(footerText)
 
@@ -295,28 +295,28 @@ Line 4: Yet another extremely long line with lots of text to demonstrate middle 
   selectionStatusText = new TextRenderable(renderer, {
     id: "selectionStatusText",
     content: "Select text to see details here",
-    fg: "#8b949e",
+    color: "#8b949e",
   })
   selectionBox.add(selectionStatusText)
 
   selectionStartText = new TextRenderable(renderer, {
     id: "selectionStartText",
     content: "",
-    fg: "#7dd3fc",
+    color: "#7dd3fc",
   })
   selectionBox.add(selectionStartText)
 
   selectionMiddleText = new TextRenderable(renderer, {
     id: "selectionMiddleText",
     content: "",
-    fg: "#94a3b8",
+    color: "#94a3b8",
   })
   selectionBox.add(selectionMiddleText)
 
   selectionEndText = new TextRenderable(renderer, {
     id: "selectionEndText",
     content: "",
-    fg: "#7dd3fc",
+    color: "#7dd3fc",
   })
   selectionBox.add(selectionEndText)
 

@@ -106,7 +106,7 @@ export function run(rendererInstance: CliRenderer): void {
     zIndex: 100,
     backgroundColor: "#1e293b",
     focusedBackgroundColor: "#2d3748",
-    textColor: "#e2e8f0",
+    color: "#e2e8f0",
     focusedTextColor: "#f7fafc",
     selectedBackgroundColor: "#3b82f6",
     selectedTextColor: "#ffffff",
@@ -129,7 +129,7 @@ export function run(rendererInstance: CliRenderer): void {
     left: 60,
     top: 3,
     zIndex: 50,
-    fg: "#AAAAAA",
+    color: "#AAAAAA",
   })
   parentContainer.add(keyLegendDisplay)
 

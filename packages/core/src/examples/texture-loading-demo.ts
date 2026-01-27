@@ -100,7 +100,7 @@ export async function run(renderer: CliRenderer): Promise<void> {
   const titleText = new TextRenderable(renderer, {
     id: "demo-title",
     content: "Texture Loading Demo",
-    fg: "#FFFFFF",
+    color: "#FFFFFF",
     zIndex: 20,
   })
   parentContainer.add(titleText)
@@ -111,7 +111,7 @@ export async function run(renderer: CliRenderer): Promise<void> {
     position: "absolute",
     left: 0,
     top: 1,
-    fg: "#FFFFFF",
+    color: "#FFFFFF",
     zIndex: 20,
   })
   parentContainer.add(statusText)
@@ -122,7 +122,7 @@ export async function run(renderer: CliRenderer): Promise<void> {
     position: "absolute",
     left: 0,
     top: HEIGHT - 2,
-    fg: "#FFFFFF",
+    color: "#FFFFFF",
     zIndex: 20,
   })
   parentContainer.add(controlsText)

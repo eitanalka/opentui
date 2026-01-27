@@ -214,7 +214,7 @@ export function run(rendererInstance: CliRenderer): void {
       // width: 2,
       // showArrows: true,
       trackOptions: {
-        foregroundColor: "#7aa2f7",
+        color: "#7aa2f7",
         backgroundColor: "#313244",
       },
     },

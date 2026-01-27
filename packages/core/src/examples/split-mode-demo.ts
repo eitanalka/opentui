@@ -79,7 +79,7 @@ class SplitModeAnimations {
         position: "absolute",
         left: 4,
         top: system.y,
-        fg: system.color,
+        color: system.color,
         zIndex: 2,
       })
       this.container.add(label)
@@ -136,7 +136,7 @@ class SplitModeAnimations {
         position: "absolute",
         left: 4 + index * 15,
         top: 15,
-        fg: "#9a9acd",
+        color: "#9a9acd",
         zIndex: 2,
       })
       this.container.add(counter)

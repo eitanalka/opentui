@@ -50,7 +50,7 @@ export function run(renderer: CliRenderer): void {
     width: 60,
     height: 20,
     zIndex: 2,
-    fg: "#f0f6fc",
+    color: "#f0f6fc",
   })
   mainContainer.add(demoText)
 
@@ -64,7 +64,7 @@ ${yellow("•")} Press ${green("R")} to reset demo
 ${yellow("•")} Press ${green("ESC")} to exit
 
 ${underline("Current:")} Example 1 - Basic TextNode Creation`,
-    fg: "#c9d1d9",
+    color: "#c9d1d9",
   })
   mainContainer.add(instructionsText)
 
@@ -74,7 +74,7 @@ ${underline("Current:")} Example 1 - Basic TextNode Creation`,
     content: "Ready - Press 1-4 for examples",
     width: 84,
     height: 3,
-    fg: "#58a6ff",
+    color: "#58a6ff",
   })
   mainContainer.add(statusText)
 

@@ -73,7 +73,7 @@ export function run(renderer: CliRenderer): void {
     id: "text1",
     content: "This is a paragraph in the first box.",
     zIndex: 21,
-    fg: "#f0f6fc",
+    color: "#f0f6fc",
   })
   box1.add(text1)
   allTextRenderables.push(text1)
@@ -82,7 +82,7 @@ export function run(renderer: CliRenderer): void {
     id: "text2",
     content: "It contains multiple lines of text",
     zIndex: 21,
-    fg: "#f0f6fc",
+    color: "#f0f6fc",
   })
   box1.add(text2)
   allTextRenderables.push(text2)
@@ -91,7 +91,7 @@ export function run(renderer: CliRenderer): void {
     id: "text3",
     content: "that can be selected independently.",
     zIndex: 21,
-    fg: "#f0f6fc",
+    color: "#f0f6fc",
   })
   box1.add(text3)
   allTextRenderables.push(text3)
@@ -100,7 +100,7 @@ export function run(renderer: CliRenderer): void {
     id: "text4",
     content: "世界, 你好世界, 中文, 한글",
     zIndex: 21,
-    fg: "#f0f6fc",
+    color: "#f0f6fc",
   })
   box1.add(text4)
   allTextRenderables.push(text4)
@@ -188,7 +188,7 @@ export function run(renderer: CliRenderer): void {
     id: "codeText4",
     content: "}",
     zIndex: 21,
-    fg: "#e6edf3",
+    color: "#e6edf3",
   })
   box2.add(codeText4)
   allTextRenderables.push(codeText4)
@@ -228,7 +228,7 @@ ${green("✓")} Styled text support`,
     left: 2,
     top: 17,
     zIndex: 2,
-    fg: "#f0f6fc",
+    color: "#f0f6fc",
   })
   mainContainer.add(instructions)
   allTextRenderables.push(instructions)
@@ -254,7 +254,7 @@ ${green("✓")} Styled text support`,
     id: "statusText",
     content: "No selection - try selecting across different nested elements",
     zIndex: 2,
-    fg: "#f0f6fc",
+    color: "#f0f6fc",
   })
   statusBox.add(statusText)
 
@@ -262,7 +262,7 @@ ${green("✓")} Styled text support`,
     id: "selectionStartText",
     content: "",
     zIndex: 2,
-    fg: "#7dd3fc",
+    color: "#7dd3fc",
   })
   statusBox.add(selectionStartText)
 
@@ -270,7 +270,7 @@ ${green("✓")} Styled text support`,
     id: "selectionMiddleText",
     content: "",
     zIndex: 2,
-    fg: "#94a3b8",
+    color: "#94a3b8",
   })
   statusBox.add(selectionMiddleText)
 
@@ -278,7 +278,7 @@ ${green("✓")} Styled text support`,
     id: "selectionEndText",
     content: "",
     zIndex: 2,
-    fg: "#7dd3fc",
+    color: "#7dd3fc",
   })
   statusBox.add(selectionEndText)
 
@@ -286,7 +286,7 @@ ${green("✓")} Styled text support`,
     id: "debugText",
     content: "",
     zIndex: 2,
-    fg: "#e6edf3",
+    color: "#e6edf3",
   })
   statusBox.add(debugText)
 

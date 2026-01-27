@@ -222,7 +222,7 @@ ${underline("Features demonstrated:")}
     left: 40,
     top: 2,
     zIndex: 1,
-    fg: "#CCCCCC",
+    color: "#CCCCCC",
   })
   parentContainer.add(instructionsDisplay)
 

@@ -46,7 +46,7 @@ function addEvent(eventType: string, event: object) {
     filetype: "json",
     conceal: false,
     syntaxStyle,
-    bg: "#1f2937",
+    backgroundColor: "#1f2937",
   })
 
   eventBox.add(codeDisplay)

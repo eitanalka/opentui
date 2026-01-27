@@ -100,7 +100,7 @@ export function run(renderer: CliRenderer): void {
     left: 2,
     top: 26,
     zIndex: 2,
-    fg: "#f0f6fc",
+    color: "#f0f6fc",
   })
   mainContainer.add(instructions)
 
@@ -122,7 +122,7 @@ export function run(renderer: CliRenderer): void {
   statusText = new TextRenderable(renderer, {
     id: "statusText",
     content: "No selection - try selecting across different ASCII fonts",
-    fg: "#f0f6fc",
+    color: "#f0f6fc",
   })
   statusBox.add(statusText)
 
@@ -131,7 +131,7 @@ export function run(renderer: CliRenderer): void {
     content: "",
     left: 3,
     zIndex: 2,
-    fg: "#7dd3fc",
+    color: "#7dd3fc",
   })
   statusBox.add(selectionStartText)
 
@@ -140,7 +140,7 @@ export function run(renderer: CliRenderer): void {
     content: "",
     left: 3,
     zIndex: 2,
-    fg: "#94a3b8",
+    color: "#94a3b8",
   })
   statusBox.add(selectionMiddleText)
 
@@ -149,7 +149,7 @@ export function run(renderer: CliRenderer): void {
     content: "",
     left: 3,
     zIndex: 2,
-    fg: "#7dd3fc",
+    color: "#7dd3fc",
   })
   statusBox.add(selectionEndText)
 
@@ -158,7 +158,7 @@ export function run(renderer: CliRenderer): void {
     content: "",
     left: 3,
     zIndex: 2,
-    fg: "#e6edf3",
+    color: "#e6edf3",
   })
   statusBox.add(debugText)
 

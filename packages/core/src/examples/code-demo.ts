@@ -281,7 +281,7 @@ export async function run(rendererInstance: CliRenderer): Promise<void> {
   const instructionsText = new TextRenderable(renderer, {
     id: "instructions",
     content: "ESC to return | Press ? for keybindings",
-    fg: "#888888",
+    color: "#888888",
   })
   titleBox.add(instructionsText)
 
@@ -324,7 +324,7 @@ Diagnostics:
 Other:
   ? : Toggle this help screen
   ESC : Return to main menu`,
-    fg: "#E6EDF3",
+    color: "#E6EDF3",
   })
 
   helpModal.add(helpContent)
@@ -417,8 +417,8 @@ Other:
     target: codeDisplay,
     minWidth: 3,
     paddingRight: 1,
-    fg: "#6b7280",
-    bg: "#161b22",
+    color: "#6b7280",
+    backgroundColor: "#161b22",
     width: "100%",
   })
 
@@ -427,7 +427,7 @@ Other:
   timingText = new TextRenderable(renderer, {
     id: "timing-display",
     content: "Initializing...",
-    fg: "#A5D6FF",
+    color: "#A5D6FF",
     wrapMode: "word",
     flexShrink: 0,
   })

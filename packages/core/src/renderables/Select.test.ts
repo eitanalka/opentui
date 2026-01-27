@@ -535,7 +535,7 @@ describe("SelectRenderable", () => {
 
       // Test all color setters
       select.backgroundColor = "#ff0000"
-      select.textColor = "#00ff00"
+      select.color = "#00ff00"
       select.focusedBackgroundColor = "#0000ff"
       select.focusedTextColor = "#ffff00"
       select.selectedBackgroundColor = "#ff00ff"

@@ -40,12 +40,12 @@ const defaultSelectKeybindings: SelectKeyBinding[] = [
  */
 export interface SelectStyleProps extends StyleProps {
   backgroundColor?: ColorInput
-  textColor?: ColorInput
+  color?: ColorInput
 }
 
 export interface SelectRenderableOptions extends RenderableOptions<SelectRenderable> {
   backgroundColor?: ColorInput
-  textColor?: ColorInput
+  color?: ColorInput
   focusedBackgroundColor?: ColorInput
   focusedTextColor?: ColorInput
   options?: SelectOption[]
@@ -100,7 +100,7 @@ export class SelectRenderable extends Renderable {
 
   protected _defaultOptions = {
     backgroundColor: "transparent",
-    textColor: "#FFFFFF",
+    color: "#FFFFFF",
     focusedBackgroundColor: "#1a1a1a",
     focusedTextColor: "#FFFFFF",
     selectedBackgroundColor: "#334455",
@@ -121,7 +121,7 @@ export class SelectRenderable extends Renderable {
     const requestedIndex = options.selectedIndex ?? this._defaultOptions.selectedIndex
     this._selectedIndex = this._options.length > 0 ? Math.min(requestedIndex, this._options.length - 1) : 0
     this._backgroundColor = parseColor(options.backgroundColor || this._defaultOptions.backgroundColor)
-    this._textColor = parseColor(options.textColor || this._defaultOptions.textColor)
+    this._textColor = parseColor(options.color || this._defaultOptions.color)
     this._focusedBackgroundColor = parseColor(
       options.focusedBackgroundColor || this._defaultOptions.focusedBackgroundColor,
     )
@@ -420,8 +420,8 @@ export class SelectRenderable extends Renderable {
     }
   }
 
-  public set textColor(value: ColorInput) {
-    const newColor = parseColor(value ?? this._defaultOptions.textColor)
+  public set color(value: ColorInput) {
+    const newColor = parseColor(value ?? this._defaultOptions.color)
     if (this._textColor !== newColor) {
       this._textColor = newColor
       this.requestRender()
@@ -547,8 +547,8 @@ export class SelectRenderable extends Renderable {
     if ("backgroundColor" in styles) {
       this._backgroundColor = parseColor(styles.backgroundColor ?? this._defaultOptions.backgroundColor)
     }
-    if ("textColor" in styles) {
-      this._textColor = parseColor(styles.textColor ?? this._defaultOptions.textColor)
+    if ("color" in styles) {
+      this._textColor = parseColor(styles.color ?? this._defaultOptions.color)
     }
   }
 }

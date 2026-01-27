@@ -206,7 +206,7 @@ export function run(renderer: CliRenderer): void {
     position: "absolute",
     left: 2,
     top: 1,
-    fg: RGBA.fromInts(255, 215, 135),
+    color: RGBA.fromInts(255, 215, 135),
     attributes: TextAttributes.BOLD,
     zIndex: 1000,
   })
@@ -219,7 +219,7 @@ export function run(renderer: CliRenderer): void {
     position: "absolute",
     left: 2,
     top: 2,
-    fg: RGBA.fromInts(176, 196, 222),
+    color: RGBA.fromInts(176, 196, 222),
     zIndex: 1000,
   })
   renderer.root.add(instructionsText)
@@ -230,7 +230,7 @@ export function run(renderer: CliRenderer): void {
     position: "absolute",
     left: 2,
     top: 4,
-    fg: RGBA.fromInts(144, 238, 144),
+    color: RGBA.fromInts(144, 238, 144),
     attributes: TextAttributes.ITALIC,
     zIndex: 1000,
   })
@@ -295,7 +295,7 @@ export function run(renderer: CliRenderer): void {
     position: "absolute",
     left: 2,
     top: startY + 12,
-    fg: RGBA.fromInts(100, 120, 150, 120),
+    color: RGBA.fromInts(100, 120, 150, 120),
     zIndex: 50,
   })
   renderer.root.add(decorText1)
@@ -306,7 +306,7 @@ export function run(renderer: CliRenderer): void {
     position: "absolute",
     left: 2,
     top: startY + 14,
-    fg: RGBA.fromInts(120, 140, 160, 200),
+    color: RGBA.fromInts(120, 140, 160, 200),
     attributes: TextAttributes.ITALIC,
     zIndex: 50,
   })

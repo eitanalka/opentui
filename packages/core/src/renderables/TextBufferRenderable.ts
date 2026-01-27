@@ -14,14 +14,14 @@ import type { ColorInput } from "../lib/RGBA"
  * Style properties specific to TextBufferRenderable.
  */
 export interface TextBufferStyleProps extends StyleProps {
-  fg?: ColorInput
-  bg?: ColorInput
+  color?: ColorInput
+  backgroundColor?: ColorInput
   attributes?: number
 }
 
 export interface TextBufferOptions extends RenderableOptions<TextBufferRenderable> {
-  fg?: string | RGBA
-  bg?: string | RGBA
+  color?: string | RGBA
+  backgroundColor?: string | RGBA
   selectionBg?: string | RGBA
   selectionFg?: string | RGBA
   selectable?: boolean
@@ -53,8 +53,8 @@ export abstract class TextBufferRenderable extends Renderable implements LineInf
   protected textBufferView: TextBufferView
 
   protected _defaultOptions = {
-    fg: RGBA.fromValues(1, 1, 1, 1),
-    bg: RGBA.fromValues(0, 0, 0, 0),
+    color: RGBA.fromValues(1, 1, 1, 1),
+    backgroundColor: RGBA.fromValues(0, 0, 0, 0),
     selectionBg: undefined,
     selectionFg: undefined,
     selectable: true,
@@ -68,8 +68,8 @@ export abstract class TextBufferRenderable extends Renderable implements LineInf
   constructor(ctx: RenderContext, options: TextBufferOptions) {
     super(ctx, options)
 
-    this._defaultFg = parseColor(options.fg ?? this._defaultOptions.fg)
-    this._defaultBg = parseColor(options.bg ?? this._defaultOptions.bg)
+    this._defaultFg = parseColor(options.color ?? this._defaultOptions.color)
+    this._defaultBg = parseColor(options.backgroundColor ?? this._defaultOptions.backgroundColor)
     this._defaultAttributes = options.attributes ?? this._defaultOptions.attributes
     this._selectionBg = options.selectionBg ? parseColor(options.selectionBg) : this._defaultOptions.selectionBg
     this._selectionFg = options.selectionFg ? parseColor(options.selectionFg) : this._defaultOptions.selectionFg
@@ -211,12 +211,12 @@ export abstract class TextBufferRenderable extends Renderable implements LineInf
     return this.textBuffer.length
   }
 
-  get fg(): RGBA {
+  get color(): RGBA {
     return this._defaultFg
   }
 
-  set fg(value: RGBA | string | undefined) {
-    const newColor = parseColor(value ?? this._defaultOptions.fg)
+  set color(value: RGBA | string | undefined) {
+    const newColor = parseColor(value ?? this._defaultOptions.color)
     if (this._defaultFg !== newColor) {
       this._defaultFg = newColor
       this.textBuffer.setDefaultFg(this._defaultFg)
@@ -255,12 +255,12 @@ export abstract class TextBufferRenderable extends Renderable implements LineInf
     }
   }
 
-  get bg(): RGBA {
+  get backgroundColor(): RGBA {
     return this._defaultBg
   }
 
-  set bg(value: RGBA | string | undefined) {
-    const newColor = parseColor(value ?? this._defaultOptions.bg)
+  set backgroundColor(value: RGBA | string | undefined) {
+    const newColor = parseColor(value ?? this._defaultOptions.backgroundColor)
     if (this._defaultBg !== newColor) {
       this._defaultBg = newColor
       this.textBuffer.setDefaultBg(this._defaultBg)
@@ -533,12 +533,12 @@ export abstract class TextBufferRenderable extends Renderable implements LineInf
   protected override applyMergedStyles(styles: TextBufferStyleProps): void {
     super.applyMergedStyles(styles)
 
-    if ("fg" in styles) {
-      this._defaultFg = parseColor(styles.fg ?? this._defaultOptions.fg)
+    if ("color" in styles) {
+      this._defaultFg = parseColor(styles.color ?? this._defaultOptions.color)
       this.textBuffer.setDefaultFg(this._defaultFg)
     }
-    if ("bg" in styles) {
-      this._defaultBg = parseColor(styles.bg ?? this._defaultOptions.bg)
+    if ("backgroundColor" in styles) {
+      this._defaultBg = parseColor(styles.backgroundColor ?? this._defaultOptions.backgroundColor)
       this.textBuffer.setDefaultBg(this._defaultBg)
     }
     if ("attributes" in styles && styles.attributes !== undefined) {

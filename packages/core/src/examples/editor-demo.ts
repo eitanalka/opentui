@@ -110,7 +110,7 @@ export async function run(rendererInstance: CliRenderer): Promise<void> {
   editor = new TextareaRenderable(renderer, {
     id: "editor",
     initialValue: initialContent,
-    textColor: "#F0F6FC",
+    color: "#F0F6FC",
     selectionBg: "#264F78",
     selectionFg: "#FFFFFF",
     wrapMode: "word",
@@ -126,8 +126,8 @@ export async function run(rendererInstance: CliRenderer): Promise<void> {
     target: editor,
     minWidth: 3,
     paddingRight: 1,
-    fg: "#6b7280", // Dimmed gray for line numbers
-    bg: "#161b22", // Slightly darker than editor background for distinction
+    color: "#6b7280", // Dimmed gray for line numbers
+    backgroundColor: "#161b22", // Slightly darker than editor background for distinction
     width: "100%",
     height: "100%",
   })
@@ -137,7 +137,7 @@ export async function run(rendererInstance: CliRenderer): Promise<void> {
   statusText = new TextRenderable(renderer, {
     id: "status",
     content: "",
-    fg: "#A5D6FF",
+    color: "#A5D6FF",
     height: 1,
   })
   parentContainer.add(statusText)

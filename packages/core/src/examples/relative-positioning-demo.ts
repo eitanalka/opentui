@@ -25,7 +25,7 @@ export function run(renderer: CliRenderer): void {
     position: "absolute",
     left: 5,
     top: 1,
-    fg: "#FFFF00",
+    color: "#FFFF00",
     attributes: TextAttributes.BOLD | TextAttributes.UNDERLINE,
     zIndex: 1000,
   })
@@ -141,7 +141,7 @@ export function run(renderer: CliRenderer): void {
   const parentLabelB = new TextRenderable(renderer, {
     id: "parent-label-b",
     content: "Parent B Position: (50, 8)",
-    fg: "#44FF44",
+    color: "#44FF44",
     attributes: TextAttributes.BOLD,
     zIndex: 2,
   })
@@ -150,7 +150,7 @@ export function run(renderer: CliRenderer): void {
   const childB1 = new TextRenderable(renderer, {
     id: "child-b1",
     content: "Child at (1,3) - relative to parent",
-    fg: "#88FF88",
+    color: "#88FF88",
     zIndex: 2,
   })
   parentBoxB.add(childB1)
@@ -158,7 +158,7 @@ export function run(renderer: CliRenderer): void {
   const childB2 = new TextRenderable(renderer, {
     id: "child-b2",
     content: "Child at (1,5) - relative to parent",
-    fg: "#88FF88",
+    color: "#88FF88",
     zIndex: 2,
   })
   parentBoxB.add(childB2)
@@ -194,7 +194,7 @@ export function run(renderer: CliRenderer): void {
   const staticChild1 = new TextRenderable(renderer, {
     id: "static-child1",
     content: "Static child at (2,2) - never moves",
-    fg: "#FFFF88",
+    color: "#FFFF88",
     zIndex: 2,
   })
   staticBox.add(staticChild1)
@@ -202,7 +202,7 @@ export function run(renderer: CliRenderer): void {
   const staticChild2 = new TextRenderable(renderer, {
     id: "static-child2",
     content: "Static child at (2,4) - never moves",
-    fg: "#FFFF88",
+    color: "#FFFF88",
     zIndex: 2,
   })
   staticBox.add(staticChild2)
@@ -213,7 +213,7 @@ export function run(renderer: CliRenderer): void {
     position: "absolute",
     left: 5,
     top: 30,
-    fg: "#AAAAAA",
+    color: "#AAAAAA",
     attributes: TextAttributes.BOLD,
     zIndex: 1000,
   })
@@ -225,7 +225,7 @@ export function run(renderer: CliRenderer): void {
     position: "absolute",
     left: 5,
     top: 31,
-    fg: "#AAAAAA",
+    color: "#AAAAAA",
     zIndex: 1000,
   })
   rootContainer.add(explanation2)
@@ -236,7 +236,7 @@ export function run(renderer: CliRenderer): void {
     position: "absolute",
     left: 5,
     top: 32,
-    fg: "#AAAAAA",
+    color: "#AAAAAA",
     zIndex: 1000,
   })
   rootContainer.add(explanation3)
@@ -247,7 +247,7 @@ export function run(renderer: CliRenderer): void {
     position: "absolute",
     left: 5,
     top: 34,
-    fg: "#FFFFFF",
+    color: "#FFFFFF",
     attributes: TextAttributes.BOLD,
     zIndex: 1000,
   })
@@ -259,7 +259,7 @@ export function run(renderer: CliRenderer): void {
     position: "absolute",
     left: 5,
     top: 35,
-    fg: "#CCCCCC",
+    color: "#CCCCCC",
     zIndex: 1000,
   })
   rootContainer.add(speedDisplay)
