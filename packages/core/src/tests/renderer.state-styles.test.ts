@@ -13,7 +13,7 @@ let renderOnce: () => Promise<void>
 let mockMouse: MockMouse
 
 beforeEach(async () => {
-  ; ({ renderer, renderOnce, mockMouse } = await createTestRenderer({ width: 50, height: 30 }))
+  ;({ renderer, renderOnce, mockMouse } = await createTestRenderer({ width: 50, height: 30 }))
 })
 
 afterEach(() => {
@@ -340,9 +340,7 @@ describe("State-based styles - SelectRenderable", () => {
       id: "test-select",
       width: 20,
       height: 5,
-      options: [
-        { name: "Option 1", description: "First option" },
-      ],
+      options: [{ name: "Option 1", description: "First option" }],
       style: {
         color: "white",
         focus: {
@@ -513,7 +511,13 @@ describe("State-based styles - Hover", () => {
     expect(box.backgroundColor).toEqual(parseColor("red"))
 
     // Simulate mouse over
-    const mouseEvent = new MouseEvent(box, { type: "over", x: 5, y: 2, button: 0, modifiers: { shift: false, alt: false, ctrl: false } })
+    const mouseEvent = new MouseEvent(box, {
+      type: "over",
+      x: 5,
+      y: 2,
+      button: 0,
+      modifiers: { shift: false, alt: false, ctrl: false },
+    })
     box.processMouseEvent(mouseEvent)
     await renderOnce()
 
@@ -538,14 +542,26 @@ describe("State-based styles - Hover", () => {
     await renderOnce()
 
     // Hover first
-    const overEvent = new MouseEvent(box, { type: "over", x: 5, y: 2, button: 0, modifiers: { shift: false, alt: false, ctrl: false } })
+    const overEvent = new MouseEvent(box, {
+      type: "over",
+      x: 5,
+      y: 2,
+      button: 0,
+      modifiers: { shift: false, alt: false, ctrl: false },
+    })
     box.processMouseEvent(overEvent)
     await renderOnce()
 
     expect(box.backgroundColor).toEqual(parseColor("blue"))
 
     // Mouse out
-    const outEvent = new MouseEvent(box, { type: "out", x: 5, y: 2, button: 0, modifiers: { shift: false, alt: false, ctrl: false } })
+    const outEvent = new MouseEvent(box, {
+      type: "out",
+      x: 5,
+      y: 2,
+      button: 0,
+      modifiers: { shift: false, alt: false, ctrl: false },
+    })
     box.processMouseEvent(outEvent)
     await renderOnce()
 
@@ -570,7 +586,15 @@ describe("State-based styles - Hover", () => {
     await renderOnce()
 
     // Hover first
-    box.processMouseEvent(new MouseEvent(box, { type: "over", x: 5, y: 2, button: 0, modifiers: { shift: false, alt: false, ctrl: false } }))
+    box.processMouseEvent(
+      new MouseEvent(box, {
+        type: "over",
+        x: 5,
+        y: 2,
+        button: 0,
+        modifiers: { shift: false, alt: false, ctrl: false },
+      }),
+    )
     await renderOnce()
     expect(box.backgroundColor).toEqual(parseColor("blue"))
 
@@ -604,13 +628,29 @@ describe("State-based styles - Hover", () => {
     expect(text.color).toEqual(parseColor("white"))
 
     // Hover
-    text.processMouseEvent(new MouseEvent(text, { type: "over", x: 0, y: 0, button: 0, modifiers: { shift: false, alt: false, ctrl: false } }))
+    text.processMouseEvent(
+      new MouseEvent(text, {
+        type: "over",
+        x: 0,
+        y: 0,
+        button: 0,
+        modifiers: { shift: false, alt: false, ctrl: false },
+      }),
+    )
     await renderOnce()
 
     expect(text.color).toEqual(parseColor("yellow"))
 
     // Mouse out
-    text.processMouseEvent(new MouseEvent(text, { type: "out", x: 0, y: 0, button: 0, modifiers: { shift: false, alt: false, ctrl: false } }))
+    text.processMouseEvent(
+      new MouseEvent(text, {
+        type: "out",
+        x: 0,
+        y: 0,
+        button: 0,
+        modifiers: { shift: false, alt: false, ctrl: false },
+      }),
+    )
     await renderOnce()
 
     expect(text.color).toEqual(parseColor("white"))
@@ -642,14 +682,30 @@ describe("State-based styles - Hover", () => {
     expect(select._backgroundColor).toEqual(parseColor("#000000"))
 
     // Hover
-    select.processMouseEvent(new MouseEvent(select, { type: "over", x: 5, y: 2, button: 0, modifiers: { shift: false, alt: false, ctrl: false } }))
+    select.processMouseEvent(
+      new MouseEvent(select, {
+        type: "over",
+        x: 5,
+        y: 2,
+        button: 0,
+        modifiers: { shift: false, alt: false, ctrl: false },
+      }),
+    )
     await renderOnce()
 
     // @ts-expect-error - accessing private property for testing
     expect(select._backgroundColor).toEqual(parseColor("#333333"))
 
     // Mouse out
-    select.processMouseEvent(new MouseEvent(select, { type: "out", x: 5, y: 2, button: 0, modifiers: { shift: false, alt: false, ctrl: false } }))
+    select.processMouseEvent(
+      new MouseEvent(select, {
+        type: "out",
+        x: 5,
+        y: 2,
+        button: 0,
+        modifiers: { shift: false, alt: false, ctrl: false },
+      }),
+    )
     await renderOnce()
 
     // @ts-expect-error - accessing private property for testing
@@ -676,14 +732,24 @@ describe("State-based styles - Hover", () => {
     expect(box.backgroundColor).toEqual(parseColor("transparent"))
 
     // Hover
-    box.processMouseEvent(new MouseEvent(box, { type: "over", x: 5, y: 2, button: 0, modifiers: { shift: false, alt: false, ctrl: false } }))
+    box.processMouseEvent(
+      new MouseEvent(box, {
+        type: "over",
+        x: 5,
+        y: 2,
+        button: 0,
+        modifiers: { shift: false, alt: false, ctrl: false },
+      }),
+    )
     await renderOnce()
 
     // After hover: should have hover backgroundColor
     expect(box.backgroundColor).toEqual(parseColor("blue"))
 
     // Mouse out
-    box.processMouseEvent(new MouseEvent(box, { type: "out", x: 5, y: 2, button: 0, modifiers: { shift: false, alt: false, ctrl: false } }))
+    box.processMouseEvent(
+      new MouseEvent(box, { type: "out", x: 5, y: 2, button: 0, modifiers: { shift: false, alt: false, ctrl: false } }),
+    )
     await renderOnce()
 
     // After mouseout: should reset to default (transparent)
@@ -713,7 +779,15 @@ describe("State-based styles - Hover", () => {
     expect(box.backgroundColor).toEqual(parseColor("red"))
 
     // Try to hover - but preventDefault is called
-    box.processMouseEvent(new MouseEvent(box, { type: "over", x: 5, y: 2, button: 0, modifiers: { shift: false, alt: false, ctrl: false } }))
+    box.processMouseEvent(
+      new MouseEvent(box, {
+        type: "over",
+        x: 5,
+        y: 2,
+        button: 0,
+        modifiers: { shift: false, alt: false, ctrl: false },
+      }),
+    )
     await renderOnce()
 
     // Should still have base backgroundColor because preventDefault was called
@@ -740,14 +814,24 @@ describe("State-based styles - Hover", () => {
     await renderOnce()
 
     // Hover normally (no preventDefault on over)
-    box.processMouseEvent(new MouseEvent(box, { type: "over", x: 5, y: 2, button: 0, modifiers: { shift: false, alt: false, ctrl: false } }))
+    box.processMouseEvent(
+      new MouseEvent(box, {
+        type: "over",
+        x: 5,
+        y: 2,
+        button: 0,
+        modifiers: { shift: false, alt: false, ctrl: false },
+      }),
+    )
     await renderOnce()
 
     // Should have hover backgroundColor
     expect(box.backgroundColor).toEqual(parseColor("blue"))
 
     // Try to mouseout - but preventDefault is called
-    box.processMouseEvent(new MouseEvent(box, { type: "out", x: 5, y: 2, button: 0, modifiers: { shift: false, alt: false, ctrl: false } }))
+    box.processMouseEvent(
+      new MouseEvent(box, { type: "out", x: 5, y: 2, button: 0, modifiers: { shift: false, alt: false, ctrl: false } }),
+    )
     await renderOnce()
 
     // Should still have hover backgroundColor because preventDefault was called

@@ -1,6 +1,7 @@
 import {
   ASCIIFontRenderable,
   BoxRenderable,
+  ButtonRenderable,
   CodeRenderable,
   DiffRenderable,
   InputRenderable,
@@ -93,6 +94,7 @@ export class LinkRenderable extends SpanRenderable {
 
 export const baseComponents = {
   box: BoxRenderable,
+  button: ButtonRenderable,
   text: TextRenderable,
   input: InputRenderable,
   select: SelectRenderable,

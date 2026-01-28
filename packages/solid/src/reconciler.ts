@@ -1,6 +1,8 @@
 /* @refresh skip */
 import {
   BaseRenderable,
+  ButtonRenderable,
+  ButtonRenderableEvents,
   createTextAttributes,
   InputRenderable,
   InputRenderableEvents,
@@ -74,7 +76,7 @@ function _insertNode(parent: DomNode, node: DomNode, anchor?: DomNode): void {
   }
 
   if (isTextNodeRenderable(node)) {
-    if (!(parent instanceof TextRenderable) && !isTextNodeRenderable(parent)) {
+    if (!(parent instanceof TextRenderable) && !(parent instanceof ButtonRenderable) && !isTextNodeRenderable(parent)) {
       throw new Error(
         `Orphan text error: "${node
           .toChunks()
@@ -236,6 +238,26 @@ export const {
         } else {
           node.blur()
         }
+        break
+      // TODO: Refactor event listener cases (onClick, onChange, onInput, onSubmit, onSelect)
+      // to use a helper function like React's initEventListeners:
+      // function initEventListeners(node, eventName, listener, previousListener) {
+      //   if (previousListener) node.off(eventName, previousListener)
+      //   if (listener) node.on(eventName, listener)
+      // }
+      case "onClick":
+        if (node instanceof ButtonRenderable) {
+          // For buttons, listen to CLICKED event (keyboard Enter/Space)
+          if (value) {
+            node.on(ButtonRenderableEvents.CLICKED, value)
+          }
+          if (prev) {
+            node.off(ButtonRenderableEvents.CLICKED, prev)
+          }
+        }
+        // Always set onClick property for mouse click handling
+        // @ts-expect-error todo validate if prop is actually settable
+        node[name] = value
         break
       case "onChange":
         let event: string | undefined = undefined

@@ -4,6 +4,8 @@ import type {
   BaseRenderable,
   BoxOptions,
   BoxRenderable,
+  ButtonRenderable,
+  ButtonRenderableOptions,
   CodeOptions,
   CodeRenderable,
   InputRenderable,
@@ -119,6 +121,10 @@ export type LinkProps = SpanProps & {
 }
 
 export type BoxProps = ComponentProps<ContainerProps<BoxOptions>, BoxRenderable> & {
+  focused?: boolean
+}
+
+export type ButtonProps = ComponentProps<ContainerProps<ButtonRenderableOptions>, ButtonRenderable> & {
   focused?: boolean
 }
 

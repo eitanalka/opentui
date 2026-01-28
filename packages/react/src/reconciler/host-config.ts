@@ -94,7 +94,7 @@ export const hostConfig: HostConfig<
 
   // Get child context
   getChildHostContext(parentHostContext: HostContext, type: Type, rootContainerInstance: Container) {
-    const isInsideText = ["text", ...textNodeKeys].includes(type)
+    const isInsideText = ["text", "button", ...textNodeKeys].includes(type)
     return { ...parentHostContext, isInsideText }
   },
 

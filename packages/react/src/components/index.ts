@@ -1,6 +1,7 @@
 import {
   ASCIIFontRenderable,
   BoxRenderable,
+  ButtonRenderable,
   CodeRenderable,
   DiffRenderable,
   InputRenderable,
@@ -24,6 +25,7 @@ import {
 
 export const baseComponents = {
   box: BoxRenderable,
+  button: ButtonRenderable,
   text: TextRenderable,
   code: CodeRenderable,
   diff: DiffRenderable,
