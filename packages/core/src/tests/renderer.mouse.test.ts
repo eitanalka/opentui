@@ -1,4 +1,4 @@
-import { beforeEach, describe, expect, test } from "bun:test"
+import { afterEach, beforeEach, describe, expect, test } from "bun:test"
 import { createTestRenderer, MouseButtons, type MockMouse, type TestRenderer } from "../testing"
 import { Renderable, type RenderableOptions } from "../Renderable"
 import type { RenderContext } from "../types"
@@ -30,6 +30,11 @@ describe("renderer handleMouseData", () => {
   beforeEach(async () => {
     ;({ renderer, mockMouse, renderOnce } = await createTestRenderer({ width: 40, height: 20 }))
   })
+
+  afterEach(() => {
+    renderer.destroy()
+  })
+
   test("non-mouse input falls through to input handlers", async () => {
     try {
       const target = new TestRenderable(renderer, {

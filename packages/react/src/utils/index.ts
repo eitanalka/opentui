@@ -1,4 +1,6 @@
 import {
+  ButtonRenderable,
+  ButtonRenderableEvents,
   InputRenderable,
   InputRenderableEvents,
   isRenderable,
@@ -47,6 +49,15 @@ function setStyle(instance: Instance, styles: any, oldStyles: any) {
 
 function setProperty(instance: Instance, type: Type, propKey: string, propValue: any, oldPropValue?: any) {
   switch (propKey) {
+    case "onClick":
+      if (instance instanceof ButtonRenderable) {
+        // For buttons, listen to CLICKED event (keyboard Enter/Space)
+        initEventListeners(instance, ButtonRenderableEvents.CLICKED, propValue, oldPropValue)
+      }
+      // Always set onClick property for mouse click handling
+      // @ts-expect-error props are not strongly typed in the reconciler
+      instance[propKey] = propValue
+      break
     case "onChange":
       if (instance instanceof InputRenderable) {
         initEventListeners(instance, InputRenderableEvents.CHANGE, propValue, oldPropValue)

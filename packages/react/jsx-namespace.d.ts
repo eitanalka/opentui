@@ -2,6 +2,7 @@ import type * as React from "react"
 import type {
   AsciiFontProps,
   BoxProps,
+  ButtonProps,
   CodeProps,
   DiffProps,
   ExtendedIntrinsicElements,
@@ -38,6 +39,7 @@ export namespace JSX {
 
   interface IntrinsicElements extends React.JSX.IntrinsicElements, ExtendedIntrinsicElements<OpenTUIComponents> {
     box: BoxProps
+    button: ButtonProps
     text: TextProps
     span: SpanProps
     code: CodeProps

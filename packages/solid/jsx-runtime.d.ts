@@ -2,6 +2,7 @@ import { Renderable } from "@opentui/core"
 import type {
   AsciiFontProps,
   BoxProps,
+  ButtonProps,
   CodeProps,
   ExtendedIntrinsicElements,
   InputProps,
@@ -25,6 +26,7 @@ declare namespace JSX {
 
   interface IntrinsicElements extends ExtendedIntrinsicElements<OpenTUIComponents> {
     box: BoxProps
+    button: ButtonProps
     text: TextProps
     span: SpanProps
     input: InputProps

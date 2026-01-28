@@ -4,6 +4,8 @@ import type {
   BaseRenderable,
   BoxOptions,
   BoxRenderable,
+  ButtonRenderable,
+  ButtonRenderableOptions,
   CodeOptions,
   CodeRenderable,
   DiffRenderable,
@@ -134,6 +136,11 @@ export type LineBreakProps = Pick<SpanProps, "id">
 
 export type BoxProps = ComponentProps<ContainerProps<BoxOptions>, BoxRenderable> & {
   focused?: boolean
+}
+
+export type ButtonProps = ComponentProps<ContainerProps<ButtonRenderableOptions>, ButtonRenderable> & {
+  focused?: boolean
+  onClick?: () => void
 }
 
 export type InputProps = ComponentProps<InputRenderableOptions, InputRenderable> & {
