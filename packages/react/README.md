@@ -117,7 +117,7 @@ OpenTUI React provides several built-in components that map to OpenTUI core rend
 
 ### Styling
 
-Components can be styled using props or the `style` prop:
+Components can be styled using props, the `style` prop, or the `className` prop with `StyleSheet`:
 
 ```tsx
 // Direct props
@@ -130,6 +130,49 @@ Components can be styled using props or the `style` prop:
   <text>Hello, world!</text>
 </box>
 ```
+
+#### StyleSheet & className
+
+`StyleSheet.create()` lets you define reusable named styles, similar to React Native. Styles support state-based variants (`hover`, `focus`, `active`, `disabled`) that apply automatically based on component state.
+
+```tsx
+import { StyleSheet } from "@opentui/core"
+
+const styles = StyleSheet.create({
+  container: {
+    flexDirection: "column",
+    padding: 2,
+    backgroundColor: "#1a1a1a",
+  },
+  button: {
+    backgroundColor: "white",
+    borderColor: "gray",
+    hover: { backgroundColor: "#e0e0e0" },
+    focus: { borderColor: "cyan" },
+    active: { backgroundColor: "#c0c0c0" },
+    disabled: { backgroundColor: "gray" },
+  },
+  primary: {
+    backgroundColor: "#0066cc",
+    hover: { backgroundColor: "#0052a3" },
+  },
+})
+```
+
+Apply styles with the `className` prop:
+
+```tsx
+// Single class
+<box className={styles.container}>
+
+// Multiple classes (later overrides earlier)
+<button className={[styles.button, styles.primary]}>
+
+// Conditional classes
+<button className={[styles.button, isActive && styles.primary]}>
+```
+
+**Priority order:** `disabled` > `active` > `focus` > `hover` > base styles. Inline `style` overrides `className` for base properties (like CSS specificity).
 
 ## API Reference
 

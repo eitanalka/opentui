@@ -4,6 +4,7 @@ import { OptimizedBuffer } from "./buffer"
 import type { KeyEvent, PasteEvent } from "./lib/KeyHandler"
 import type { MouseEventType } from "./lib/parse.mouse"
 import type { Selection } from "./lib/selection"
+import { StyleSheet, type ClassName } from "./StyleSheet"
 import {
   parseAlign,
   parseAlignItems,
@@ -164,6 +165,7 @@ export interface RenderableOptions<T extends BaseRenderable = BaseRenderable> ex
   focusable?: boolean
   disabled?: boolean
   style?: Style
+  className?: ClassName
 
   // hooks for custom render logic
   renderBefore?: (this: T, buffer: OptimizedBuffer, deltaTime: number) => void
@@ -306,6 +308,7 @@ export abstract class Renderable extends BaseRenderable {
   // State-based style support
   protected _style: Style | undefined
   protected _baseStyles: StyleProps | undefined
+  protected _className?: ClassName
 
   private renderableMapById: Map<string, Renderable> = new Map()
   protected _childrenInLayoutOrder: Renderable[] = []
@@ -364,9 +367,17 @@ export abstract class Renderable extends BaseRenderable {
     }
 
     // Store style but don't apply yet - subclasses call initializeStyle() at end of their constructor
+    if (options.className) {
+      this._className = options.className
+    }
     if (options.style) {
       this._style = options.style
-      this._baseStyles = this.computeBaseStyles(options.style)
+    }
+    // Initialize base styles during construction (but don't apply yet - child constructor hasn't run)
+    // We only compute _baseStyles here; applyStateStyles() will be called later when safe
+    if (options.className || options.style) {
+      const mergedStyle = this.getMergedStyle()
+      this._baseStyles = mergedStyle ? this.computeBaseStyles(mergedStyle) : undefined
     }
   }
 
@@ -464,6 +475,17 @@ export abstract class Renderable extends BaseRenderable {
     this.setStyleInternal(value)
   }
 
+  public get className(): ClassName | undefined {
+    return this._className
+  }
+
+  public set className(value: ClassName | undefined) {
+    if (this._className !== value) {
+      this._className = value
+      this.updateMergedStyles()
+    }
+  }
+
   /**
    * Computes base styles by collecting keys from state styles (focus, hover, etc.)
    * and setting them to undefined, then merging user's base values on top.
@@ -488,8 +510,42 @@ export abstract class Renderable extends BaseRenderable {
    */
   protected setStyleInternal(value: Style<StyleProps> | undefined): void {
     this._style = value
-    this._baseStyles = value ? this.computeBaseStyles(value) : undefined
-    this.applyStateStyles()
+    this.updateMergedStyles()
+  }
+
+  /**
+   * Merges className styles with inline styles.
+   * Priority: inline styles override className styles (like CSS).
+   * @returns The merged style object, or undefined if neither className nor style exists
+   */
+  protected getMergedStyle(): Style<StyleProps> | undefined {
+    const classNameStyle = this._className
+      ? StyleSheet.resolve(this._className)
+      : undefined
+
+    const mergedStyle = classNameStyle && this._style
+      ? { ...classNameStyle, ...this._style }
+      : classNameStyle ?? this._style
+
+    return mergedStyle
+  }
+
+  /**
+   * Update merged styles from className and inline style.
+   * Called during initialization (constructor) and when className or style changes.
+   * Merges className styles with inline styles (inline wins), computes base styles,
+   * and applies state-based styling.
+   */
+  protected updateMergedStyles(): void {
+    const mergedStyle = this.getMergedStyle()
+
+    // Compute base styles and apply state-based styling
+    this._baseStyles = mergedStyle ? this.computeBaseStyles(mergedStyle) : undefined
+
+    if (mergedStyle) {
+      this.applyStateStyles()
+    }
+
     this.requestRender()
   }
 
@@ -502,7 +558,7 @@ export abstract class Renderable extends BaseRenderable {
    */
   public onStateChange(): void {
     if (this._isDestroyed) return
-    if (this._style) {
+    if (this._style || this._className) {
       this.applyStateStyles()
     }
     this.requestRender()
@@ -513,29 +569,33 @@ export abstract class Renderable extends BaseRenderable {
    * Merge priority (highest wins): disabled > active > focus > hover > base
    */
   protected applyStateStyles(): void {
-    if (!this._style || !this._baseStyles) return
+    if (!this._baseStyles) return
+
+    // Get merged className + inline style
+    const combinedStyle = this.getMergedStyle()
+    if (!combinedStyle) return
 
     // Start with base styles
     const merged: StyleProps = { ...this._baseStyles }
 
     // Apply hover styles if hovered (lowest priority state)
-    if (this._hovered && this._style.hover) {
-      Object.assign(merged, this._style.hover)
+    if (this._hovered && combinedStyle.hover) {
+      Object.assign(merged, combinedStyle.hover)
     }
 
     // Apply focus styles if focused (higher priority than hover)
-    if (this._focused && this._style.focus) {
-      Object.assign(merged, this._style.focus)
+    if (this._focused && combinedStyle.focus) {
+      Object.assign(merged, combinedStyle.focus)
     }
 
     // Apply active styles if active (higher priority than focus)
-    if (this.active && this._style.active) {
-      Object.assign(merged, this._style.active)
+    if (this.active && combinedStyle.active) {
+      Object.assign(merged, combinedStyle.active)
     }
 
     // Apply disabled styles if disabled (highest priority)
-    if (this._disabled && this._style.disabled) {
-      Object.assign(merged, this._style.disabled)
+    if (this._disabled && combinedStyle.disabled) {
+      Object.assign(merged, combinedStyle.disabled)
     }
 
     this.applyMergedStyles(merged)
@@ -562,7 +622,7 @@ export abstract class Renderable extends BaseRenderable {
    * Subclasses must call this at the end of their constructor if they support styles.
    */
   protected initializeStyle(): void {
-    if (this._style) {
+    if (this._style || this._className) {
       this.applyStateStyles()
     }
   }

@@ -83,6 +83,73 @@ OpenTUI Solid exposes intrinsic JSX elements that map to OpenTUI renderables:
 - **Code & Diff:** `code`, `line_number`, `diff`
 - **Text Modifiers:** `span`, `strong`, `b`, `em`, `i`, `u`, `br`, `a`
 
+### Styling
+
+Components can be styled using props, the `style` prop, or the `className` prop with `StyleSheet`:
+
+```tsx
+// Direct props
+<box backgroundColor="blue" padding={2}>
+  <text>Hello, world!</text>
+</box>
+
+// Style prop
+<box style={{ backgroundColor: "blue", padding: 2 }}>
+  <text>Hello, world!</text>
+</box>
+```
+
+#### StyleSheet & className
+
+`StyleSheet.create()` lets you define reusable named styles. Styles support state-based variants (`hover`, `focus`, `active`, `disabled`) that apply automatically based on component state.
+
+```tsx
+import { StyleSheet } from "@opentui/core"
+import { render } from "@opentui/solid"
+import { createSignal } from "solid-js"
+
+const styles = StyleSheet.create({
+  button: {
+    backgroundColor: "white",
+    borderColor: "gray",
+    hover: { backgroundColor: "#e0e0e0" },
+    focus: { borderColor: "cyan" },
+    active: { backgroundColor: "#c0c0c0" },
+    disabled: { backgroundColor: "gray" },
+  },
+  primary: {
+    backgroundColor: "#0066cc",
+    hover: { backgroundColor: "#0052a3" },
+  },
+})
+
+function App() {
+  const [disabled, setDisabled] = createSignal(false)
+
+  return (
+    <box flexDirection="column" padding={2}>
+      {/* Single class */}
+      <button className={styles.button}>Default</button>
+
+      {/* Multiple classes (later overrides earlier) */}
+      <button className={[styles.button, styles.primary]}>Primary</button>
+
+      {/* Conditional classes */}
+      <button
+        className={[styles.button, !disabled() && styles.primary]}
+        disabled={disabled()}
+      >
+        Conditional
+      </button>
+    </box>
+  )
+}
+
+render(() => <App />)
+```
+
+**Priority order:** `disabled` > `active` > `focus` > `hover` > base styles. Inline `style` overrides `className` for base properties.
+
 ## API Reference
 
 ### `render(node, rendererOrConfig?)`

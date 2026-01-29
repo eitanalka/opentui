@@ -297,6 +297,84 @@ canvas.frameBuffer.fillRect(10, 5, 20, 8, RGBA.fromHex("#FF0000"))
 canvas.frameBuffer.drawText("Custom Graphics", 12, 7, RGBA.fromHex("#FFFFFF"))
 ```
 
+## StyleSheet & className
+
+`StyleSheet.create()` provides a way to define reusable, named styles with state-based variants. This works with both the imperative API and the React/Solid reconcilers.
+
+### Creating Styles
+
+```typescript
+import { StyleSheet } from "@opentui/core"
+
+const styles = StyleSheet.create({
+  panel: {
+    backgroundColor: "#1a1a1a",
+    borderColor: "gray",
+    hover: { borderColor: "white" },
+    focus: { borderColor: "cyan" },
+    active: { backgroundColor: "#333333" },
+    disabled: { backgroundColor: "#0a0a0a", borderColor: "#333333" },
+  },
+  highlight: {
+    backgroundColor: "blue",
+  },
+})
+```
+
+### Applying Styles
+
+```typescript
+// Single className
+const box = new BoxRenderable(renderer, {
+  id: "panel",
+  width: 30,
+  height: 10,
+  className: styles.panel,
+})
+
+// Multiple classNames (later overrides earlier)
+const box2 = new BoxRenderable(renderer, {
+  id: "highlighted-panel",
+  width: 30,
+  height: 10,
+  className: [styles.panel, styles.highlight],
+})
+
+// className + inline style (inline wins for base properties)
+const box3 = new BoxRenderable(renderer, {
+  id: "custom-panel",
+  width: 30,
+  height: 10,
+  className: styles.panel,
+  style: { backgroundColor: "purple" },
+})
+```
+
+### State Priority
+
+State styles are applied automatically and merge with the following priority (highest wins):
+
+1. `disabled` — property-driven, overrides all other states
+2. `active` — mousedown/mouseup, renderer-managed
+3. `focus` — focus/blur
+4. `hover` — mouse enter/leave
+5. Base styles
+
+### Disabled State
+
+```typescript
+const box = new BoxRenderable(renderer, {
+  id: "panel",
+  width: 30,
+  height: 10,
+  className: styles.panel,
+  disabled: true, // applies disabled styles immediately
+})
+
+// Toggle at runtime
+box.disabled = false // returns to appropriate state (focus/hover/base)
+```
+
 ## Layout System
 
 OpenTUI uses the Yoga layout engine, providing CSS Flexbox-like capabilities for responsive layouts:
