@@ -1,5 +1,6 @@
 // Core exports without 3D dependencies
 export * from "./Renderable"
+export { StyleSheet, type StyleId, type ClassName } from "./StyleSheet"
 export * from "./types"
 export * from "./utils"
 export * from "./buffer"

@@ -6,6 +6,7 @@ import type {
   BoxRenderable,
   ButtonRenderable,
   ButtonRenderableOptions,
+  ClassName,
   CodeOptions,
   CodeRenderable,
   DiffRenderable,
@@ -111,6 +112,7 @@ type ContainerProps<TOptions> = TOptions & { children?: React.ReactNode }
 /** Smart component props that automatically determine excluded properties */
 type ComponentProps<TOptions extends RenderableOptions<TRenderable>, TRenderable extends BaseRenderable> = TOptions & {
   style?: Partial<Omit<TOptions, GetNonStyledProperties<RenderableConstructor<TRenderable>>>>
+  className?: ClassName
 } & ReactProps<TRenderable>
 
 /** Valid text content types for Text component children */
@@ -193,6 +195,7 @@ export type ExtendedComponentProps<
 > = TOptions & {
   children?: React.ReactNode
   style?: Partial<Omit<TOptions, GetNonStyledProperties<TConstructor>>>
+  className?: ClassName
 } & ReactProps<ExtractRenderable<TConstructor>>
 
 /** Helper type to create JSX element properties from a component catalogue */
