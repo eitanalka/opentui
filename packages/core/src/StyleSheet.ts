@@ -5,12 +5,7 @@ declare const StyleIdBrand: unique symbol
 export type StyleId = symbol & { [StyleIdBrand]: true }
 
 // className prop accepts multiple formats
-export type ClassName =
-  | StyleId
-  | StyleId[]
-  | string
-  | string[]
-  | (StyleId | string | false | null | undefined)[] // Allow falsy for conditionals
+export type ClassName = StyleId | StyleId[] | string | string[] | (StyleId | string | false | null | undefined)[] // Allow falsy for conditionals
 
 // Global registries
 const styleRegistry = new Map<StyleId, Style>()
@@ -23,9 +18,7 @@ export class StyleSheet {
    * Accepts any extended StyleProps (e.g., BoxStyleProps, TextStyleProps)
    */
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  static create<T extends Record<string, Style<any>>>(
-    styles: T
-  ): { [K in keyof T]: StyleId } {
+  static create<T extends Record<string, Style<any>>>(styles: T): { [K in keyof T]: StyleId } {
     const result = {} as { [K in keyof T]: StyleId }
 
     for (const key in styles) {
@@ -82,12 +75,12 @@ function normalizeClassName(className: ClassName): StyleId[] {
     const result: StyleId[] = []
     for (const item of className) {
       if (item) {
-        if (typeof item === 'string') {
+        if (typeof item === "string") {
           // Handle space-separated strings
           const ids = item
             .split(/\s+/)
             .filter(Boolean)
-            .map(key => stringRegistry.get(key))
+            .map((key) => stringRegistry.get(key))
             .filter((id): id is StyleId => !!id)
           result.push(...ids)
         } else {
@@ -98,12 +91,12 @@ function normalizeClassName(className: ClassName): StyleId[] {
     return result
   }
 
-  if (typeof className === 'string') {
+  if (typeof className === "string") {
     // Split space-separated string into individual classes
     return className
       .split(/\s+/)
       .filter(Boolean)
-      .map(key => stringRegistry.get(key))
+      .map((key) => stringRegistry.get(key))
       .filter((id): id is StyleId => !!id)
   }
 
@@ -125,24 +118,16 @@ function mergeStyles(styles: Style[]): Style {
 
     // Merge state properties separately
     if (hover) {
-      merged.hover = merged.hover
-        ? { ...merged.hover, ...hover }
-        : { ...hover }
+      merged.hover = merged.hover ? { ...merged.hover, ...hover } : { ...hover }
     }
     if (focus) {
-      merged.focus = merged.focus
-        ? { ...merged.focus, ...focus }
-        : { ...focus }
+      merged.focus = merged.focus ? { ...merged.focus, ...focus } : { ...focus }
     }
     if (active) {
-      merged.active = merged.active
-        ? { ...merged.active, ...active }
-        : { ...active }
+      merged.active = merged.active ? { ...merged.active, ...active } : { ...active }
     }
     if (disabled) {
-      merged.disabled = merged.disabled
-        ? { ...merged.disabled, ...disabled }
-        : { ...disabled }
+      merged.disabled = merged.disabled ? { ...merged.disabled, ...disabled } : { ...disabled }
     }
   }
 

@@ -159,8 +159,8 @@ export default function TextSelectionDemo() {
             title="Code Example"
           >
             <text style={{ color: "#f0f6fc", zIndex: 21 }}>
-              <span style={{ color: "magenta" }}>function</span> <span style={{ color: "cyan" }}>handleSelection</span>(){" "}
-              {"{"}
+              <span style={{ color: "magenta" }}>function</span> <span style={{ color: "cyan" }}>handleSelection</span>
+              () {"{"}
             </text>
             <text style={{ color: "#f0f6fc", zIndex: 21 }}>
               {"  "}

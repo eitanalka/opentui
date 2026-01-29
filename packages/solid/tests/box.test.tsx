@@ -53,14 +53,16 @@ describe("Box Component", () => {
           ref={boxRef}
           focusable
           focused={focused()}
-          style={{
-            width: 10,
-            height: 5,
-            backgroundColor: "red",
-            focus: {
-              backgroundColor: "blue",
-            },
-          } as any}
+          style={
+            {
+              width: 10,
+              height: 5,
+              backgroundColor: "red",
+              focus: {
+                backgroundColor: "blue",
+              },
+            } as any
+          }
         />
       ),
       { width: 15, height: 8 },

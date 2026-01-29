@@ -118,8 +118,7 @@ export const vstyles = {
     StyledText({ color: color }, ...children),
   bgColor: (bgColor: string | RGBA, ...children: (string | TextNodeRenderable)[]) =>
     StyledText({ backgroundColor: bgColor }, ...children),
-  fg: (color: string | RGBA, ...children: (string | TextNodeRenderable)[]) =>
-    StyledText({ color: color }, ...children),
+  fg: (color: string | RGBA, ...children: (string | TextNodeRenderable)[]) => StyledText({ color: color }, ...children),
   bg: (bgColor: string | RGBA, ...children: (string | TextNodeRenderable)[]) =>
     StyledText({ backgroundColor: bgColor }, ...children),
 

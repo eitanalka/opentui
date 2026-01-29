@@ -26,7 +26,9 @@ export default function TextStyleScene() {
       </text>
       <text style={{ backgroundColor: "red", color: "black" }}>
         Hello {counter()} <span style={{ backgroundColor: "yellow", color: "black" }}>World</span>{" "}
-        <span style={{ attributes: TextAttributes.UNDERLINE, backgroundColor: "blue", color: "yellow" }}>{counter()}</span>
+        <span style={{ attributes: TextAttributes.UNDERLINE, backgroundColor: "blue", color: "yellow" }}>
+          {counter()}
+        </span>
       </text>
       <text>
         Toggle{" "}

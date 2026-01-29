@@ -28,7 +28,15 @@ class DraggableTransparentBox extends BoxRenderable {
     this.screenSizeY = 52
   }
 
-  constructor(ctx: RenderContext, x: number, y: number, width: number, height: number, backgroundColor: RGBA, zIndex: number) {
+  constructor(
+    ctx: RenderContext,
+    x: number,
+    y: number,
+    width: number,
+    height: number,
+    backgroundColor: RGBA,
+    zIndex: number,
+  ) {
     super(ctx, {
       width,
       height,

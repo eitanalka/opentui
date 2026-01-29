@@ -358,11 +358,11 @@ export class CliRenderer extends EventEmitter implements RenderContext {
     renderTime?: number
     frameCallbackTime: number
   } = {
-      frameCount: 0,
-      fps: 0,
-      renderTime: 0,
-      frameCallbackTime: 0,
-    }
+    frameCount: 0,
+    fps: 0,
+    renderTime: 0,
+    frameCallbackTime: 0,
+  }
   public debugOverlay = {
     enabled: env.OTUI_SHOW_STATS,
     corner: DebugOverlayCorner.bottomRight,
@@ -1732,7 +1732,7 @@ export class CliRenderer extends EventEmitter implements RenderContext {
 
     setImmediate(() => {
       // Consume any existing stdin data to avoid processing stale input
-      while (this.stdin.read() !== null) { }
+      while (this.stdin.read() !== null) {}
       this.stdin.on("data", this.stdinListener)
     })
 

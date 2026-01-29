@@ -6,7 +6,7 @@ const styles = StyleSheet.create({
   container: {
     flexDirection: "column",
     padding: 2,
-    backgroundColor: "#1a1a1a"
+    backgroundColor: "#1a1a1a",
   },
   button: {
     backgroundColor: "white",
@@ -15,27 +15,27 @@ const styles = StyleSheet.create({
     paddingLeft: 2,
     paddingRight: 2,
     hover: {
-      backgroundColor: "#e0e0e0"
+      backgroundColor: "#e0e0e0",
     },
     focus: {
-      borderColor: "cyan"
+      borderColor: "cyan",
     },
     active: {
-      backgroundColor: "#c0c0c0"
-    }
+      backgroundColor: "#c0c0c0",
+    },
   },
   primary: {
     backgroundColor: "#0066cc",
     hover: {
-      backgroundColor: "#0052a3"
-    }
+      backgroundColor: "#0052a3",
+    },
   },
   danger: {
     backgroundColor: "#cc0000",
     hover: {
-      backgroundColor: "#a30000"
-    }
-  }
+      backgroundColor: "#a30000",
+    },
+  },
 })
 
 function App() {
@@ -45,33 +45,20 @@ function App() {
     <box className={styles.container}>
       <text>StyleSheet Example - Count: {count}</text>
 
-      <button
-        className={styles.button}
-        onClick={() => setCount(count + 1)}
-      >
+      <button className={styles.button} onClick={() => setCount(count + 1)}>
         Default Button
       </button>
 
-      <button
-        className={[styles.button, styles.primary]}
-        onClick={() => setCount(count + 1)}
-      >
+      <button className={[styles.button, styles.primary]} onClick={() => setCount(count + 1)}>
         Primary Button
       </button>
 
-      <button
-        className={[styles.button, styles.danger]}
-        onClick={() => setCount(count - 1)}
-      >
+      <button className={[styles.button, styles.danger]} onClick={() => setCount(count - 1)}>
         Danger Button
       </button>
 
       {/* Inline style overrides className */}
-      <button
-        className={styles.button}
-        style={{ backgroundColor: "purple" }}
-        onClick={() => setCount(0)}
-      >
+      <button className={styles.button} style={{ backgroundColor: "purple" }} onClick={() => setCount(0)}>
         Custom Color (inline override)
       </button>
     </box>

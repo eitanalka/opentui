@@ -519,13 +519,10 @@ export abstract class Renderable extends BaseRenderable {
    * @returns The merged style object, or undefined if neither className nor style exists
    */
   protected getMergedStyle(): Style<StyleProps> | undefined {
-    const classNameStyle = this._className
-      ? StyleSheet.resolve(this._className)
-      : undefined
+    const classNameStyle = this._className ? StyleSheet.resolve(this._className) : undefined
 
-    const mergedStyle = classNameStyle && this._style
-      ? { ...classNameStyle, ...this._style }
-      : classNameStyle ?? this._style
+    const mergedStyle =
+      classNameStyle && this._style ? { ...classNameStyle, ...this._style } : (classNameStyle ?? this._style)
 
     return mergedStyle
   }

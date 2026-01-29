@@ -7,7 +7,7 @@ let mockMouse: MockMouse
 let renderOnce: () => Promise<void>
 
 beforeEach(async () => {
-  ; ({ renderer, mockMouse, renderOnce } = await createTestRenderer({
+  ;({ renderer, mockMouse, renderOnce } = await createTestRenderer({
     width: 40,
     height: 10,
   }))

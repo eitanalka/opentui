@@ -16,15 +16,15 @@ development and is not ready for production use. It will be the foundational TUI
 
 This fork adds browser-like behaviors and a CSS-inspired styling system to OpenTUI:
 
-| Feature | Status | Description |
-|---------|--------|-------------|
-| Auto-focus on click | ✅ Complete | [#576](https://github.com/anomalyco/opentui/issues/576) |
-| onClick event | ✅ Complete | Fires on common ancestor of mousedown/mouseup (browser behavior) |
-| State-based styles | ✅ Complete | `hover`, `focus`, `active`, `disabled` states with priority merging |
-| Active state (`:active`) | ✅ Complete | Renderer-owned, triggered by mousedown/mouseup (Chrome/Safari behavior) |
-| Disabled state | ✅ Complete | Property-driven, highest style priority, overrides all other states |
-| StyleSheet API | ✅ Complete | `StyleSheet.create()` for reusable named styles, like React Native |
-| className prop | ✅ Complete | Apply StyleSheet classes to any component; supports arrays and conditionals |
+| Feature                  | Status      | Description                                                                 |
+| ------------------------ | ----------- | --------------------------------------------------------------------------- |
+| Auto-focus on click      | ✅ Complete | [#576](https://github.com/anomalyco/opentui/issues/576)                     |
+| onClick event            | ✅ Complete | Fires on common ancestor of mousedown/mouseup (browser behavior)            |
+| State-based styles       | ✅ Complete | `hover`, `focus`, `active`, `disabled` states with priority merging         |
+| Active state (`:active`) | ✅ Complete | Renderer-owned, triggered by mousedown/mouseup (Chrome/Safari behavior)     |
+| Disabled state           | ✅ Complete | Property-driven, highest style priority, overrides all other states         |
+| StyleSheet API           | ✅ Complete | `StyleSheet.create()` for reusable named styles, like React Native          |
+| className prop           | ✅ Complete | Apply StyleSheet classes to any component; supports arrays and conditionals |
 
 > **Upstream:** [anomalyco/opentui](https://github.com/anomalyco/opentui)
 

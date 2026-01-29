@@ -292,7 +292,9 @@ function createDemoText(): TextNodeRenderable {
   const feature3Node = TextNodeRenderable.fromNodes([
     TextNodeRenderable.fromString("\n• ", { color: "#9ece6a" }),
     TextNodeRenderable.fromString("Dynamic resizing", { color: "#c0caf5", attributes: 1 }),
-    TextNodeRenderable.fromString(" - Text reflows automatically as container dimensions change 🔄", { color: "#565f89" }),
+    TextNodeRenderable.fromString(" - Text reflows automatically as container dimensions change 🔄", {
+      color: "#565f89",
+    }),
   ])
 
   const feature4Node = TextNodeRenderable.fromNodes([

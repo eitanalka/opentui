@@ -24,15 +24,15 @@ describe("Renderable className integration", () => {
     const styles = StyleSheet.create({
       box: {
         backgroundColor: parseColor("red"),
-        borderColor: parseColor("blue")
-      }
+        borderColor: parseColor("blue"),
+      },
     })
 
     const box = new BoxRenderable(testRenderer, {
       id: "test",
       width: 10,
       height: 5,
-      className: styles.box
+      className: styles.box,
     })
 
     testRenderer.root.add(box)
@@ -44,7 +44,7 @@ describe("Renderable className integration", () => {
 
   it("inline style overrides className", async () => {
     const styles = StyleSheet.create({
-      box: { backgroundColor: parseColor("red") }
+      box: { backgroundColor: parseColor("red") },
     })
 
     const box = new BoxRenderable(testRenderer, {
@@ -52,7 +52,7 @@ describe("Renderable className integration", () => {
       width: 10,
       height: 5,
       className: styles.box,
-      style: { backgroundColor: parseColor("blue") }
+      style: { backgroundColor: parseColor("blue") },
     })
 
     testRenderer.root.add(box)
@@ -65,15 +65,15 @@ describe("Renderable className integration", () => {
     const styles = StyleSheet.create({
       box: {
         backgroundColor: "white",
-        hover: { backgroundColor: "blue" }
-      }
+        hover: { backgroundColor: "blue" },
+      },
     })
 
     const box = new BoxRenderable(testRenderer, {
       id: "test",
       width: 10,
       height: 5,
-      className: styles.box
+      className: styles.box,
     })
 
     testRenderer.root.add(box)
@@ -83,7 +83,15 @@ describe("Renderable className integration", () => {
     expect(box.backgroundColor).toEqual(parseColor("white"))
 
     // Hover state
-    box.processMouseEvent(new MouseEvent(box, { type: "over", x: 5, y: 2, button: 0, modifiers: { shift: false, alt: false, ctrl: false } }))
+    box.processMouseEvent(
+      new MouseEvent(box, {
+        type: "over",
+        x: 5,
+        y: 2,
+        button: 0,
+        modifiers: { shift: false, alt: false, ctrl: false },
+      }),
+    )
     await renderOnce()
 
     expect(box.backgroundColor).toEqual(parseColor("blue"))
@@ -93,18 +101,18 @@ describe("Renderable className integration", () => {
     const styles = StyleSheet.create({
       base: {
         backgroundColor: parseColor("white"),
-        borderColor: parseColor("gray")
+        borderColor: parseColor("gray"),
       },
       primary: {
-        backgroundColor: parseColor("blue")  // Overrides base
-      }
+        backgroundColor: parseColor("blue"), // Overrides base
+      },
     })
 
     const box = new BoxRenderable(testRenderer, {
       id: "test",
       width: 10,
       height: 5,
-      className: [styles.base, styles.primary]
+      className: [styles.base, styles.primary],
     })
 
     testRenderer.root.add(box)

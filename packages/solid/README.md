@@ -135,10 +135,7 @@ function App() {
       <button className={[styles.button, styles.primary]}>Primary</button>
 
       {/* Conditional classes */}
-      <button
-        className={[styles.button, !disabled() && styles.primary]}
-        disabled={disabled()}
-      >
+      <button className={[styles.button, !disabled() && styles.primary]} disabled={disabled()}>
         Conditional
       </button>
     </box>

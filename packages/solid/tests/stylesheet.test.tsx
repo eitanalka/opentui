@@ -22,8 +22,8 @@ describe("SolidJS StyleSheet", () => {
     const styles = StyleSheet.create({
       box: {
         backgroundColor: "#ff0000",
-        borderColor: "#0000ff"
-      }
+        borderColor: "#0000ff",
+      },
     })
 
     testSetup = await testRender(
@@ -32,7 +32,7 @@ describe("SolidJS StyleSheet", () => {
           <text>Test</text>
         </box>
       ),
-      { width: 20, height: 5 }
+      { width: 20, height: 5 },
     )
 
     await testSetup.renderOnce()
@@ -45,11 +45,11 @@ describe("SolidJS StyleSheet", () => {
     const styles = StyleSheet.create({
       base: {
         backgroundColor: "#ffffff",
-        borderColor: "#cccccc"
+        borderColor: "#cccccc",
       },
       primary: {
-        backgroundColor: "#0066cc"  // Overrides base
-      }
+        backgroundColor: "#0066cc", // Overrides base
+      },
     })
 
     testSetup = await testRender(
@@ -58,7 +58,7 @@ describe("SolidJS StyleSheet", () => {
           <text>Primary</text>
         </box>
       ),
-      { width: 20, height: 5 }
+      { width: 20, height: 5 },
     )
 
     await testSetup.renderOnce()
@@ -70,11 +70,11 @@ describe("SolidJS StyleSheet", () => {
   it("updates when className changes reactively", async () => {
     const styles = StyleSheet.create({
       default: {
-        backgroundColor: "#ffffff"
+        backgroundColor: "#ffffff",
       },
       active: {
-        backgroundColor: "#0066cc"
-      }
+        backgroundColor: "#0066cc",
+      },
     })
 
     const TestComponent = () => {
@@ -82,10 +82,7 @@ describe("SolidJS StyleSheet", () => {
 
       return (
         <box width={20} height={5}>
-          <button
-            className={isActive() ? styles.active : styles.default}
-            onClick={() => setIsActive(!isActive())}
-          >
+          <button className={isActive() ? styles.active : styles.default} onClick={() => setIsActive(!isActive())}>
             Toggle
           </button>
         </box>
@@ -108,22 +105,22 @@ describe("SolidJS StyleSheet", () => {
   it("inline style overrides className", async () => {
     const styles = StyleSheet.create({
       box: {
-        backgroundColor: "#ff0000"
-      }
+        backgroundColor: "#ff0000",
+      },
     })
 
     testSetup = await testRender(
       () => (
         <box
           className={styles.box}
-          style={{ backgroundColor: "#0000ff" }}  // Inline wins
+          style={{ backgroundColor: "#0000ff" }} // Inline wins
           width={10}
           height={3}
         >
           <text>Override</text>
         </box>
       ),
-      { width: 20, height: 5 }
+      { width: 20, height: 5 },
     )
 
     await testSetup.renderOnce()
@@ -138,9 +135,9 @@ describe("SolidJS StyleSheet", () => {
       button: {
         backgroundColor: "#ffffff",
         hover: {
-          backgroundColor: "#0066cc"
-        }
-      }
+          backgroundColor: "#0066cc",
+        },
+      },
     })
 
     testSetup = await testRender(
@@ -149,7 +146,7 @@ describe("SolidJS StyleSheet", () => {
           Hover me
         </button>
       ),
-      { width: 20, height: 5 }
+      { width: 20, height: 5 },
     )
 
     await testSetup.renderOnce()
@@ -226,7 +223,7 @@ describe("SolidJS StyleSheet - all states with multiple components", () => {
           </button>
         </box>
       ),
-      { width: 40, height: 20 }
+      { width: 40, height: 20 },
     )
 
     await testSetup.renderOnce()
@@ -344,9 +341,7 @@ describe("SolidJS StyleSheet - all states with multiple components", () => {
             position="absolute"
             left={0}
             top={5}
-            onClick={() => setDisabledBtn(prev =>
-              prev === "none" ? "first" : prev === "first" ? "second" : "none"
-            )}
+            onClick={() => setDisabledBtn((prev) => (prev === "none" ? "first" : prev === "first" ? "second" : "none"))}
           >
             Toggle
           </button>
@@ -412,11 +407,7 @@ describe("SolidJS StyleSheet - all states with multiple components", () => {
         <box width={30} height={10}>
           <box
             id="target"
-            className={[
-              styles.base,
-              highlighted() && styles.highlight,
-              bordered() && styles.bordered,
-            ]}
+            className={[styles.base, highlighted() && styles.highlight, bordered() && styles.bordered]}
             width={10}
             height={3}
             position="absolute"
@@ -484,7 +475,7 @@ describe("SolidJS StyleSheet - all states with multiple components", () => {
           Styled
         </button>
       ),
-      { width: 20, height: 10 }
+      { width: 20, height: 10 },
     )
 
     await testSetup.renderOnce()
