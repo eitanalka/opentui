@@ -8,7 +8,7 @@
 
 OpenTUI is a TypeScript library for building terminal user interfaces (TUIs). It is currently in
 development and is not ready for production use. It will be the foundational TUI framework for both
-[opencode](https://opencode.ai) and [terminaldotshop](https://terminal.shop).
+[OpenCode](https://opencode.ai) and [terminaldotshop](https://terminal.shop).
 
 ---
 
@@ -50,6 +50,22 @@ NOTE: You must have [Zig](https://ziglang.org/learn/getting-started/) installed 
 
 ```bash
 bun install @opentui/core
+```
+
+## AI Agent Skill
+
+Teach your AI coding assistant OpenTUI's APIs and patterns.
+
+**For [OpenCode](https://opencode.ai) (includes `/opentui` command):**
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/msmps/opentui-skill/main/install.sh | bash
+```
+
+**For other AI coding assistants:**
+
+```bash
+npx skills add msmps/opentui-skill
 ```
 
 ## Try Examples
